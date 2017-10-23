@@ -23,6 +23,7 @@ default: &default
   username: monicasira
   password:
 
+
 development:
   <<: *default
   database: teamawesome-chessapp_development
@@ -83,5 +84,5 @@ test:
 production:
   <<: *default
   database: teamawesome-chessapp_production
-  #username: teamawesome-chessapp
-  #password: <%= ENV['TEAMAWESOME-CHESSAPP_DATABASE_PASSWORD'] %>
+# username: teamawesome-chessapp
+# password: <%= ENV['TEAMAWESOME-CHESSAPP_DATABASE_PASSWORD'] %>
