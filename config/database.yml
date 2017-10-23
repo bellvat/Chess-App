@@ -20,8 +20,9 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: monicasira
-  password:
+  username: postgres
+  password: password
+  host: localhost
 
 development:
   <<: *default
@@ -83,5 +84,5 @@ test:
 production:
   <<: *default
   database: teamawesome-chessapp_production
-  #username: teamawesome-chessapp
-  #password: <%= ENV['TEAMAWESOME-CHESSAPP_DATABASE_PASSWORD'] %>
+# username: teamawesome-chessapp
+# password: <%= ENV['TEAMAWESOME-CHESSAPP_DATABASE_PASSWORD'] %>
