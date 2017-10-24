@@ -1,0 +1,7 @@
+<h1>This is the game page</h1>
+<h5>These are the current users</h5>
+<% @game.users.each do |user| %>
+  <%= user.email %>
+<% end %>
+<h5>These are the game details</h5>
+<%= @game.inspect %>
