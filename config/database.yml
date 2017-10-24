@@ -24,7 +24,6 @@ default: &default
   password: password
   host: localhost
 
-
 development:
   <<: *default
   database: teamawesome-chessapp_development
