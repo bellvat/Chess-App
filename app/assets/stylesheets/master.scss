@@ -1,4 +1,9 @@
 @import "bootstrap";
+@import "font-awesome";
+
+.about_names {
+  font-weight: 600;
+}
 
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -13,6 +18,11 @@
   padding: 20px 30px;
 }
 
+.flex-container {
+  -webkit-flex-direction: column; /* Safari */
+  flex-direction:         column;
+}
+
 .help-block {
     color: #ff3333;
     background-color: #FFEEEE;
@@ -20,7 +30,9 @@
     padding: 2px 8px 2px 8px;
 }
 
-
+td {
+  padding: 10px 30px;
+}
 
 
 
