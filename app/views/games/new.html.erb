@@ -5,12 +5,10 @@
       <h5>I would like to be...</h5>
       <%= simple_form_for @game do |f| %>
         <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.input :state, as: :hidden, :input_html => { :value => "Unmatched" } %>
         <%= f.submit "White Player", class: "btn btn-primary col-12" %>
       <% end %>
       <%= simple_form_for @game do |f| %>
         <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.input :state, as: :hidden, :input_html => { :value => "Unmatched" } %>
         <%= f.submit "Black Player", class: "btn btn-primary col-12" %>
       <% end %>
     </div>
