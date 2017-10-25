@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
   def index
     @unmatched_games = Game.where("(state = ?)", "Unmatched")
     @started_games = Game.where("(state = ?)", "Started")
@@ -29,6 +31,7 @@ class GamesController < ApplicationController
     @game.update_attributes(game_params)
     @game.users << current_user
     redirect_to game_path(@game)
+
   end
 
   private
