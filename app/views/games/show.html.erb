@@ -4,4 +4,5 @@
   <%= user.email %>
 <% end %>
 <h5>These are the game details</h5>
-<%= @game.inspect %>
+<p><%= @game.inspect %></p>
+<p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>

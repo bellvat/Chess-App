@@ -2,7 +2,6 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
 
   def index
-    @game = Game.all
     @unmatched_games = Game.where(:white_player_user_id => nil).where.not(:black_player_user_id => nil).or (Game.where.not(:white_player_user_id => nil).where(:black_player_user_id => nil))
     @started_games = Game.where.not(:white_player_user_id => nil).where.not(:black_player_user_id => nil).where(:winner_user_id => nil)
     @completed_games = Game.where.not(:winner_user_id => nil)
@@ -44,13 +43,5 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:white_player_user_id, :black_player_user_id, :winner_user_id, :turn_user_id)
-  end
-
-  def white_player
-    Game.select(:white_player_user_id)
-  end
-
-  def black_player
-    Game.select(:black_player_user_id)
   end
 end

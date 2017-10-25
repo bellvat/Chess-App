@@ -1,9 +1,11 @@
 <div class = "container">
   <%= link_to "Create a new game", new_game_path, class: "btn btn-primary" %>
+
+  <!-- UNMATCHED GAMES -->
   <div class = "row">
     <div class = "col-12 col-md-6 offset-md-3">
-      <h1>All unmatched games</h1>
-        <% if @game.any? %>
+      <h1>Unmatched games</h1>
+        <% if @unmatched_games.any? %>
           <% @unmatched_games.each do |game| %>
             <h5>Game with <%= game.users.first.email %></h5>
             <% if game.white_player_user_id.blank? %>
@@ -19,15 +21,35 @@
             <% end %>
           <% end %>
         <%else%>
-          <h3>No games started </h3>
+          <h3>No games to join :(</h3>
         <%end%>
     </div>
   </div>
+
+  <!-- STARTED GAMES -->
   <div class = "row">
     <div class = "col-12 col-md-6 offset-md-3">
-      <h1>All started games</h1>
-      <% @started_games.each do |game| %>
-        <h5>Game between <%= game.users.first.email %> and <%= game.users.second.email %></h5>
+      <h1>Started games</h1>
+      <% if @started_games.any? %>
+        <% @started_games.each do |game| %>
+          <h5>Game between white: <%= game.white_player.email %> and black: <%= game.black_player.email %></h5>
+        <% end %>
+      <% else %>
+        <h3>No games in play :(</h3>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- COMPLETED GAMES -->
+  <div class = "row">
+    <div class = "col-12 col-md-6 offset-md-3">
+      <h1>Completed games</h1>
+      <% if @completed_games.any? %>
+        <% @completed_games.each do |game| %>
+          <h5><%= game.winner.email %> won in a game between <%= game.white_player.email %> and <% game.black_player.email %></h5>
+        <% end %>
+      <% else %>
+        <h3>No completed games :(</h3>
       <% end %>
     </div>
   </div>
