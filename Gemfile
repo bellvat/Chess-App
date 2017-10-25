@@ -66,6 +66,10 @@ end
 # include SimpleForm
 gem 'simple_form'
 
-# include Devise 
+# include Devise
 gem 'devise'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails', '~>4.0'
+end
