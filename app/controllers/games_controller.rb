@@ -20,8 +20,10 @@ class GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
   end
 
-  # THIS COULD PROBABLY BECOME A "JOIN_GAME" method as it's separate to everything else
   def update
+
+  end
+  def join
     @game = Game.find_by_id(params[:id])
     # # commented out for testing, don't want to log in and out all the time
     # if @game.users.first == current_user
@@ -36,7 +38,7 @@ class GamesController < ApplicationController
 
 
   def forfeit
-
+    @game = Game.find_by_id(params[:id])
   end
 
   private
