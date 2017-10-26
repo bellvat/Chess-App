@@ -15,15 +15,22 @@
 
 .btn-warning {
   color: white;
-  background-color: #fff7e6;
-  border-color: #663300;
+  background-color: #000000;
+  border-color: gray;
   border-radius: 0.1rem;
   text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
   margin: 30px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
   box-shadow: 0px 1px 3px #2a2a2a;
 }
+
+.btn-warning:hover {
+  background-color: #595959;
+  color: white;
+  border-color: white;
+}  
+
 
 /* .btn-warning.raised {
   box-shadow: 0 3px 0 0 #fff7e6;
@@ -49,8 +56,11 @@
   color: white;
   border-radius: 0.1rem;
   box-shadow: 0px 1px 3px #2a2a2a;
-  margin-top: 70px;
+  margin-top: 75px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 30px;
+
 }
 
 /* .frosty h1 {
@@ -89,21 +99,30 @@
 }
 
 .navbar {
-  font-family: 'open_sanslight';
+  font-family: 'didonesque-roman';
   font-size: 20px;
   box-shadow: 0px 1px 3px #2a2a2a;
   background: image_url('gun_metal.png');
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: #fff7e6;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: lightgray;
 }
 
 .navbar-light .navbar-brand, .navbar-light .navbar-toggler {
   font-family: 'didonesque-roman';
   font-size: 75px;
-  color: #fff7e6;
+  color: white;
   padding: 10px 20px;
+}
+
+.navbar-light .navbar-brand:hover {
+  color: lightgray;
 }
 
 ul {

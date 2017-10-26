@@ -18,7 +18,7 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav float-right">
               <% if user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link' %>

@@ -17,12 +17,21 @@ body {
   width: 100%;
   min-height: 100px;
   background: image_url('gun_metal.png');
-  color: #fff7e6;
-  font-family: "Helvetica Neue", Helvetica;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 20px 0px;
 }
 
+#footer:hover {
+  color: lightgray;
+}
+
 #footer a {
-  color: #fff7e6;
+  color: white;
   font-weight: 100;
+}
+
+#footer a:hover {
+  color: lightgray;
+  text-decoration: none;
 }
