@@ -1,4 +1,23 @@
 @import "bootstrap";
+@import "font-awesome";
+
+
+.about-links {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.about-names {
+  font-weight: 600;
+  font-size: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.about-tools {
+  padding-top: 50px;
+}
 
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -13,23 +32,31 @@
   padding: 20px 30px;
 }
 
-.help-block {
-    color: #ff3333;
-    background-color: #FFEEEE;
-    border-radius: 3px;
-    padding: 2px 8px 2px 8px;
+.clr {
+  clear: both;
 }
 
+.help-block {
+  color: #ff3333;
+  background-color: #FFEEEE;
+  border-radius: 3px;
+  padding: 2px 8px 2px 8px;
+}
 
+.icons {
+  text-align: center;
+  padding-bottom: 0px;
+}
 
+.icon {
+  margin: 10px 0;
+}
 
-
-#user-font{
-  font-weight: 600;
-  border-bottom: 3px solid black; 
-  margin-left: 30%;
-  margin-right: 30%;
-  padding-top: 20px;
+img.about-image {
+  max-height: 260px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
 
 #user_remember_me.boolean.optional {

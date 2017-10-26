@@ -69,6 +69,10 @@ gem 'simple_form'
 # include Devise
 gem 'devise'
 
+# include FontAwesome
+gem "font-awesome-rails"
+
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails', '~>4.0'
