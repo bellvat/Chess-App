@@ -10,16 +10,12 @@
             <h5>Game with <%= game.users.first.email %></h5>
             <% if game.white_player_user_id.blank? %>
               <%= simple_form_for game, url: game_path(game) do |f| %>
-                <% if user_signed_in? %>
                   <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                <% end %>
                 <%= f.submit "Join as white player", class: "btn btn-primary col-12" %>
               <% end %>
             <% else %>
               <%= simple_form_for game, url: game_path(game) do |f| %>
-                <% if user_signed_in? %>
                   <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                <% end %>
                 <%= f.submit "Join as black player", class: "btn btn-primary col-12" %>
               <% end %>
             <% end %>
