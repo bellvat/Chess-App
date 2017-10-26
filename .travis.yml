@@ -1,0 +1,8 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: "d65558d1-9faf-414a-bab6-d81a6cbfeb9e"
+  app: chessapp-team-awesome
+  run:
+    - "rake db:migrate"
+    - restart
