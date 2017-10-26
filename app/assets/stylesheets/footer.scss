@@ -16,14 +16,13 @@ body {
   position: relative;
   width: 100%;
   min-height: 100px;
-  background-color: rgba(36, 32, 33, 0.9);
-  color: white;
+  background: image_url('browncheck.jpg');
+  color: #fff7e6;
   font-family: "Helvetica Neue", Helvetica;
-  padding: 10px 0px;
-  margin-top: 30p
+  padding: 20px 0px;
 }
 
 #footer a {
-  color: white;
+  color: #fff7e6;
   font-weight: 100;
 }

@@ -1,5 +1,10 @@
 @import "bootstrap";
 
+:hover {
+  text-decoration: none;
+  color: #00ccff;
+}
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -20,7 +25,36 @@
     padding: 2px 8px 2px 8px;
 }
 
+.hero {
+  background: image_url('chess1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 600px;
+}
 
+.navbar {
+  font-family: 'open_sanslight';
+  font-size: 20px;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  background: image_url('browncheck.jpg');
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff7e6;
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-toggler {
+  font-family: 'didonesque-roman';
+  font-size: 75px;
+  color: #fff7e6;
+  padding: 10px 20px;
+}
+
+ul {
+  list-style-type: none;
+}
 
 
 
