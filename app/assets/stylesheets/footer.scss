@@ -16,14 +16,22 @@ body {
   position: relative;
   width: 100%;
   min-height: 100px;
-  background-color: rgba(36, 32, 33, 0.9);
+  background: image_url('gun_metal.png');
   color: white;
-  font-family: "Helvetica Neue", Helvetica;
-  padding: 10px 0px;
-  margin-top: 30p
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 20px 0px;
+}
+
+#footer:hover {
+  color: lightgray;
 }
 
 #footer a {
   color: white;
   font-weight: 100;
+}
+
+#footer a:hover {
+  color: lightgray;
+  text-decoration: none;
 }

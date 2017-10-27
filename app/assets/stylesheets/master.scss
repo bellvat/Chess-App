@@ -32,15 +32,54 @@
   padding: 20px 30px;
 }
 
+.btn-warning {
+  color: white;
+  background-color: #000000;
+  border-color: gray;
+  border-radius: 0.1rem;
+  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+  margin: 30px;
+  font-size: 30px;
+  font-weight: 600;
+  box-shadow: 0px 1px 3px #2a2a2a;
+}
+
+.btn-warning:hover {
+  background-color: #595959;
+  color: white;
+  border-color: white;
+}
+
 .clr {
   clear: both;
 }
 
+.frosty {
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 0.1rem;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  margin-top: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+
+}
+
 .help-block {
-  color: #ff3333;
-  background-color: #FFEEEE;
-  border-radius: 3px;
-  padding: 2px 8px 2px 8px;
+    color: #ff3333;
+    background-color: #FFEEEE;
+    border-radius: 3px;
+    padding: 2px 8px 2px 8px;
+}
+
+.hero {
+  background: image_url('chesssolar.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 600px;
 }
 
 .icons {
@@ -59,11 +98,46 @@ img.about-image {
   margin-right: auto
 }
 
-#user_remember_me.boolean.optional {
-  margin-right: 10px;
+.landing-buttons {
+  margin: auto;
 }
- 
+
+.navbar {
+  font-family: 'didonesque-roman';
+  font-size: 20px;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  background: image_url('gun_metal.png');
+}
+
 .navbar-brand {
   font-size: 25px;
   font-weight: 700;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: lightgray;
+}
+
+ .navbar-nav .nav-link {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+.navbar-inverse .navbar-nav .nav-link:hover {
+  color: lightgray;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-toggler {
+  font-family: 'didonesque-roman';
+  font-size: 75px;
+  color: white;
+  padding: 10px 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#user_remember_me.boolean.optional {
+  margin-right: 10px;
 }
