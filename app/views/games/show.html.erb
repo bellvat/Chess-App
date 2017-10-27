@@ -5,4 +5,8 @@
 <% end %>
 <h5>These are the game details</h5>
 <p><%= @game.inspect %></p>
-<p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
+<br />
+<h5>These are the pieces and positions</h5>
+<% @game.game_pieces.each do |game_piece| %>
+  <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
+<% end %>
