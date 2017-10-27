@@ -10,12 +10,12 @@
             <h5>Game with <%= game.users.first.email %></h5>
             <% if game.white_player_user_id.blank? %>
               <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                  <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                 <%= f.submit "Join as white player", class: "btn btn-primary col-12" %>
               <% end %>
             <% else %>
               <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                  <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                 <%= f.submit "Join as black player", class: "btn btn-primary col-12" %>
               <% end %>
             <% end %>
@@ -46,7 +46,7 @@
       <h1>Completed games</h1>
       <% if @completed_games.any? %>
         <% @completed_games.each do |game| %>
-          <h5><%= game.winner.email %> won in a game between <%= game.white_player.email %> and <% game.black_player.email %></h5>
+          <h5><%= game.winner.email %> won in a game between <%= game.white_player.email %> and <%= game.black_player.email %></h5>
         <% end %>
       <% else %>
         <h3>No completed games :(</h3>

@@ -5,4 +5,16 @@
 <% end %>
 <h5>These are the game details</h5>
 <p><%= @game.inspect %></p>
-<p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
+<% if @game.users.count == 2 %>
+  <p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
+
+
+  <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+    <% if current_user.id == @game.white_player %>
+      <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
+    <% else %>
+      <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
+    <% end %>
+    <%= f.submit "I forfeit.", class: "btn btn-primary col-4" %>
+  <% end %>
+<% end %>

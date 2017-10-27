@@ -14,6 +14,7 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        
         <%= link_to 'Chess Space', root_path, class: 'navbar-brand' %> 
           <br class="clr" />
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
@@ -32,7 +33,7 @@
                 </li>
               <% end %>
             </ul>
-          </ul>
+           </ul> 
         </div>
       </nav>
 
@@ -50,7 +51,11 @@
       <div class="container">
         <b>Footer Here</b>
         <br />
-        <%= link_to 'Link', '#' %>
+        <ul>
+          <li class="nav-item">
+            <%= link_to 'About', about_path, class: 'nav-link' %>
+          </li>
+        <ul>
       </div>
     </div>
   </body>
