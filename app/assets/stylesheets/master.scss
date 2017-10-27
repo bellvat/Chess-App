@@ -48,11 +48,11 @@
   background-color: #595959;
   color: white;
   border-color: white;
-} 
+}
 
 .clr {
   clear: both;
-} 
+}
 
 .frosty {
   background: rgba(0, 0, 0, 0.4);
@@ -114,20 +114,20 @@ img.about-image {
   font-weight: 700;
 }
 
-.navbar-light .navbar-brand:hover {
+.navbar-inverse .navbar-brand:hover {
   color: lightgray;
 }
 
-.navbar-light .navbar-nav .nav-link {
+ .navbar-nav .nav-link {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
+.navbar-inverse .navbar-nav .nav-link:hover {
   color: lightgray;
 }
 
-.navbar-light .navbar-brand, .navbar-light .navbar-toggler {
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-toggler {
   font-family: 'didonesque-roman';
   font-size: 75px;
   color: white;
@@ -136,7 +136,7 @@ img.about-image {
 
 ul {
   list-style-type: none;
-}  
+}
 
 #user_remember_me.boolean.optional {
   margin-right: 10px;
