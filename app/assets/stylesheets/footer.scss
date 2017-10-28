@@ -15,7 +15,7 @@ body {
 #footer {
   position: relative;
   width: 100%;
-  min-height: 100px;
+  min-height: 60px;
   background: image_url('gun_metal.png');
   color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -28,7 +28,8 @@ body {
 
 #footer a {
   color: white;
-  font-weight: 100;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 #footer a:hover {
