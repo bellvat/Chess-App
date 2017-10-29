@@ -1,1 +1,14 @@
-<h1>User Dashboard</h1>
+<div class="booyah-box">
+  <div class="row">
+    <div class="col-4">
+      <%= image_tag 'user.png' %>
+    </div>
+
+    <div class="col-8">
+      <h1><%= @user.email %></h1>
+      <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
+      <h4><%= @user.games.count %> total games</h4>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
