@@ -1,5 +1,4 @@
 @import "bootstrap";
-@import "font-awesome";
 
 
 .about-links {
@@ -16,7 +15,7 @@
 }
 
 .about-tools {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .background {
@@ -25,7 +24,8 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 600px;
+  min-height: 500px;
+  height: auto;
 }
 
 .black {
@@ -128,6 +128,10 @@ img.about-image {
   margin: auto;
 }
 
+#lastlink {
+  margin-right: 20px;
+}
+
 .navbar {
   font-family: 'didonesque-roman';
   font-size: 20px;
@@ -146,7 +150,8 @@ img.about-image {
 
  .navbar-nav .nav-link {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: white;
+  font-size: 25px;
+  margin: 0px 15px;
 }
 
 .navbar-inverse .navbar-nav .nav-link {
@@ -159,9 +164,9 @@ img.about-image {
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-toggler {
   font-family: 'didonesque-roman';
-  font-size: 75px;
+  font-size: 67px;
   color: white;
-  padding: 10px 20px;
+  padding: 0px 20px;
 }
 
 ul {
