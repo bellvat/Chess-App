@@ -11,4 +11,5 @@ Rails.application.routes.draw do
       put :forfeit
     end
   end
+  resources :users, only: :show
 end
