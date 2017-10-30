@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+
   def home
     if current_user.present?
       redirect_to games_path
@@ -6,6 +7,6 @@ class StaticPagesController < ApplicationController
   end
 
   def about
-    
   end
+  
 end

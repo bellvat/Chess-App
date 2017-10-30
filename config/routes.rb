@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     member do
       patch :join
       put :join
+      patch :forfeit
+      put :forfeit
     end
   end
-
-
+  resources :users, only: :show
 end
