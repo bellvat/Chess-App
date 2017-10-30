@@ -5,8 +5,24 @@
 <% end %>
 <h5>These are the game details</h5>
 <p><%= @game.inspect %></p>
+
 <br />
 <h5>These are the pieces and positions</h5>
 <% @game.game_pieces.each do |game_piece| %>
   <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
+<% end %>
+
+<%-#This is a dummy test for receiving coordinates from the front end and updating %>
+<%-#it in the database. %>
+<% if @game.users.count == 2 %>
+  <h3>Player Turn (by ID)</h3>
+  <%= @game.turn_user_id %>
+
+  <h3>Random piece x_coord:</h3>
+  <%= @game.select_piece.x_coord %>
+
+  <%= simple_form_for @game.select_piece, url: game_path(@game) do |f| %>
+    <%= f.input :x_coord %>
+    <%= f.submit "New x coord", class: "btn btn-primary col-4" %>
+  <% end %>
 <% end %>

@@ -74,4 +74,13 @@ class Game < ApplicationRecord
   def winner
     User.find_by_id(winner_user_id)
   end
+
+#This was a function i created in order to test the input of changing coordinates and player turns.
+#Will need to be revised
+  def select_piece
+    self.game_pieces[0]
+  end
+
+
+
 end
