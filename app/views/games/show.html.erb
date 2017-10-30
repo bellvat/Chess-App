@@ -17,9 +17,9 @@
     <% (1..8).each do |y_coord| %>
       <tr id = <%= y_coord %>>
         <% (1..8).each do |x_coord| %>
-          <td id = <%= x_coord %>>
+          <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square">
             <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
-              <%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>
+              <span class = "selectable-piece" id = "<%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>"><%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %></span>
             <% end %>
           </td>
         <% end %>
@@ -27,3 +27,25 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+  $( function() {
+    $( ".selectable-piece" ).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid", // when not dropped, the item will revert back to its initial position
+      containment: "document",
+      helper: "clone",
+      cursor: "move"
+    });
+    $( ".droppable-square").droppable({
+      accept: ".selectable-piece",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+      drop: function( event, ui ) {
+        console.log(ui.draggable.attr('id') + " moved to " + this.id);
+      }
+    });
+  } );
+</script>
