@@ -10,3 +10,20 @@
 <% @game.game_pieces.each do |game_piece| %>
   <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
 <% end %>
+
+<h1>First attempt at a board via table and queries</h1>
+<table class="table" id="gameboard">
+  <tbody>
+    <% (1..8).each do |y_coord| %>
+      <tr id = <%= y_coord %>>
+        <% (1..8).each do |x_coord| %>
+          <td id = <%= x_coord %>>
+            <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
+              <%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
