@@ -23,6 +23,7 @@ class GamesController < ApplicationController
   def update
 
   end
+  
   def join
     @game = Game.find_by_id(params[:id])
     # # commented out for testing, don't want to log in and out all the time
