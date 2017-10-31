@@ -3,24 +3,6 @@
 var width = 46;
 var border = 2;
 
-var white_piece_image = {
-
-'Pawn'  : '&#9817;',
-'Rook'  : '&#9814;',
-'Knight': '&#9816;',
-'Bishop': '&#9815;',
-'Queen' : '&#9813;',
-'King'  : '&#9812;'
-}
-var black_piece_image = {
-
-'Pawn'   : '&#9821;',
-'Rook'   : '&#9820;',
-'Knight' : '&#9822;',
-'Bishop' : '&#9821;',
-'Queen'  : '&#9819;',
-'King'   : '&#9818;'
-}
 //heres a helper function that takes a number between
 //0 and 63 (inclusive) and returns 1 if the square should be
 //dark, and 0 if the square should be light
@@ -39,6 +21,7 @@ function setUpPieces() {
     $('div.piece').each(function(index,piece) {
       var $piece = $(piece)
       var half_piece = $('div.piece').length/2
+      $piece.attr('id',index)
       if (index < half_piece){
         $piece.addClass('light')
       } else{
@@ -47,12 +30,38 @@ function setUpPieces() {
     });
     $('div.piece.light').each(function(index,piece){
       var $piece = $(piece)
-      if (index === 1 || index === 8){
+      if (index === 8 || index === 15){
         //cannot get unicode to display in browser
-        $piece.text(white_piece_image['Rook'])
-      };
+        $piece.addClass('rook');
+      }else if (index === 9 || index === 14){
+        $piece.addClass('horse');
+      }else if (index === 10 || index === 13){
+        $piece.addClass('bishop');
+      }else if (index === 11){
+        $piece.addClass('queen');
+      }else if (index === 12){
+        $piece.addClass('king');
+      }else{
+        $piece.addClass('pawn');
+      }
     });
-
+    $('div.piece.dark').each(function(index,piece){
+      var $piece = $(piece)
+      if (index === 0 || index === 7){
+        //cannot get unicode to display in browser
+        $piece.addClass('rook');
+      }else if (index === 1 || index === 6){
+        $piece.addClass('horse');
+      }else if (index === 2 || index === 5){
+        $piece.addClass('bishop');
+      }else if (index === 3){
+        $piece.addClass('queen');
+      }else if (index === 4){
+        $piece.addClass('king');
+      }else{
+        $piece.addClass('pawn');
+      }
+    });
 }
 
 
@@ -77,6 +86,7 @@ function setUpBoard() {
     //light or dark, and assign the proper class
     $('div.square').each(function(index,square){
       var $square = $(square)
+      $square.attr('id',index)
       if (lightOrDark(index) === 1){
         $square.addClass('dark');
       } else{
@@ -229,6 +239,38 @@ $('document').ready(function() {
         //moving the piece to its initial position
         movePieceTo($(piece),pixelPosition.top,pixelPosition.left);
     });
+
+  $( function() {
+    $( "div.piece" ).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid", // when not dropped, the item will revert back to its initial position
+      containment: "document",
+      //helper: "clone",
+      cursor: "move"
+    });
+    $( "div.square").droppable({
+      accept: "div.piece",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+      drop: function( event, ui ) {
+        //console.log(ui.draggable.attr('id') + " moved to " + this.id);
+        var pieceId = ui.draggable.attr('id')
+        var piece = document.getElementById(pieceId)
+        var squareId = this.id
+        var square = document.getElementById(squareId)
+        //console.log(piece)
+        console.log(square)
+        var ySquare = Math.floor(squareId/64);
+        var xSquare = (squareId % 64)
+
+        //turning the x,y coordinate into a pixel position
+        var pixelPosition = getPixels(xSquare,ySquare);
+        movePieceTo($(piece),pixelPosition.top,pixelPosition.left)
+      }
+    });
+  } );
 });
 /*
     //set up initial squares

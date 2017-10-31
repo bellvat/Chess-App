@@ -6,6 +6,7 @@ div#game {
 div#board {
 
     float:left;
+    position:relative;
 
 
     height:382px;
@@ -72,18 +73,6 @@ div.piece {
     position:absolute;
     width:32px;
     height:32px;
-    margin:7px;
-
-    -webkit-box-shadow: 0px 0px 3px #666;
-       -moz-box-shadow: 0px 0px 3px #666;
-            box-shadow: 0px 0px 3px #666;
-
-    -webkit-border-radius:16px;
-       -moz-border-radius:16px;
-            border-radius:16px;
-
-    background-color:blue;
-
 }
 
 div.piece:hover {
@@ -99,14 +88,44 @@ div.piece.selected {
             box-shadow: 0px 0px 8px #FFD700;
 }
 
-div.piece.light {
-    background-color:white;
-}
-
-div.piece.dark {
-    background-color:black;
-}
 
 div#meta {
     float:right;
+}
+
+div.piece.light.pawn {
+  content: url(https://openclipart.org/download/24131/Anonymous-Chess-symbols-set-6.svg)
+}
+div.piece.light.rook {
+  content: url(https://openclipart.org/download/24128/Anonymous-Chess-symbols-set-3.svg)
+}
+div.piece.light.horse {
+  content: url(https://openclipart.org/download/24130/Anonymous-Chess-symbols-set-5.svg)
+}
+div.piece.light.queen {
+  content: url(https://openclipart.org/download/24127/Anonymous-Chess-symbols-set-2.svg)
+}
+div.piece.light.king {
+  content: url(https://openclipart.org/download/24126/Anonymous-Chess-symbols-set-1.svg)
+}
+div.piece.light.bishop {
+  content: url(https://openclipart.org/download/24129/Anonymous-Chess-symbols-set-4.svg)
+}
+div.piece.dark.pawn {
+  content: url(https://openclipart.org/download/24137/Anonymous-Chess-symbols-set-12.svg)
+}
+div.piece.dark.rook {
+  content: url(https://openclipart.org/download/24134/Anonymous-Chess-symbols-set-9.svg)
+}
+div.piece.dark.horse {
+  content: url(https://openclipart.org/download/24136/Anonymous-Chess-symbols-set-11.svg)
+}
+div.piece.dark.queen{
+  content: url(https://openclipart.org/download/24133/Anonymous-Chess-symbols-set-8.svg)
+}
+div.piece.dark.king {
+  content: url(https://openclipart.org/download/24132/Anonymous-Chess-symbols-set-7.svg)
+}
+div.piece.dark.bishop {
+  content: url(https://openclipart.org/download/24135/Anonymous-Chess-symbols-set-10.svg)
 }
