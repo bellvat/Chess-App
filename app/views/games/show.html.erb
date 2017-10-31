@@ -10,6 +10,9 @@
 <h5>These are the pieces and positions</h5>
 <% @game.game_pieces.each do |game_piece| %>
   <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
+<% end %>
+<br />
+<br />
 
 <% if @game.users.count == 2 %>
   <p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
@@ -25,3 +28,53 @@
   <% end %>
 
 <% end %>
+<br />
+
+
+<%##Below is chessboard display. Refer to test_board.js in javascript folder. %>
+<%# and refer to style.scss %>
+<div id="game">
+    <div id="board">
+    </div>
+
+    <div id="pieces">
+    </div>
+</div>
+
+
+<%# Below is full code from Codecademy in case we want to use it later:
+  <html>
+
+  <head>
+
+  <title>Checkers</title>
+
+  <link rel="stylesheet" href="style.scss"/>
+
+  <script src='test_board.js'></script>
+
+  <!--<script src='provided.js'></script>-->
+
+
+  </head>
+
+  <body>
+
+  <div id="game">
+      <div id="board">
+      </div>
+
+      <div id="pieces">
+      </div>
+
+  </div>
+
+  <div id="meta">
+  <h1>Checkers</h1>
+  <h4>Moves: <span id="moveCount">0</span></h4>
+  </div>
+
+  </body>
+
+  </html>
+%>
