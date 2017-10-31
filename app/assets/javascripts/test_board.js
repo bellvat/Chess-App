@@ -1,4 +1,4 @@
-
+//Below are defining methods. Scroll down to line 177 to see called methods to display in the browser.
 //global variables for one square
 var width = 46;
 var border = 2;
