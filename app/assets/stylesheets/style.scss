@@ -1,0 +1,111 @@
+div#game {
+    position:relative;
+}
+
+
+div#board {
+
+    float:left;
+
+
+    height:382px;
+    width:387px;
+
+    border-style:solid;
+    border-width:9px;
+    border-color: black;
+}
+
+div.square {
+
+    float:left;
+
+    position:relative;
+
+    width:46px;
+    height:46px;
+    border-width:2px;
+
+
+    border-right-style:solid;
+    border-bottom-style:solid;
+
+    border-color:#444;
+}
+
+div.square.movable:hover {
+
+    -webkit-box-shadow: inset 0px 0px 8px #FFD700;
+       -moz-box-shadow: inset 0px 0px 8px #FFD700;
+            box-shadow: inset 0px 0px 8px #FFD700;
+    cursor:pointer;
+}
+
+/* the bottom row */
+div.square:nth-last-child(-n + 8) {
+    border-bottom-style:none;
+}
+
+/* the sides */
+div.square:nth-child(8n) {
+    border-right-style:none;
+}
+
+div.square.light {
+    background-color:#ccc;
+}
+
+div.square.dark {
+    background-color:#333;
+}
+
+div#pieces {
+    position:absolute;
+    /* 9 px puts us inside of the board's borders;*/
+    left:9px;
+    top:9px;
+    background-color:green;
+}
+
+div.piece {
+    position:absolute;
+    width:32px;
+    height:32px;
+    margin:7px;
+
+    -webkit-box-shadow: 0px 0px 3px #666;
+       -moz-box-shadow: 0px 0px 3px #666;
+            box-shadow: 0px 0px 3px #666;
+
+    -webkit-border-radius:16px;
+       -moz-border-radius:16px;
+            border-radius:16px;
+
+    background-color:blue;
+
+}
+
+div.piece:hover {
+    -webkit-box-shadow: 0px 0px 8px #FFD700;
+       -moz-box-shadow: 0px 0px 8px #FFD700;
+            box-shadow: 0px 0px 8px #FFD700;
+    cursor:pointer;
+}
+
+div.piece.selected {
+    -webkit-box-shadow: 0px 0px 8px #FFD700;
+       -moz-box-shadow: 0px 0px 8px #FFD700;
+            box-shadow: 0px 0px 8px #FFD700;
+}
+
+div.piece.light {
+    background-color:white;
+}
+
+div.piece.dark {
+    background-color:black;
+}
+
+div#meta {
+    float:right;
+}
