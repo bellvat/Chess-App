@@ -1,0 +1,16 @@
+branches:
+  only:
+  - master
+
+before_script:
+- bundle install
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+deploy:
+  provider: heroku
+  api_key:
+    secure: "UdU4GvE5Xdt+2vpD6/iA+JyZQrVgEAuL2qEyk9Ht7mnGCl88dxTOY8Pe9dXMr3JbaxfyG/PpyNSbwx8iHI5MNZvIMiY+gLLJCcUfiQrhlnQOQjD8YELGrlHKhEBI94pVz3ZjL6K+JSR9u0MiryEpHMTXEHlwun/l/3F2tcyNElzvpTJW864oOPzqT0trhfSUgeUkSMh7eZtqCEXAQtOwkiRUtq4KYCUhrq9y9d6fZ+X4JKINI12n94utoChNL/7STI2hfLn8dcxWTCQGWhsVHAElzjyvj/ZMw64lBSKWcFLDPjGAlBiUPYzz4dl2749cPCI8Kw6M4WShYr/pxtN0n1jqmnySFQlFxPTEYBQ9xSxlteAgXrlcMowJTeVUPsrD4OJTFvMh8gzWkgoLYa82rGxhGYldhoOvyDCchsY8ntTa86CkTYW68EpH/a4ElRxdp138TsqFY/6xg5FWzuxiiOlW1bsKguaLPpYzT12sfu+2eXFjKPkPRS8/W8alO0UXztNgOAK2RSRA6NiMjK6zZmt5gMoSotjwG8xKdZDwGFFC48Kdx8VEetplDM0ieAtS09QZ4h0Vc5/lPqQDgHLs+PSxbV2K3GR/dmmDo2fu3Rtwor7HkiD9bnWFxrvoWGRaNnz3LPsx5nnUG0wDRXiCNAej3oK22rZBDIr2wqiPM60="
+  app: chessapp-team-awesome
+  run:
+  - "rake db:migrate"
+  - restart

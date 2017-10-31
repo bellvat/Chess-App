@@ -5,21 +5,21 @@ var border = 2;
 
 var white_piece_image = {
 
-'Pawn'  :  '&#9817;',
-'Rook'  : "&#9814;",
-'Knight'  : '&#9816;',
-'Bishop'  : '&#9815;',
-'Queen'   : '&#9813;',
-'King'    : '&#9812;'
+'Pawn'  : '&#9817;',
+'Rook'  : '&#9814;',
+'Knight': '&#9816;',
+'Bishop': '&#9815;',
+'Queen' : '&#9813;',
+'King'  : '&#9812;'
 }
 var black_piece_image = {
 
-'Pawn' :         '&#9821;',
-'Rook' :        '&#9820;',
-'Knight' :       '&#9822;',
-'Bishop' :      '&#9821;',
-'Queen'   :     '&#9819;',
-'King'     :    '&#9818;'
+'Pawn'   : '&#9821;',
+'Rook'   : '&#9820;',
+'Knight' : '&#9822;',
+'Bishop' : '&#9821;',
+'Queen'  : '&#9819;',
+'King'   : '&#9818;'
 }
 //heres a helper function that takes a number between
 //0 and 63 (inclusive) and returns 1 if the square should be

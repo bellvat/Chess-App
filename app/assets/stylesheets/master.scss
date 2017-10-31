@@ -1,5 +1,42 @@
 @import "bootstrap";
 
+
+.about-links {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.about-names {
+  font-weight: 600;
+  font-size: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.about-tools {
+  padding-top: 20px;
+}
+
+.background {
+  background: image_url('chesssolar-opaque1.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 500px;
+  height: auto;
+}
+
+.black {
+  color: black;
+}
+
+.black:hover {
+  color: gray;
+  text-decoration: none;
+}
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -13,6 +50,48 @@
   padding: 20px 30px;
 }
 
+.btn-black {
+  color: white;
+  background-color: #000000;
+  border-color: gray;
+  border-radius: 0.1rem;
+  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+}
+
+.btn-warning {
+  color: white;
+  background-color: #000000;
+  border-color: gray;
+  border-radius: 0.1rem;
+  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+  margin: 30px;
+  font-size: 30px;
+  font-weight: 600;
+  box-shadow: 0px 1px 3px #2a2a2a;
+}
+
+.btn-black:hover, .btn-warning:hover {
+  background-color: #595959;
+  color: white;
+  border-color: white;
+}
+
+.clr {
+  clear: both;
+}
+
+.frosty {
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 0.1rem;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  margin-top: 75px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+
+}
+
 .help-block {
     color: #ff3333;
     background-color: #FFEEEE;
@@ -20,19 +99,80 @@
     padding: 2px 8px 2px 8px;
 }
 
+.hero {
+  background: image_url('chesssolar.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 600px;
+}
 
+.icons {
+  text-align: center;
+  padding-bottom: 0px;
+}
 
+.icon {
+  margin: 10px 0;
+}
 
+img.about-image {
+  max-height: 260px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
 
-#user-font{
-  font-weight: 600;
-  border-bottom: 3px solid black; 
-  margin-left: 30%;
-  margin-right: 30%;
-  padding-top: 20px;
+.landing-buttons {
+  margin: auto;
+}
+
+#lastlink {
+  margin-right: 20px;
+}
+
+.navbar {
+  font-family: 'didonesque-roman';
+  font-size: 20px;
+  box-shadow: 0px 1px 3px #2a2a2a;
+  background: image_url('gun_metal.png');
+}
+
+.navbar-brand {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: lightgray;
+}
+
+ .navbar-nav .nav-link {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 25px;
+  margin: 0px 15px;
+}
+
+.navbar-inverse .navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav .nav-link:hover {
+  color: lightgray;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-toggler {
+  font-family: 'didonesque-roman';
+  font-size: 67px;
+  color: white;
+  padding: 0px 20px;
+}
+
+ul {
+  list-style-type: none;
 }
 
 #user_remember_me.boolean.optional {
   margin-right: 10px;
 }
- 

@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :join, :forfeit]
 
   def index
     @unmatched_games = Game.where(:white_player_user_id => nil).where.not(:black_player_user_id => nil).or (Game.where.not(:white_player_user_id => nil).where(:black_player_user_id => nil))
@@ -40,6 +40,8 @@ class GamesController < ApplicationController
 
   def forfeit
     @game = Game.find_by_id(params[:id])
+    @game.update_attributes(game_params)
+    redirect_to games_path
   end
 
   private
