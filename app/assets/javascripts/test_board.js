@@ -255,18 +255,18 @@ $('document').ready(function() {
         "ui-droppable-hover": "ui-state-hover"
       },
       drop: function( event, ui ) {
-        //console.log(ui.draggable.attr('id') + " moved to " + this.id);
         var pieceId = ui.draggable.attr('id')
         var piece = document.getElementById(pieceId)
         var squareId = this.id
         var square = document.getElementById(squareId)
-        //console.log(piece)
-        console.log(square)
+        
+        //finding the x,y coordinate of the square
         var ySquare = Math.floor(squareId/64);
         var xSquare = (squareId % 64)
 
         //turning the x,y coordinate into a pixel position
         var pixelPosition = getPixels(xSquare,ySquare);
+        //moving piece into the new square  
         movePieceTo($(piece),pixelPosition.top,pixelPosition.left)
       }
     });
