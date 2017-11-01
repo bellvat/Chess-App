@@ -33,6 +33,7 @@
       <% if @started_games.any? %>
         <% @started_games.each do |game| %>
           <h5>Game between white: <%= game.white_player.email %> and black: <%= game.black_player.email %></h5>
+          <%= link_to 'Go to game', game_path(game) %>
         <% end %>
       <% else %>
         <h3>No games in play :(</h3>
