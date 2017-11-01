@@ -3,6 +3,7 @@
 var width = 46;
 var border = 2;
 
+
 //heres a helper function that takes a number between
 //0 and 63 (inclusive) and returns 1 if the square should be
 //dark, and 0 if the square should be light
@@ -76,7 +77,7 @@ function movePieceTo($piece,newTop,newLeft) {
 
 }
 
-function setUpBoard() {
+function setUpBoard1() {
 
 
 
@@ -171,7 +172,7 @@ function getMovableSquares() {
 }
 */
 
-function createGrid(){
+function createGrid1(){
   //Creating the 64 squares and adding them to the DOM
   var squareCount = 8*8;
   for (var i = 0;i<squareCount;i++) {
@@ -180,6 +181,25 @@ function createGrid(){
       //and appends it to the div with id 'board'
       $('div#board').append($('<div/>').addClass('square'));
   };
+}
+
+function createGrid(){
+    //var table = document.createElement('table');
+    for (var i = 8; i >= 1; i--) {
+      var tr = document.createElement('tr');
+        ['A','B','C','D','E','F','G','H'].forEach(function(letter,index){
+            var td = document.createElement('td');
+            td.id = `${letter}${i}`
+            if (i%2 == ((index+1)%2)) {
+                td.className = "white";
+            } else {
+                td.className = "black";
+            }
+            tr.appendChild(td);
+        });
+        board.appendChild(tr);
+      }
+
 }
 
 
@@ -191,7 +211,7 @@ $('document').ready(function() {
     //YOUR CODE
     //set up the board with the correct classes
     //for the light and dark squares
-    setUpBoard();
+    //setUpBoard();
 
 
     //creating the 24 pieces and adding them to the DOM
@@ -248,7 +268,7 @@ $('document').ready(function() {
       //helper: "clone",
       cursor: "move"
     });
-    $( "div.square").droppable({
+    $( "td").droppable({
       accept: "div.piece",
       classes: {
         "ui-droppable-active": "ui-state-active",
@@ -256,18 +276,13 @@ $('document').ready(function() {
       },
       drop: function( event, ui ) {
         //console.log(ui.draggable.attr('id') + " moved to " + this.id);
+        $(this).append($(ui.draggable));
         var pieceId = ui.draggable.attr('id')
         var piece = document.getElementById(pieceId)
         var squareId = this.id
         var square = document.getElementById(squareId)
-        //console.log(piece)
-        console.log(square)
-        var ySquare = Math.floor(squareId/64);
-        var xSquare = (squareId % 64)
-
-        //turning the x,y coordinate into a pixel position
-        var pixelPosition = getPixels(xSquare,ySquare);
-        movePieceTo($(piece),pixelPosition.top,pixelPosition.left)
+        var position = $(square).position()
+        movePieceTo($(piece),position.top,position.left)
       }
     });
   } );

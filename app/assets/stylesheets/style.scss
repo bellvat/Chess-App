@@ -10,7 +10,7 @@ div#board {
 
 
     height:382px;
-    width:387px;
+    width:382px;
 
     border-style:solid;
     border-width:9px;
@@ -32,7 +32,7 @@ div.square {
     border-right-style:solid;
     border-bottom-style:solid;
 
-    border-color:#444;
+    //border-color:#444;
 }
 
 div.square.movable:hover {
@@ -53,12 +53,18 @@ div.square:nth-child(8n) {
     border-right-style:none;
 }
 
-div.square.light {
+.white {
     background-color:#ccc;
+    width:46px;
+    height:46px;
+    border-width:2px;
 }
 
-div.square.dark {
+.black {
     background-color:#333;
+    width:46px;
+    height:46px;
+    border-width:2px;
 }
 
 div#pieces {
@@ -66,7 +72,6 @@ div#pieces {
     /* 9 px puts us inside of the board's borders;*/
     left:9px;
     top:9px;
-    background-color:green;
 }
 
 div.piece {
