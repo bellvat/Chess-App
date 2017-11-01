@@ -172,16 +172,6 @@ function getMovableSquares() {
 }
 */
 
-function createGrid1(){
-  //Creating the 64 squares and adding them to the DOM
-  var squareCount = 8*8;
-  for (var i = 0;i<squareCount;i++) {
-
-      //this line creates a new div with the class 'square'
-      //and appends it to the div with id 'board'
-      $('div#board').append($('<div/>').addClass('square'));
-  };
-}
 
 function createGrid(){
     //var table = document.createElement('table');
@@ -207,11 +197,6 @@ function createGrid(){
 $('document').ready(function() {
 
   createGrid();
-
-    //YOUR CODE
-    //set up the board with the correct classes
-    //for the light and dark squares
-    //setUpBoard();
 
 
     //creating the 24 pieces and adding them to the DOM
