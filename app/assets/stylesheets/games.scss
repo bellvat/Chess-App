@@ -7,8 +7,27 @@
   background: black
 }
 
-.white {
-  background: white
+.board {
+  margin: 20px 50px; /* if just board w/o chat boxes, use margin:20px auto; */
+  border-collapse: collapse;
+  border: 15px solid #595959;
+}
+
+.captured-pieces {
+  height: 600px;
+}
+
+.chatbox {
+  height: 325px;
+}
+
+.column {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.move-history {
+  height: 325px;
 }
 
 td {
@@ -16,30 +35,7 @@ td {
   height: 80px;
 }
 
-.board {
-  margin: 20px auto;
-  border-collapse: collapse;
-  background: red;
-  border: 15px solid #595959;
+.white {
+  background: white
 }
-
-
-/*
-#chessboard, .black_square, .white_square {
-  display:block;
-  padding:0px;
-  margin:0px;
-}
-
-#chessboard {
-  width:384px;
-  height:384px;
-  border:4px solid #FF0000;
-}
-
-.droppable-square {
-  width:48px;
-  height:48px;
-  float:left;
-}  */
 
