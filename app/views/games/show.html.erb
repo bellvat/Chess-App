@@ -1,58 +1,16 @@
-<h1>This is the game page</h1>
-<h5>These are the current users</h5>
-<% @game.users.each do |user| %>
-  <%= user.email %>
-<% end %>
-<h5>These are the game details</h5>
-<p><%= @game.inspect %></p>
-
-<br />
-<h5>These are the pieces and positions</h5>
-<% @game.game_pieces.each do |game_piece| %>
-  <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
-<% end %>
-<br />
-<br />
-
-<% if @game.users.count == 2 %>
-  <p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
-
-
-
-
-  <h5>These are the pieces and positions</h5>
-<% @game.game_pieces.each do |game_piece| %>
-  <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
-
-
-
-
-
-<% end %>
-
-<h1>First attempt at a board via table and queries</h1>
-<table class="table" id="gameboard">
-  <tbody>
-    <% (1..8).each do |y_coord| %>
-      <tr id = <%= y_coord %>>
-        <% (1..8).each do |x_coord| %>
-            <%if y_coord % 2 == x_coord % 2 %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square white">
-            <% else %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square black">
-            <% end %>
-            <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
-              <span class = "selectable-piece" id = "<%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>"><%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %></span>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-  <script>
+<script>
     $( function() {
+      //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
+      <% if @game.turn_user_id == @game.white_player_user_id %>
+        $(".white-piece").addClass("selectable-piece");
+      <% else %>
+        $(".white-piece").addClass("selectable-piece");
+      <% end %>
+
+      //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
+      $("td").addClass("droppable-square");
+
+
       $( ".selectable-piece" ).draggable({
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
         revert: "invalid", // when not dropped, the item will revert back to its initial position
@@ -73,17 +31,51 @@
         }
       });
     } );
-  </script>
+</script>
 
 
-  <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
-    <% if current_user.id == @game.white_player %>
-      <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
-    <% else %>
-      <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
-    <% end %>
-    <%= f.submit "I forfeit.", class: "btn btn-primary col-4" %>
-  <% end %>
+<div class="background">
+  <div class="row">
+    <div class="column">
+      <div class="booyah-box chatbox">
+        <p> Possible chat box goes here </p>
+      </div>
+      <div class="booyah-box move-history">
+        <p> Possible list of last X moves </p>
+      </div>
+  </div>
 
-<% end %>
-<br />
+  <div class="board">
+    <table>
+      <tbody>
+        <% (1..8).each do |y_coord| %>
+          <tr id = <%= y_coord %>>
+            <% (1..8).each do |x_coord| %>
+              <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black")}" %> >
+              <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                <span class = <%= "#{(gamepiece.white? ? 'white-piece' : 'black-piece')}" %> id = "<%= gamepiece.piece.name %>"><%= gamepiece.piece.name %></span>
+              <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="column">
+    <div class="booyah-box captured-pieces">
+      <p> Captured pieces show up here </p>
+    </div>
+
+      <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+        <% if current_user.id == @game.white_player %>
+          <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
+        <% else %>
+          <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
+        <% end %>
+        <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
+      <% end %>
+    </div>
+  </div>
+</div>
