@@ -23,7 +23,8 @@ class GamesController < ApplicationController
   def update
 
   end
-  
+
+
   def join
     @game = Game.find_by_id(params[:id])
     # # commented out for testing, don't want to log in and out all the time
@@ -44,9 +45,12 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
+
   private
 
   def game_params
     params.require(:game).permit(:white_player_user_id, :black_player_user_id, :winner_user_id, :turn_user_id)
   end
+
+
 end

@@ -18,6 +18,64 @@
   <p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
 
 
+
+
+  <h5>These are the pieces and positions</h5>
+<% @game.game_pieces.each do |game_piece| %>
+  <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
+
+
+
+
+
+<% end %>
+
+<h1>First attempt at a board via table and queries</h1>
+<table class="table" id="gameboard">
+  <tbody>
+    <% (1..8).each do |y_coord| %>
+      <tr id = <%= y_coord %>>
+        <% (1..8).each do |x_coord| %>
+            <%if y_coord % 2 == x_coord % 2 %>
+              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square white">
+            <% else %>
+              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square black">
+            <% end %>
+            <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
+              <span class = "selectable-piece" id = "<%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>"><%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %></span>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  <script>
+    $( function() {
+      $( ".selectable-piece" ).draggable({
+        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+        revert: "invalid", // when not dropped, the item will revert back to its initial position
+        containment: "document",
+        helper: "clone",
+        cursor: "move"
+      });
+      $( ".droppable-square").droppable({
+        accept: ".selectable-piece",
+        classes: {
+          "ui-droppable-active": "ui-state-active",
+          "ui-droppable-hover": "ui-state-hover"
+        },
+        drop: function( event, ui ) {
+          console.log(ui.draggable.attr('id') + " moved to " + this.id);
+
+          $(this).append($(ui.draggable));
+        }
+      });
+    } );
+  </script>
+
+
   <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
     <% if current_user.id == @game.white_player %>
       <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
@@ -29,52 +87,3 @@
 
 <% end %>
 <br />
-
-
-<%##Below is chessboard display. Refer to test_board.js in javascript folder. %>
-<%# and refer to style.scss %>
-<div id="game">
-    <div id="board">
-    </div>
-
-    <div id="pieces">
-    </div>
-</div>
-
-
-<%# Below is full code from Codecademy in case we want to use it later:
-  <html>
-
-  <head>
-
-  <title>Checkers</title>
-
-  <link rel="stylesheet" href="style.scss"/>
-
-  <script src='test_board.js'></script>
-
-  <!--<script src='provided.js'></script>-->
-
-
-  </head>
-
-  <body>
-
-  <div id="game">
-      <div id="board">
-      </div>
-
-      <div id="pieces">
-      </div>
-
-  </div>
-
-  <div id="meta">
-  <h1>Checkers</h1>
-  <h4>Moves: <span id="moveCount">0</span></h4>
-  </div>
-
-  </body>
-
-  </html>
-%>

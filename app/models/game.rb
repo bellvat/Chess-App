@@ -74,4 +74,8 @@ class Game < ApplicationRecord
   def winner
     User.find_by_id(winner_user_id)
   end
+
+
+
+
 end
