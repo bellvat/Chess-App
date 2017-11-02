@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :join, :forfeit]
+  before_action :authenticate_user!, only: [:new, :create, :join, :forfeit, :index]
 
   def index
     @unmatched_games = Game.where(:white_player_user_id => nil).where.not(:black_player_user_id => nil).or (Game.where.not(:white_player_user_id => nil).where(:black_player_user_id => nil))
@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
+    @pieces = @game.game_pieces
   end
 
   def update
