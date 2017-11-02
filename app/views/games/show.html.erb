@@ -1,3 +1,4 @@
+<!--
 <h1>This is the game page</h1>
 <h5>These are the current users</h5>
 <% @game.users.each do |user| %>
@@ -6,50 +7,42 @@
 <h5>These are the game details</h5>
 <p><%= @game.inspect %></p>
 
-<br />
 <h5>These are the pieces and positions</h5>
 <% @game.game_pieces.each do |game_piece| %>
   <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
 <% end %>
-<br />
-<br />
 
 <% if @game.users.count == 2 %>
   <p>White player: <%= @game.white_player.email %>. Black player: <%= @game.black_player.email %>.</p>
-
-
-
 
   <h5>These are the pieces and positions</h5>
 <% @game.game_pieces.each do |game_piece| %>
   <%= "#{game_piece.piece.name}: (#{game_piece.x_coord}, #{game_piece.y_coord})" %>
 
-
-
-
-
-<% end %>
-
-<h1>First attempt at a board via table and queries</h1>
-<table class="table" id="gameboard">
-  <tbody>
-    <% (1..8).each do |y_coord| %>
-      <tr id = <%= y_coord %>>
-        <% (1..8).each do |x_coord| %>
-            <%if y_coord % 2 == x_coord % 2 %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square white">
-            <% else %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square black">
-            <% end %>
-            <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
-              <span class = "selectable-piece" id = "<%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>"><%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %></span>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
+<% end %> 
+-->
+<div class="row">
+<div class="board col-4-sm col-8 offset-2">
+  <table>
+    <tbody>
+      <% (1..8).each do |y_coord| %>
+        <tr id = <%= y_coord %>>
+          <% (1..8).each do |x_coord| %>
+              <%if y_coord % 2 == x_coord % 2 %>
+                <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square white" >
+              <% else %>
+                <td id = <%= "(#{x_coord},#{y_coord})" %> class = "droppable-square black" >
+              <% end %>
+              <% if @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).present? %>
+                <span class = "selectable-piece" id = "<%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %>"><%= @game.game_pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first.piece.name %></span>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
 </table>
+</div>
 
   <script>
     $( function() {
@@ -75,15 +68,16 @@
     } );
   </script>
 
-
+<div>
   <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
     <% if current_user.id == @game.white_player %>
       <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
     <% else %>
       <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
     <% end %>
-    <%= f.submit "I forfeit.", class: "btn btn-primary col-4" %>
+    <%= f.submit "Forfeit", class: "btn btn-danger" %>
   <% end %>
-
+</div>  
+</div>
 <% end %>
 <br />

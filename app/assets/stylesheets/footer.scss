@@ -15,11 +15,11 @@ body {
 #footer {
   position: relative;
   width: 100%;
-  min-height: 60px;
+  max-height: 40px;
   background: image_url('gun_metal.png');
   color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 20px 0px;
+  padding: 0;
 }
 
 #footer:hover {
