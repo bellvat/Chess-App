@@ -3,8 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/ */
 
 
-.black {
-  background: black
+.black-square {
+  background: #999999;
 }
 
 .board {
@@ -39,3 +39,48 @@ td {
   background: white
 }
 
+/* --- Chess Pieces --- */
+
+#King {
+  background-image: image_url('King_white.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+#Queen {
+  background-image: image_url('Queen_white.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+#Bishop {
+  background-image: image_url('Bishop_black.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+#Knight {
+  background-image: image_url('Knight_black.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+#Rook {
+  background-image: image_url('Rook_black.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+#Pawn {
+  background-image: image_url('Pawn_white.png');
+  height: 80px;
+  width: 80px;
+  display:block;
+}
+
+/* ------------------------ */

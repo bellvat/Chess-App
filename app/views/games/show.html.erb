@@ -51,9 +51,9 @@
         <% (1..8).each do |y_coord| %>
           <tr id = <%= y_coord %>>
             <% (1..8).each do |x_coord| %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black")}" %> >
+              <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black-square")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <span class = <%= "#{(gamepiece.white? ? 'white-piece' : 'black-piece')}" %> id = "<%= gamepiece.piece.name %>"><%= gamepiece.piece.name %></span>
+                <span class = <%= "#{(gamepiece.white? ? 'white-piece' : 'black-piece')}" %> id = "<%= gamepiece.piece.name %>"></span>
               <% end %>
               </td>
             <% end %>

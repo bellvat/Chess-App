@@ -10,5 +10,7 @@
 #Game.create
 
 %w(King Queen Rook Bishop Knight Pawn).each do |piece_name|
-  Piece.create(name: piece_name)
+  %w(White Black).each do |color|
+    Piece.create(name: piece_name+color)
+  end
 end
