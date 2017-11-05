@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bishops</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parent=piece</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bishops.each do |bishop| %>
+      <tr>
+        <td><%= bishop.parent=Piece %></td>
+        <td><%= link_to 'Show', bishop %></td>
+        <td><%= link_to 'Edit', edit_bishop_path(bishop) %></td>
+        <td><%= link_to 'Destroy', bishop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bishop', new_bishop_path %>

@@ -1,39 +1,3 @@
-<script>
-    $( function() {
-      //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
-      <% if @game.turn_user_id == @game.white_player_user_id %>
-        $(".white-piece").addClass("selectable-piece");
-      <% else %>
-        $(".white-piece").addClass("selectable-piece");
-      <% end %>
-
-      //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
-      $("td").addClass("droppable-square");
-
-
-      $( ".selectable-piece" ).draggable({
-        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid", // when not dropped, the item will revert back to its initial position
-        containment: "document",
-        helper: "clone",
-        cursor: "move"
-      });
-      $( ".droppable-square").droppable({
-        accept: ".selectable-piece",
-        classes: {
-          "ui-droppable-active": "ui-state-active",
-          "ui-droppable-hover": "ui-state-hover"
-        },
-        drop: function( event, ui ) {
-          console.log(ui.draggable.attr('id') + " moved to " + this.id);
-
-          $(this).append($(ui.draggable));
-        }
-      });
-    } );
-</script>
-
-
 <div class="background">
   <div class="row">
     <div class="column">
@@ -53,7 +17,11 @@
             <% (1..8).each do |x_coord| %>
               <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <span class = <%= "#{(gamepiece.white? ? 'white-piece' : 'black-piece')}" %> id = "<%= gamepiece.piece.name %>"><%= gamepiece.piece.name %></span>
+                <% if gamepiece.white? == true %>
+                <span class = "white-piece" id = <%= "white-#{gamepiece.piece.name}"%>> <%=gamepiece.piece.name %></span>
+                <% else %>
+                 <span class = "black-piece" id = <%= "black-#{gamepiece.piece.name}" %>><%=gamepiece.piece.name %> </span>
+                <% end %>
               <% end %>
               </td>
             <% end %>
@@ -62,6 +30,39 @@
       </tbody>
     </table>
   </div>
+
+  <script>
+      $( function() {
+        //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
+        <% if @game.users.count > 1 %>
+          $(".white-piece").addClass("selectable-piece");
+          $(".black-piece").addClass("selectable-piece");
+        <% end %>
+
+        //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
+        $("td").addClass("droppable-square");
+
+        $( ".selectable-piece" ).draggable({
+          cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+          revert: "invalid", // when not dropped, the item will revert back to its initial position
+          containment: "document",
+          helper: "clone",
+          cursor: "move"
+        });
+        $( ".droppable-square").droppable({
+          accept: ".selectable-piece",
+          classes: {
+            "ui-droppable-active": "ui-state-active",
+            "ui-droppable-hover": "ui-state-hover"
+          },
+          drop: function( event, ui ) {
+            console.log(ui.draggable.attr('id') + " moved to " + this.id);
+
+            $(this).append($(ui.draggable));
+          }
+        });
+      } );
+  </script>
 
 
   <div class="column">
