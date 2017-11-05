@@ -34,6 +34,7 @@
   <script>
       $( function() {
         //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
+        // TO add this back when turn is established: <% if @game.turn_user_id == @game.white_player_user_id %>
         <% if @game.users.count > 1 %>
           $(".white-piece").addClass("selectable-piece");
           $(".black-piece").addClass("selectable-piece");
