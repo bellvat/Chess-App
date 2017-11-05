@@ -39,13 +39,12 @@
   border: 4px solid grey;
   color: black;
 }
-#white-Bishop{
+.white-piece.Bishop{
   background-color: pink;
   content: url(https://openclipart.org/download/24131/Anonymous-Chess-symbols-set-6.svg)
-
 }
 
-#black-Pawn{
+.black-piece.Pawn{
   background-color: green;
 }
 

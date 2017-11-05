@@ -18,9 +18,9 @@
               <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
                 <% if gamepiece.white? == true %>
-                <span class = "white-piece" id = <%= "white-#{gamepiece.piece.name}"%>> <%=gamepiece.piece.name %></span>
+                <span class = "white-piece <%="#{gamepiece.piece.name}"%> " id = <%= "#{gamepiece.piece.name}" %>> <%=gamepiece.piece.name %></span>
                 <% else %>
-                 <span class = "black-piece" id = <%= "black-#{gamepiece.piece.name}" %>><%=gamepiece.piece.name %> </span>
+                <span class = "black-piece <%="#{gamepiece.piece.name}"%> " id = <%= "#{gamepiece.piece.name}" %>> <%=gamepiece.piece.name %></span>
                 <% end %>
               <% end %>
               </td>
@@ -34,7 +34,7 @@
   <script>
       $( function() {
         //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
-        // TO add this back when turn is established: <% if @game.turn_user_id == @game.white_player_user_id %>
+        // TO add this back when turn is established:  if @game.turn_user_id == @game.white_player_user_id
         <% if @game.users.count > 1 %>
           $(".white-piece").addClass("selectable-piece");
           $(".black-piece").addClass("selectable-piece");
