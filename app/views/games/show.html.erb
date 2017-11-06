@@ -1,16 +1,7 @@
 <script>
     $( function() {
-      //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this
-      <% if @game.turn_user_id == @game.white_player_user_id %>
-        $(".white-piece").addClass("selectable-piece");
-      <% else %>
-        $(".white-piece").addClass("selectable-piece");
-      <% end %>
-
       //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
       $("td").addClass("droppable-square");
-
-
       $( ".selectable-piece" ).draggable({
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
         revert: "invalid", // when not dropped, the item will revert back to its initial position
@@ -25,9 +16,18 @@
           "ui-droppable-hover": "ui-state-hover"
         },
         drop: function( event, ui ) {
-          console.log(ui.draggable.attr('id') + " moved to " + this.id);
-
+          console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
           $(this).append($(ui.draggable));
+          $.ajax({
+            type: "PATCH",
+            url: "/pieces/" + ui.draggable.attr('id'),
+            data: {
+              piece: {
+                x_coord: $(this).data("x-coord"),
+                y_coord: $(this).data("y-coord")
+              },
+            },
+          });
         }
       });
     } );
@@ -51,9 +51,9 @@
         <% (1..8).each do |y_coord| %>
           <tr id = <%= y_coord %>>
             <% (1..8).each do |x_coord| %>
-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square" : "black-square")}" %> >
+              <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <span><%= image_tag gamepiece.image, class: gamepiece.name %></span>
+                <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
               <% end %>
               </td>
             <% end %>
