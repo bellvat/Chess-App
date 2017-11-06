@@ -6,11 +6,14 @@
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
         revert: "invalid", // when not dropped, the item will revert back to its initial position
         containment: "document",
+        snap: ".document td",
+        snapTolerance: 20,
         helper: "clone",
         cursor: "move"
       });
       $( ".droppable-square").droppable({
         accept: ".selectable-piece",
+        tolerance: "pointer",
         classes: {
           "ui-droppable-active": "ui-state-active",
           "ui-droppable-hover": "ui-state-hover"
