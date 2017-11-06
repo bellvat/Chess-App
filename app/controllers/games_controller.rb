@@ -18,7 +18,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by_id(params[:id])
-    @pieces = @game.game_pieces
+    @pieces = @game.pieces
   end
 
   def update
@@ -32,6 +32,10 @@ class GamesController < ApplicationController
     # if @game.users.first == current_user
     #   return render text: "You cannot join your own game, you numpty", status: :forbidden
     # end
+
+    #Half of the pieces are created without belonging to anyone, so here we update them to have that attribute
+    @pieces = @game.pieces
+    @pieces.where(user_id = nil).update_all(user_id: current_user.id)
 
     @game.update_attributes(game_params)
     @game.users << current_user
