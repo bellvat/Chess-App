@@ -8,9 +8,4 @@
 
 #User.find_or_create_by(:email => "test2@gmail.com", :password => "password", :password_confirmation => "password")
 #Game.create
-
-%w(King Queen Rook Bishop Knight Pawn).each do |piece_name|
-  %w(White Black).each do |color|
-    Piece.create(name: piece_name+color)
-  end
 end
