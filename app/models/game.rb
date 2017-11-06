@@ -5,6 +5,14 @@ class Game < ApplicationRecord
 
   after_create :lay_out_board!
 
+  def contains_piece?(x_coord, y_coord)
+    if pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).any?
+      return true
+    else
+      return false
+    end
+  end
+
   def lay_out_board!
     # WHITE PIECES
       # Pawns
