@@ -2,49 +2,33 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
 
-  #this should be automatically grabbed from the last position of the piece
-  def coord_start
+  def contains_own_piece?(x_end, y_end)
+    piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
+    piece.present? && piece.white? == white?
   end
 
-  def is_obstructed(x_start, y_start, x_end, y_end)
-    y_change = y_start - y_end
-    y_change_abs = (y_start - y_end).abs
-    x_change = x_start - x_end
-    x_change_abs = (x_start - x_end).abs
+  def is_obstructed(x_end, y_end)
+    y_change = y_coord - y_end
+    x_change = x_coord - x_end
+
+    # Build array squares which piece must move through
     obstruction_array = []
-    if x_change_abs == 0 # If it's moving vertically
-      y_change_abs.times do |i| # 7 times do (0..6).each do
-        if y_change > 0
-          obstruction_array << [x_start, y_start - (i + 1)]
-        elsif y_change < 0
-          obstruction_array << [x_start, (y_start + (i + 1))]
-        end
+    if x_change.abs == 0 # If it's moving vertically
+      y_change.abs.times do |i|
+          obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * (i + 1)]
       end
-    elsif y_change_abs == 0 # If horizontally
-      x_change_abs.times do |i| # 7 times do (0..6).each do
-        if x_change > 0
-          obstruction_array << [x_start - (i + 1), y_start]
-        elsif x_change < 0
-          obstruction_array << [x_start + (i + 1), y_start]
-        end
+    elsif y_change.abs == 0 # If horizontally
+      x_change.abs.times do |i| # 7 times do (0..6).each do
+          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord]
       end
-    elsif y_change_abs == x_change_abs #if diagonally
-      y_change_abs.times do |i|
-        if x_change > 0 && y_change > 0 # moving upper left
-          obstruction_array << [x_start- (i + 1), y_start - (i + 1)]
-        elsif x_change > 0 && y_change < 0 #moving lower left
-          obstruction_array << [x_start- (i + 1), y_start + (i + 1)]
-        elsif x_change < 0 && y_change > 0 # moving upper right
-          obstruction_array << [x_start+ (i + 1), y_start - (i + 1)]
-        elsif x_change < 0 && y_change < 0 # moving lower right
-          obstruction_array << [x_start+ (i + 1), y_start + (i + 1)]
-        end
+    elsif y_change.abs == x_change.abs #if diagonally
+      y_change.abs.times do |i|
+          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord - (y_change/y_change.abs) * (i + 1)]
       end
     end
 
-    obstruction_array.each do |square|
-      p  game.contains_piece?(square[0], square[1])
-    end
+    # Check if end square contains own piece and if any of in between squares have a piece of any colour in
+    contains_own_piece?(x_end, y_end) && obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
 
   end
 
