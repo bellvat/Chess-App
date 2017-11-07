@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171107164233) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
     t.boolean "white?"
     t.integer "x_coord"
     t.integer "y_coord"

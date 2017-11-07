@@ -25,6 +25,15 @@ class GamesController < ApplicationController
 
   end
 
+  def turn
+    @game = Game.find_by_id(params[:id])
+    if @game.white_player_user_id == turn_user_id
+      @game.update_attributes(turn_user_id: @game.black_player_user_id)
+    else
+      @game.update_attributes(turn_user_id: @game.white_player_user_id)
+    end
+    
+  end
 
   def join
     @game = Game.find_by_id(params[:id])

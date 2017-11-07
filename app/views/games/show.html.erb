@@ -31,6 +31,16 @@
               },
             },
           });
+          $.ajax({
+            type: "PATCH"
+            url: <%= turn_game_path(@game)%>
+            success: {
+              console.log("Updated!")
+            },
+            error: {
+              console.log("bummer")
+            },
+          });
         }
       });
     } );
@@ -70,6 +80,7 @@
   <div class="column">
     <div class="booyah-box captured-pieces">
       <p> Captured pieces show up here </p>
+      <%= @game.inspect %>
     </div>
     <% if @game.users.count > 1 %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
