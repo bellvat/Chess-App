@@ -35,16 +35,24 @@ td {
   height: 80px;
 }
 
+.ui-state-active {
+  border-style: none;
+}
+
 .white {
-  background: white
+  background: white;
+}
+
+.white-square {
+  background: white;
 }
 
 /* --- Chess Pieces --- */
 
 #King {
   background-image: image_url('King_white.png');
-  height: 80px;
-  width: 80px;
+  height: 75px;
+  width: 75px;
   display:block;
 }
 
