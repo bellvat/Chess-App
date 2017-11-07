@@ -3,7 +3,7 @@ FactoryGirl.define do
     
   end
   factory :king do
-    
+   
   end
   factory :queen do
     
@@ -21,8 +21,9 @@ FactoryGirl.define do
     
   end
   factory :piece do
-    
+  
   end
+
   factory :user do
     sequence :email do |n|
       "dummyEmail#{n}@gmail.com"
