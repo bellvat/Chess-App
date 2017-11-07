@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+[ ] Take start and end point
+[ ] For end point, check if there's one of your pieces (opposition piece is ok) --> OBSTRUCTED
+[ ] Build array of inbetween squares
+[ ] For each of these, check if there's a piece in them --> OBSTRUCTED
+[ ] Else not obstructed
