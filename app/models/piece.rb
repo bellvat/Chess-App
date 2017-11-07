@@ -28,7 +28,7 @@ class Piece < ApplicationRecord
           obstruction_array << [x_start + (i + 1), y_start]
         end
       end
-    elsif y_change_abs == x_change_abs #if vertically
+    elsif y_change_abs == x_change_abs #if diagonally
       y_change_abs.times do |i|
         if x_change > 0 && y_change > 0 # moving upper left
           obstruction_array << [x_start- (i + 1), y_start - (i + 1)]
