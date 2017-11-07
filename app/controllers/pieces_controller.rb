@@ -11,6 +11,8 @@ class PiecesController < ApplicationController
     else
       return render text: 'Naughty, naughty. Please wait your turn.', status: :forbidden
     end
+
+
   end
 
   private

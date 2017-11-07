@@ -18,11 +18,16 @@
           "ui-droppable-active": "ui-state-active",
           "ui-droppable-hover": "ui-state-hover"
         },
+
         drop: function( event, ui ) {
           console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
           $(this).append($(ui.draggable));
           $.ajax({
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
             type: "PATCH",
+            dataType: 'json',
             url: "/pieces/" + ui.draggable.attr('id'),
             data: {
               piece: {
@@ -35,6 +40,7 @@
       });
     } );
 </script>
+
 
 
 <div class="background">
