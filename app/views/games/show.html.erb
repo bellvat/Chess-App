@@ -22,7 +22,11 @@
           console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
           $(this).append($(ui.draggable));
           $.ajax({
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
             type: "PATCH",
+            dataType: 'text',
             url: "/pieces/" + ui.draggable.attr('id'),
             data: {
               piece: {
@@ -30,21 +34,19 @@
                 y_coord: $(this).data("y-coord")
               },
             },
-          });
-          $.ajax({
-            type: "PATCH"
-            url: <%= turn_game_path(@game)%>
-            success: {
-              console.log("Updated!")
-            },
-            error: {
-              console.log("bummer")
-            },
-          });
-        }
+          }).done(function (){
+              $.ajax({
+                type: "PATCH",
+                url: "<%=turn_game_path(@game)%>"
+              })
+            }).fail(function(){
+              alert("Sorry");
+            })
+          }
       });
     } );
 </script>
+
 
 
 <div class="background">
