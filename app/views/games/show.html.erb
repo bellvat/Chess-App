@@ -18,6 +18,7 @@
           "ui-droppable-active": "ui-state-active",
           "ui-droppable-hover": "ui-state-hover"
         },
+
         drop: function( event, ui ) {
           console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
           $(this).append($(ui.draggable));
