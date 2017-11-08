@@ -11,6 +11,7 @@
             <% if game.white_player_user_id.blank? %>
               <%= simple_form_for game, url: join_game_path(game) do |f| %>
                   <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                  <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                 <%= f.submit "Join as white player", class: "btn btn-primary col-12" %>
               <% end %>
             <% else %>
