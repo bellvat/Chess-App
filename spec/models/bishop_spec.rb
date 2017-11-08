@@ -25,7 +25,7 @@ RSpec.describe Bishop, type: :model do
     it "should return false to move to a non-same-color square" do
       game = Game.create
       bishop = FactoryGirl.create :bishop, x_coord: 5, y_coord: 5, game_id: game.id
-      expect(bishop.valid_move?(2, 3).to eq(false)
+      expect(bishop.valid_move?(2, 3)).to eq(false)
     end     
   end 
 
