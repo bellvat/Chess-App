@@ -7,7 +7,7 @@
       <h1>Unmatched games</h1>
         <% if @unmatched_games.any? %>
           <% @unmatched_games.each do |game| %>
-            <h5>Game with <%= game.users.first.email %></h5>
+            <h5><%= link_to game.name, game_path(game) %></h5>
             <% if game.white_player_user_id.blank? %>
               <%= simple_form_for game, url: join_game_path(game) do |f| %>
                   <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
@@ -33,8 +33,7 @@
       <h1>Started games</h1>
       <% if @started_games.any? %>
         <% @started_games.each do |game| %>
-          <h5>Game between white: <%= game.white_player.email %> and black: <%= game.black_player.email %></h5>
-          <%= link_to 'Go to game', game_path(game) %>
+          <h5><%= link_to game.name, game_path(game) %><h5>
         <% end %>
       <% else %>
         <h3>No games in play :(</h3>
