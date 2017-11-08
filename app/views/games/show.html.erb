@@ -27,7 +27,7 @@
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             type: "PATCH",
-            dataType: 'json',
+            dataType: 'text',
             url: "/pieces/" + ui.draggable.attr('id'),
             data: {
               piece: {
@@ -35,8 +35,15 @@
                 y_coord: $(this).data("y-coord")
               },
             },
-          });
-        }
+          }).done(function (){
+              $.ajax({
+                type: "PATCH",
+                url: "<%=turn_game_path(@game)%>"
+              })
+            }).fail(function(){
+              alert("Sorry");
+            })
+          }
       });
     } );
 </script>

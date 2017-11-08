@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       put :join
       patch :forfeit
       put :forfeit
+      get :turn
+      patch :turn
+      put :turn
     end
   end
   resources :pieces, only: :update
