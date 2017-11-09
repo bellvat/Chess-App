@@ -4,12 +4,12 @@
       $("td").addClass("droppable-square");
       $( ".selectable-piece" ).draggable({
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid"
+        revert: "invalid",
         containment: "document",
         snap: ".document td",
         snapTolerance: 20,
         helper: "clone",
-        cursor: "move",
+        cursor: "move"
       });
       $( ".droppable-square").droppable({
         accept: ".selectable-piece",
