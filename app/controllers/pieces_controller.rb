@@ -1,10 +1,12 @@
 class PiecesController < ApplicationController
+  before_action :correct_turn?, only: [:update]
   def update
     @piece = Piece.find(params[:id])
     @game = @piece.game
-    @piece.update_attributes(piece_params)
-    switch_turns
-    redirect_to game_path(@game)
+      @piece.update_attributes(piece_params)
+      switch_turns
+      redirect_to game_path(@game)
+
   end
 
   private
