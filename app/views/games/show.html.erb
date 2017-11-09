@@ -4,13 +4,12 @@
       $("td").addClass("droppable-square");
       $( ".selectable-piece" ).draggable({
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-
+        revert: "invalid"
         containment: "document",
         snap: ".document td",
         snapTolerance: 20,
         helper: "clone",
         cursor: "move",
-        revert: "invalid"
       });
       $( ".droppable-square").droppable({
         accept: ".selectable-piece",
@@ -22,8 +21,7 @@
 
         drop: function( event, ui ) {
           console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
-          $(this).append($(ui.draggable));
-
+          const $newDroppableSquare = $(this)
             $.ajax({
             beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
@@ -37,23 +35,12 @@
                 y_coord: $(this).data("y-coord")
               },
             },
-
             error:  function(){
-
-              $(ui.draggable).draggable({ revert: true });
-              //alert("failed");
-              ui.helper.data('dropped', false);
-              //alert('stop: dropped=' + ui.helper.data('dropped'));
-
             },
             success: function(){
-              ui.helper.data('dropped', true);
-              alert('stop: dropped=' + ui.helper.data('dropped'));
-
-
+              $newDroppableSquare.append($(ui.draggable));
             }
           });
-
       }
     });
 
