@@ -1,17 +1,24 @@
-<div class = "container">
-  <div class = "row">
-    <div class = "col-12 col-md-6 offset-md-3">
-      <h1>Start a new game</h1>
-      <h5>I would like to be...</h5>
-      <%= simple_form_for @game do |f| %>
-        <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.submit "White Player", class: "btn btn-primary col-12" %>
-      <% end %>
-      <%= simple_form_for @game do |f| %>
-        <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.submit "Black Player", class: "btn btn-primary col-12" %>
-      <% end %>
-    </div>
+<div class="background">
+  <br />
+  <div class="booyah-box col-8 offset-2 color-choice">
+    <h1 class="text-center" id='about-header'>Start a New Game</h1>
+    <br />
+      <div class = "row">
+        <div class = "col-12 col-md-6 offset-md-3">
+          <h5>I would like to be...</h5>
+          <div class="row">
+            <%= simple_form_for @game do |f| %>
+              <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+              <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+              <%= f.submit "White Player", class: "btn btn-white btn-lg player" %>
+            <% end %>
+            <%= simple_form_for @game do |f| %>
+              <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+              <%= f.submit "Black Player", class: "btn btn-black btn-lg player" %>
+            <% end %>
+          </div>  
+        </div>
+      </div>
   </div>
+  <br />
 </div>
