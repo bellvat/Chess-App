@@ -25,7 +25,7 @@ class PiecesController < ApplicationController
     return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) && (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) && (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false)
     render json: {}, status: 422
   end
-#Remember to put this in before action s
+  
   def verify_player_turn
     return if correct_turn?
     render json: {}, status: 422
