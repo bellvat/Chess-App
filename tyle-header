@@ -1,0 +1,993 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex e8b2840..539e561 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -26,4 +26,4 @@[m
+ .Spotlight-V100[m
+ .Trashes[m
+ ehthumbs.db[m
+[31m-Thumbs.db[m
+\ No newline at end of file[m
+[32m+[m[32mThumbs.db[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 7db80e4..5cad870 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -22,3 +22,9 @@[m [mThings you may want to cover:[m
+ * Deployment instructions[m
+ [m
+ * ...[m
+[32m+[m
+[32m+[m[32m[ ] Take start and end point[m
+[32m+[m[32m[ ] For end point, check if there's one of your pieces (opposition piece is ok) --> OBSTRUCTED[m
+[32m+[m[32m[ ] Build array of inbetween squares[m
+[32m+[m[32m[ ] For each of these, check if there's a piece in them --> OBSTRUCTED[m
+[32m+[m[32m[ ] Else not obstructed[m
+\ No newline at end of file[m
+[1mdiff --git a/app/assets/.DS_Store b/app/assets/.DS_Store[m
+[1mindex 5a88be3..2c6a596 100644[m
+Binary files a/app/assets/.DS_Store and b/app/assets/.DS_Store differ
+[1mdiff --git a/app/assets/images/.DS_Store b/app/assets/images/.DS_Store[m
+[1mindex 5008ddf..70ee598 100644[m
+Binary files a/app/assets/images/.DS_Store and b/app/assets/images/.DS_Store differ
+[1mdiff --git a/app/assets/images/Bishop_black.png b/app/assets/images/Bishop_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..43e4b1c[m
+Binary files /dev/null and b/app/assets/images/Bishop_black.png differ
+[1mdiff --git a/app/assets/images/Bishop_white.png b/app/assets/images/Bishop_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..46d7a47[m
+Binary files /dev/null and b/app/assets/images/Bishop_white.png differ
+[1mdiff --git a/app/assets/images/King_black.png b/app/assets/images/King_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5f01199[m
+Binary files /dev/null and b/app/assets/images/King_black.png differ
+[1mdiff --git a/app/assets/images/King_white.png b/app/assets/images/King_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e124bdf[m
+Binary files /dev/null and b/app/assets/images/King_white.png differ
+[1mdiff --git a/app/assets/images/Knight_black.png b/app/assets/images/Knight_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e3b34a9[m
+Binary files /dev/null and b/app/assets/images/Knight_black.png differ
+[1mdiff --git a/app/assets/images/Knight_white.png b/app/assets/images/Knight_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b10de2e[m
+Binary files /dev/null and b/app/assets/images/Knight_white.png differ
+[1mdiff --git a/app/assets/images/Pawn_black.png b/app/assets/images/Pawn_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..69e3385[m
+Binary files /dev/null and b/app/assets/images/Pawn_black.png differ
+[1mdiff --git a/app/assets/images/Pawn_white.png b/app/assets/images/Pawn_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3878683[m
+Binary files /dev/null and b/app/assets/images/Pawn_white.png differ
+[1mdiff --git a/app/assets/images/Queen_black.png b/app/assets/images/Queen_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..666f142[m
+Binary files /dev/null and b/app/assets/images/Queen_black.png differ
+[1mdiff --git a/app/assets/images/Queen_white.png b/app/assets/images/Queen_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bb3d18b[m
+Binary files /dev/null and b/app/assets/images/Queen_white.png differ
+[1mdiff --git a/app/assets/images/Rook_black.png b/app/assets/images/Rook_black.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8100bb0[m
+Binary files /dev/null and b/app/assets/images/Rook_black.png differ
+[1mdiff --git a/app/assets/images/Rook_white.png b/app/assets/images/Rook_white.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..50f48e5[m
+Binary files /dev/null and b/app/assets/images/Rook_white.png differ
+[1mdiff --git a/app/assets/javascripts/pieces.coffee b/app/assets/javascripts/pieces.coffee[m
+[1mnew file mode 100644[m
+[1mindex 0000000..24f83d1[m
+[1m--- /dev/null[m
+[1m+++ b/app/assets/javascripts/pieces.coffee[m
+[36m@@ -0,0 +1,3 @@[m
+[32m+[m[32m# Place all the behaviors and hooks related to the matching controller here.[m
+[32m+[m[32m# All this logic will automatically be available in application.js.[m
+[32m+[m[32m# You can use CoffeeScript in this file: http://coffeescript.org/[m
+[1mdiff --git a/app/assets/stylesheets/footer.scss b/app/assets/stylesheets/footer.scss[m
+[1mindex 2720b40..b10573d 100644[m
+[1m--- a/app/assets/stylesheets/footer.scss[m
+[1m+++ b/app/assets/stylesheets/footer.scss[m
+[36m@@ -15,11 +15,11 @@[m [mbody {[m
+ #footer {[m
+   position: relative;[m
+   width: 100%;[m
+[31m-  max-height: 40px;[m
+[32m+[m[32m  min-height: 60px;[m[41m[m
+   background: image_url('gun_metal.png');[m
+   color: white;[m
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[31m-  padding: 0;[m
+[32m+[m[32m  padding: 12px;[m[41m[m
+ }[m
+ [m
+ #footer:hover {[m
+[1mdiff --git a/app/assets/stylesheets/games.scss b/app/assets/stylesheets/games.scss[m
+[1mindex 0fc5e9c..ff3a56f 100644[m
+[1m--- a/app/assets/stylesheets/games.scss[m
+[1m+++ b/app/assets/stylesheets/games.scss[m
+[36m@@ -3,8 +3,8 @@[m
+ // You can use Sass (SCSS) here: http://sass-lang.com/ */[m
+ [m
+ [m
+[31m-.black {[m
+[31m-  background: black[m
+[32m+[m[32m.black-square {[m
+[32m+[m[32m  background: #999999;[m
+ }[m
+ [m
+ .board {[m
+[36m@@ -35,7 +35,60 @@[m [mtd {[m
+   height: 80px;[m
+ }[m
+ [m
+[32m+[m[32m.ui-state-active {[m
+[32m+[m[32m  border-style: none;[m
+[32m+[m[32m}[m
+[32m+[m
+ .white {[m
+[31m-  background: white[m
+[32m+[m[32m  background: white;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.white-square {[m
+[32m+[m[32m  background: white;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* --- Chess Pieces --- */[m
+[32m+[m
+[32m+[m[32m#King {[m
+[32m+[m[32m  background-image: image_url('King_white.png');[m
+[32m+[m[32m  height: 75px;[m
+[32m+[m[32m  width: 75px;[m
+[32m+[m[32m  display:block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#Queen {[m
+[32m+[m[32m  background-image: image_url('Queen_white.png');[m
+[32m+[m[32m  height: 80px;[m
+[32m+[m[32m  width: 80px;[m
+[32m+[m[32m  display:block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#Bishop {[m
+[32m+[m[32m  background-image: image_url('Bishop_black.png');[m
+[32m+[m[32m  height: 80px;[m
+[32m+[m[32m  width: 80px;[m
+[32m+[m[32m  display:block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#Knight {[m
+[32m+[m[32m  background-image: image_url('Knight_black.png');[m
+[32m+[m[32m  height: 80px;[m
+[32m+[m[32m  width: 80px;[m
+[32m+[m[32m  display:block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#Rook {[m
+[32m+[m[32m  background-image: image_url('Rook_black.png');[m
+[32m+[m[32m  height: 80px;[m
+[32m+[m[32m  width: 80px;[m
+[32m+[m[32m  display:block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#Pawn {[m
+[32m+[m[32m  background-image: image_url('Pawn_white.png');[m
+[32m+[m[32m  height: 80px;[m
+[32m+[m[32m  width: 80px;[m
+[32m+[m[32m  display:block;[m
+ }[m
+ [m
+[32m+[m[32m/* ------------------------ */[m
+\ No newline at end of file[m
+[1mdiff --git a/app/assets/stylesheets/master.scss b/app/assets/stylesheets/master.scss[m
+[1mindex a5a3776..fd87c5c 100644[m
+[1m--- a/app/assets/stylesheets/master.scss[m
+[1m+++ b/app/assets/stylesheets/master.scss[m
+[36m@@ -18,6 +18,10 @@[m
+   padding-top: 20px;[m
+ }[m
+ [m
+[32m+[m[32m.alert-info {[m
+[32m+[m[32m  margin: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+ .background {[m
+   background: image_url('chesssolar-opaque1.jpg') no-repeat center center fixed;[m
+   -webkit-background-size: cover;[m
+[36m@@ -28,17 +32,6 @@[m
+   height: auto;[m
+ }[m
+ [m
+[31m-.black-piece {[m
+[31m-  background-color: black;[m
+[31m-  border: 4px solid grey;[m
+[31m-  color: white;[m
+[31m-}[m
+[31m-[m
+[31m-.white-piece {[m
+[31m-  background-color: white;[m
+[31m-  border: 4px solid grey;[m
+[31m-  color: black;[m
+[31m-}[m
+ .black {[m
+   color: black;[m
+ }[m
+[1mdiff --git a/app/assets/stylesheets/pieces.scss b/app/assets/stylesheets/pieces.scss[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4ece9bb[m
+[1m--- /dev/null[m
+[1m+++ b/app/assets/stylesheets/pieces.scss[m
+[36m@@ -0,0 +1,3 @@[m
+[32m+[m[32m// Place all the styles related to the pieces controller here.[m
+[32m+[m[32m// They will automatically be included in application.css.[m
+[32m+[m[32m// You can use Sass (SCSS) here: http://sass-lang.com/[m
+[1mdiff --git a/app/controllers/games_controller.rb b/app/controllers/games_controller.rb[m
+[1mindex 0a1520b..c39a89a 100644[m
+[1m--- a/app/controllers/games_controller.rb[m
+[1m+++ b/app/controllers/games_controller.rb[m
+[36m@@ -18,7 +18,7 @@[m [mclass GamesController < ApplicationController[m
+ [m
+   def show[m
+     @game = Game.find_by_id(params[:id])[m
+[31m-    @pieces = @game.game_pieces[m
+[32m+[m[32m    @pieces = @game.pieces[m
+   end[m
+ [m
+   def update[m
+[36m@@ -33,6 +33,10 @@[m [mclass GamesController < ApplicationController[m
+     #   return render text: "You cannot join your own game, you numpty", status: :forbidden[m
+     # end[m
+ [m
+[32m+[m[32m    #Half of the pieces are created without belonging to anyone, so here we update them to have that attribute[m
+[32m+[m[32m    @pieces = @game.pieces[m
+[32m+[m[32m    @pieces.where(user_id = nil).update_all(user_id: current_user.id)[m
+[32m+[m
+     @game.update_attributes(game_params)[m
+     @game.users << current_user[m
+     redirect_to game_path(@game)[m
+[1mdiff --git a/app/controllers/pieces_controller.rb b/app/controllers/pieces_controller.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b79dda1[m
+[1m--- /dev/null[m
+[1m+++ b/app/controllers/pieces_controller.rb[m
+[36m@@ -0,0 +1,27 @@[m
+[32m+[m[32mclass PiecesController < ApplicationController[m
+[32m+[m[32m  def update[m
+[32m+[m[32m    @piece = Piece.find(params[:id])[m
+[32m+[m[32m    @game = @piece.game[m
+[32m+[m
+[32m+[m[32m    if correct_turn?[m
+[32m+[m[32m      #I think this is where we validate the move[m
+[32m+[m[32m      # if @piece.valid_move?[m
+[32m+[m[32m      @piece.update_attributes(piece_params)[m
+[32m+[m[32m      redirect_to game_path(@game)[m
+[32m+[m[32m    else[m
+[32m+[m[32m      return render text: 'Naughty, naughty. Please wait your turn.', status: :forbidden[m
+[32m+[m[32m    end[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  private[m
+[32m+[m
+[32m+[m[32m  def correct_turn?[m
+[32m+[m[32m    @game.turn_user_id == current_user.id[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def piece_params[m
+[32m+[m[32m    params.require(:piece).permit(:x_coord, :y_coord)[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/helpers/pieces_helper.rb b/app/helpers/pieces_helper.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5d44c26[m
+[1m--- /dev/null[m
+[1m+++ b/app/helpers/pieces_helper.rb[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mmodule PiecesHelper[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/bishop.rb b/app/models/bishop.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..eaaff3f[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/bishop.rb[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mclass Bishop < Piece[m
+[32m+[m
+[32m+[m[32m  def valid_move?(new_x_coord, new_y_coord)[m
+[32m+[m[32m    x_distance = x_distance(new_x_coord)[m
+[32m+[m[32m    y_distance = y_distance(new_y_coord)[m
+[32m+[m
+[32m+[m[32m    (x_distance >= 1 && y_distance >= 1) && (x_distance == y_distance)[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/game.rb b/app/models/game.rb[m
+[1mindex 39cb946..7898d53 100644[m
+[1m--- a/app/models/game.rb[m
+[1m+++ b/app/models/game.rb[m
+[36m@@ -1,65 +1,72 @@[m
+ class Game < ApplicationRecord[m
+   has_many :user_games[m
+   has_many :users, through: :user_games[m
+[31m-  has_many :game_pieces[m
+[31m-  has_many :pieces, through: :game_pieces[m
+[32m+[m[32m  has_many :pieces[m
+ [m
+   after_create :lay_out_board![m
+ [m
+[32m+[m[32m  def contains_piece?(x_coord, y_coord)[m
+[32m+[m[32m    if pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).any?[m
+[32m+[m[32m      return true[m
+[32m+[m[32m    else[m
+[32m+[m[32m      return false[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m
+   def lay_out_board![m
+     # WHITE PIECES[m
+       # Pawns[m
+       (1..8).each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Pawn"), white?: true, x_coord: x_coord, y_coord: 2)[m
+[32m+[m[32m        Pawn.create(game_id: id, white?: true, x_coord: x_coord, y_coord: 2, user_id: white_player_user_id, name: "Pawn_white")[m
+       end[m
+ [m
+       # Rooks[m
+       [1, 8].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Rook"), white?: true, x_coord: x_coord, y_coord: 1)[m
+[32m+[m[32m        Rook.create(game_id: id, white?: true, x_coord: x_coord, y_coord: 1, user_id: white_player_user_id, name: "Rook_white")[m
+       end[m
+ [m
+       # Knights[m
+       [2, 7].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Knight"), white?: true, x_coord: x_coord, y_coord: 1)[m
+[32m+[m[32m        Knight.create(game_id: id, white?: true, x_coord: x_coord, y_coord: 1, user_id: white_player_user_id, name: "Knight_white")[m
+       end[m
+ [m
+       #Bishops[m
+       [3, 6].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Bishop"), white?: true, x_coord: x_coord, y_coord: 1)[m
+[32m+[m[32m        Bishop.create(game_id: id, white?: true, x_coord: x_coord, y_coord: 1, user_id: white_player_user_id, name: "Bishop_white")[m
+       end[m
+ [m
+       #King[m
+[31m-      GamePiece.create(game_id: id, piece: Piece.find_by_name("King"), white?: true, x_coord: 5, y_coord: 1)[m
+[32m+[m[32m      King.create(game_id: id, white?: true, x_coord: 5, y_coord: 1, user_id: white_player_user_id, name: "King_white")[m
+ [m
+       #Queen[m
+[31m-      GamePiece.create(game_id: id, piece: Piece.find_by_name("Queen"), white?: true, x_coord: 4, y_coord: 1)[m
+[32m+[m[32m      Queen.create(game_id: id, white?: true, x_coord: 4, y_coord: 1, user_id: white_player_user_id, name: "Queen_white")[m
+ [m
+     # BLACK PIECES[m
+       # Pawns[m
+       (1..8).each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Pawn"), white?: false, x_coord: x_coord, y_coord: 7)[m
+[32m+[m[32m        Pawn.create(game_id: id, white?: false, x_coord: x_coord, y_coord: 7, user_id: black_player_user_id, name: "Pawn_black")[m
+       end[m
+ [m
+       # Rooks[m
+       [1, 8].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Rook"), white?: false, x_coord: x_coord, y_coord: 8)[m
+[32m+[m[32m        Rook.create(game_id: id, white?: false, x_coord: x_coord, y_coord: 8, user_id: black_player_user_id, name: "Rook_black")[m
+       end[m
+ [m
+       # Knights[m
+       [2, 7].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Knight"), white?: false, x_coord: x_coord, y_coord: 8)[m
+[32m+[m[32m        Knight.create(game_id: id, white?: false, x_coord: x_coord, y_coord: 8, user_id: black_player_user_id, name: "Knight_black")[m
+       end[m
+ [m
+       #Bishops[m
+       [3, 6].each do |x_coord|[m
+[31m-        GamePiece.create(game_id: id, piece: Piece.find_by_name("Bishop"), white?: false, x_coord: x_coord, y_coord: 8)[m
+[32m+[m[32m        Bishop.create(game_id: id, white?: false, x_coord: x_coord, y_coord: 8, user_id: black_player_user_id, name: "Bishop_black")[m
+       end[m
+ [m
+       #King[m
+[31m-      GamePiece.create(game_id: id, piece: Piece.find_by_name("King"), white?: false, x_coord: 5, y_coord: 8)[m
+[32m+[m[32m      King.create(game_id: id, white?: false, x_coord: 5, y_coord: 8, user_id: black_player_user_id, name: "King_black")[m
+ [m
+       #Queen[m
+[31m-      GamePiece.create(game_id: id, piece: Piece.find_by_name("Queen"), white?: false, x_coord: 4, y_coord: 8)[m
+[32m+[m[32m      Queen.create(game_id: id, white?: false, x_coord: 4, y_coord: 8, user_id: black_player_user_id, name: "Queen_black")[m
+   end[m
+ [m
+ [m
+[1mdiff --git a/app/models/game_piece.rb b/app/models/game_piece.rb[m
+[1mdeleted file mode 100644[m
+[1mindex 30bf6ba..0000000[m
+[1m--- a/app/models/game_piece.rb[m
+[1m+++ /dev/null[m
+[36m@@ -1,4 +0,0 @@[m
+[31m-class GamePiece < ApplicationRecord[m
+[31m-  belongs_to :game[m
+[31m-  belongs_to :piece[m
+[31m-end[m
+[1mdiff --git a/app/models/king.rb b/app/models/king.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4203aea[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/king.rb[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32mclass King < Piece[m
+[32m+[m
+[32m+[m[32m  def valid_move?(new_x_coord, new_y_coord)[m
+[32m+[m[32m    x_distance = x_distance(new_x_coord)[m
+[32m+[m[32m    y_distance = y_distance(new_y_coord)[m
+[32m+[m
+[32m+[m[32m    x_distance == 1 || y_distance == 1[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32mend[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/app/models/knight.rb b/app/models/knight.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6fd2841[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/knight.rb[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mclass Knight < Piece[m
+[32m+[m
+[32m+[m[32m  def valid_move?(new_x_coord, new_y_coord)[m
+[32m+[m[32m    x_distance = x_distance(new_x_coord)[m
+[32m+[m[32m    y_distance = y_distance(new_y_coord)[m
+[32m+[m[41m    [m
+[32m+[m[32m    (x_distance == 1 && y_distance == 2) || (x_distance == 2 && y_distance == 1)[m[41m [m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/pawn.rb b/app/models/pawn.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2a2aee2[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/pawn.rb[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mclass Pawn < Piece[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/piece.rb b/app/models/piece.rb[m
+[1mindex f00f4a7..26d4d0a 100644[m
+[1m--- a/app/models/piece.rb[m
+[1m+++ b/app/models/piece.rb[m
+[36m@@ -1,2 +1,51 @@[m
+ class Piece < ApplicationRecord[m
+[32m+[m[32m  belongs_to :game[m
+[32m+[m[32m  belongs_to :user, required: false[m
+[32m+[m
+[32m+[m[32m  def contains_own_piece?(x_end, y_end)[m
+[32m+[m[32m    piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first[m
+[32m+[m[32m    piece.present? && piece.white? == white?[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def is_obstructed(x_end, y_end)[m
+[32m+[m[32m    y_change = y_coord - y_end[m
+[32m+[m[32m    x_change = x_coord - x_end[m
+[32m+[m
+[32m+[m[32m    # Build array squares which piece must move through[m
+[32m+[m[32m    obstruction_array = [][m
+[32m+[m[32m    if x_change.abs == 0 # If it's moving vertically[m
+[32m+[m[32m      y_change.abs.times do |i|[m
+[32m+[m[32m          obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * (i + 1)][m
+[32m+[m[32m      end[m
+[32m+[m[32m    elsif y_change.abs == 0 # If horizontally[m
+[32m+[m[32m      x_change.abs.times do |i| # 7 times do (0..6).each do[m
+[32m+[m[32m          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord][m
+[32m+[m[32m      end[m
+[32m+[m[32m    elsif y_change.abs == x_change.abs #if diagonally[m
+[32m+[m[32m      y_change.abs.times do |i|[m
+[32m+[m[32m          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord - (y_change/y_change.abs) * (i + 1)][m
+[32m+[m[32m      end[m
+[32m+[m[32m    end[m
+[32m+[m
+[32m+[m[32m    # Check if end square contains own piece and if any of in between squares have a piece of any colour in[m
+[32m+[m[32m    contains_own_piece?(x_end, y_end) && obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}[m
+[32m+[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def color[m
+[32m+[m[32m    white? ? 'white' : 'black'[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def image[m
+[32m+[m[32m    image ||= "#{name}.png"[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def x_distance(new_x_coord)[m
+[32m+[m[32m    (new_x_coord - x_coord).abs[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def y_distance(new_y_coord)[m
+[32m+[m[32m    (new_y_coord - y_coord).abs[m
+[32m+[m[32m  end[m
+[32m+[m
+ end[m
+[1mdiff --git a/app/models/queen.rb b/app/models/queen.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..49649fe[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/queen.rb[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mclass Queen < Piece[m
+[32m+[m
+[32m+[m[32m  def valid_move?(new_x_coord, new_y_coord)[m
+[32m+[m[32m    x_distance = x_distance(new_x_coord)[m
+[32m+[m[32m    y_distance = y_distance(new_y_coord)[m
+[32m+[m
+[32m+[m[32m    (x_distance >= 1 && y_distance == 0) || (y_distance >= 1 && x_distance == 0) || ((x_distance >= 1 && y_distance >= 1) && (x_distance == y_distance))[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/rook.rb b/app/models/rook.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e5f940a[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/rook.rb[m
+[36m@@ -0,0 +1,11 @@[m
+[32m+[m[32mclass Rook < Piece[m
+[32m+[m
+[32m+[m[32m  def valid_move?(new_x_coord, new_y_coord)[m
+[32m+[m[32m    x_distance = x_distance(new_x_coord)[m
+[32m+[m[32m    y_distance = y_distance(new_y_coord)[m
+[32m+[m
+[32m+[m[32m    (x_distance >= 1 && y_distance == 0) || (y_distance >= 1 && x_distance == 0)[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/user.rb b/app/models/user.rb[m
+[1mindex dbadf5c..9298d02 100644[m
+[1m--- a/app/models/user.rb[m
+[1m+++ b/app/models/user.rb[m
+[36m@@ -7,4 +7,5 @@[m [mclass User < ApplicationRecord[m
+ [m
+   has_many :user_games[m
+   has_many :games, through: :user_games[m
+[32m+[m[32m  has_many :pieces[m
+ end[m
+[1mdiff --git a/app/views/games/show.html.erb b/app/views/games/show.html.erb[m
+[1mindex 4d1af59..cb6fb0c 100644[m
+[1m--- a/app/views/games/show.html.erb[m
+[1m+++ b/app/views/games/show.html.erb[m
+[36m@@ -1,39 +1,48 @@[m
+ <script>[m
+     $( function() {[m
+[31m-      //Assigns selectable pieces based on who's go it is. Will have to be more complicated than this[m
+[31m-      <% if @game.turn_user_id == @game.white_player_user_id %>[m
+[31m-        $(".white-piece").addClass("selectable-piece");[m
+[31m-      <% else %>[m
+[31m-        $(".white-piece").addClass("selectable-piece");[m
+[31m-      <% end %>[m
+[31m-[m
+       //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces[m
+       $("td").addClass("droppable-square");[m
+[31m-[m
+[31m-[m
+       $( ".selectable-piece" ).draggable({[m
+         cancel: "a.ui-icon", // clicking an icon won't initiate dragging[m
+         revert: "invalid", // when not dropped, the item will revert back to its initial position[m
+         containment: "document",[m
+[32m+[m[32m        snap: ".document td",[m[41m[m
+[32m+[m[32m        snapTolerance: 20,[m[41m[m
+         helper: "clone",[m
+         cursor: "move"[m
+       });[m
+       $( ".droppable-square").droppable({[m
+         accept: ".selectable-piece",[m
+[32m+[m[32m        tolerance: "pointer",[m[41m[m
+         classes: {[m
+           "ui-droppable-active": "ui-state-active",[m
+           "ui-droppable-hover": "ui-state-hover"[m
+         },[m
+[31m-        drop: function( event, ui ) {[m
+[31m-          console.log(ui.draggable.attr('id') + " moved to " + this.id);[m
+ [m
+[32m+[m[32m        drop: function( event, ui ) {[m[41m[m
+[32m+[m[32m          console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));[m[41m[m
+           $(this).append($(ui.draggable));[m
+[32m+[m[32m          $.ajax({[m[41m[m
+[32m+[m[32m            beforeSend: function(xhr) {[m[41m[m
+[32m+[m[32m            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))[m[41m[m
+[32m+[m[32m            },[m[41m[m
+[32m+[m[32m            type: "PATCH",[m[41m[m
+[32m+[m[32m            dataType: 'json',[m[41m[m
+[32m+[m[32m            url: "/pieces/" + ui.draggable.attr('id'),[m[41m[m
+[32m+[m[32m            data: {[m[41m[m
+[32m+[m[32m              piece: {[m[41m[m
+[32m+[m[32m                x_coord: $(this).data("x-coord"),[m[41m[m
+[32m+[m[32m                y_coord: $(this).data("y-coord")[m[41m[m
+[32m+[m[32m              },[m[41m[m
+[32m+[m[32m            },[m[41m[m
+[32m+[m[32m          });[m[41m[m
+         }[m
+       });[m
+     } );[m
+ </script>[m
+ [m
+ [m
+[32m+[m[41m[m
+ <div class="background">[m
+   <div class="row">[m
+     <div class="column">[m
+[36m@@ -51,9 +60,9 @@[m
+         <% (1..8).each do |y_coord| %>[m
+           <tr id = <%= y_coord %>>[m
+             <% (1..8).each do |x_coord| %>[m
+[31m-              <td id = <%= "(#{x_coord},#{y_coord})" %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white" : "black")}" %> >[m
+[32m+[m[32m              <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >[m[41m[m
+               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>[m
+[31m-                <span class = <%= "#{(gamepiece.white? ? 'white-piece' : 'black-piece')}" %> id = "<%= gamepiece.piece.name %>"><%= gamepiece.piece.name %></span>[m
+[32m+[m[32m                <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>[m[41m[m
+               <% end %>[m
+               </td>[m
+             <% end %>[m
+[36m@@ -63,11 +72,12 @@[m
+     </table>[m
+   </div>[m
+ [m
+[32m+[m[41m[m
+   <div class="column">[m
+     <div class="booyah-box captured-pieces">[m
+       <p> Captured pieces show up here </p>[m
+     </div>[m
+[31m-[m
+[32m+[m[32m    <% if @game.users.count > 1 %>[m[41m[m
+       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>[m
+         <% if current_user.id == @game.white_player %>[m
+           <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>[m
+[36m@@ -76,6 +86,7 @@[m
+         <% end %>[m
+         <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>[m
+       <% end %>[m
+[32m+[m[32m    <% end %>[m[41m[m
+     </div>[m
+   </div>[m
+ </div>[m
+[1mdiff --git a/config/database.yml b/config/database.yml[m
+[1mindex ab93143..59d8c58 100644[m
+[1m--- a/config/database.yml[m
+[1m+++ b/config/database.yml[m
+[36m@@ -22,7 +22,6 @@[m [mdefault: &default[m
+   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>[m
+   username: postgres[m
+   password: password[m
+[31m-[m
+   host: localhost[m
+ [m
+ development:[m
+[1mdiff --git a/config/routes.rb b/config/routes.rb[m
+[1mindex d61107b..bfa5c86 100644[m
+[1m--- a/config/routes.rb[m
+[1m+++ b/config/routes.rb[m
+[36m@@ -11,5 +11,6 @@[m [mRails.application.routes.draw do[m
+       put :forfeit[m
+     end[m
+   end[m
+[32m+[m[32m  resources :pieces, only: :update[m
+   resources :users, only: :show[m
+ end[m
+[1mdiff --git a/db/migrate/20171104041748_add_color_to_pieces.rb b/db/migrate/20171104041748_add_color_to_pieces.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4a1500c[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171104041748_add_color_to_pieces.rb[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32mclass AddColorToPieces < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    add_column :pieces, :color, :string[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106110751_drop_game_piece.rb b/db/migrate/20171106110751_drop_game_piece.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..61f3672[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106110751_drop_game_piece.rb[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32mclass DropGamePiece < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    drop_table :game_pieces[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106111343_add_coordinates_name_color_to_pieces.rb b/db/migrate/20171106111343_add_coordinates_name_color_to_pieces.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b87c3ec[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106111343_add_coordinates_name_color_to_pieces.rb[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32mclass AddCoordinatesNameColorToPieces < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    add_column :pieces, :white?, :boolean[m
+[32m+[m[32m    add_column :pieces, :x_coord, :integer[m
+[32m+[m[32m    add_column :pieces, :y_coord, :integer[m
+[32m+[m[32m    add_column :pieces, :game_id, :integer[m
+[32m+[m[32m    add_column :pieces, :user_id, :integer[m
+[32m+[m[32m    remove_column :pieces, :color[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112234_create_rooks.rb b/db/migrate/20171106112234_create_rooks.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1237a04[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112234_create_rooks.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreateRooks < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :rooks do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112246_create_bishops.rb b/db/migrate/20171106112246_create_bishops.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..632b8a0[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112246_create_bishops.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreateBishops < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :bishops do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112259_create_knights.rb b/db/migrate/20171106112259_create_knights.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4566d99[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112259_create_knights.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreateKnights < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :knights do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112307_create_queens.rb b/db/migrate/20171106112307_create_queens.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1a72c88[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112307_create_queens.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreateQueens < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :queens do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112313_create_kings.rb b/db/migrate/20171106112313_create_kings.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6bd23f1[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112313_create_kings.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreateKings < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :kings do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171106112323_create_pawns.rb b/db/migrate/20171106112323_create_pawns.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b6c6b4c[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171106112323_create_pawns.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass CreatePawns < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :pawns do |t|[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20171107164233_drop_all_pieces_tables.rb b/db/migrate/20171107164233_drop_all_pieces_tables.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..824746a[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20171107164233_drop_all_pieces_tables.rb[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32mclass DropAllPiecesTables < ActiveRecord::Migration[5.1][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    drop_table :kings[m
+[32m+[m[32m    drop_table :queens[m
+[32m+[m[32m    drop_table :rooks[m
+[32m+[m[32m    drop_table :knights[m
+[32m+[m[32m    drop_table :bishops[m
+[32m+[m[32m    drop_table :pawns[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/schema.rb b/db/schema.rb[m
+[1mindex f6d21bc..f775a1e 100644[m
+[1m--- a/db/schema.rb[m
+[1m+++ b/db/schema.rb[m
+[36m@@ -10,21 +10,11 @@[m
+ #[m
+ # It's strongly recommended that you check this file into your version control system.[m
+ [m
+[31m-ActiveRecord::Schema.define(version: 20171027100546) do[m
+[32m+[m[32mActiveRecord::Schema.define(version: 20171107164233) do[m
+ [m
+   # These are extensions that must be enabled in order to support this database[m
+   enable_extension "plpgsql"[m
+ [m
+[31m-  create_table "game_pieces", force: :cascade do |t|[m
+[31m-    t.integer "game_id"[m
+[31m-    t.integer "piece_id"[m
+[31m-    t.boolean "white?"[m
+[31m-    t.integer "x_coord"[m
+[31m-    t.integer "y_coord"[m
+[31m-    t.datetime "created_at", null: false[m
+[31m-    t.datetime "updated_at", null: false[m
+[31m-  end[m
+[31m-[m
+   create_table "games", force: :cascade do |t|[m
+     t.integer "white_player_user_id"[m
+     t.integer "black_player_user_id"[m
+[36m@@ -38,6 +28,11 @@[m [mActiveRecord::Schema.define(version: 20171027100546) do[m
+     t.string "name"[m
+     t.datetime "created_at", null: false[m
+     t.datetime "updated_at", null: false[m
+[32m+[m[32m    t.boolean "white?"[m
+[32m+[m[32m    t.integer "x_coord"[m
+[32m+[m[32m    t.integer "y_coord"[m
+[32m+[m[32m    t.integer "game_id"[m
+[32m+[m[32m    t.integer "user_id"[m
+   end[m
+ [m
+   create_table "user_games", force: :cascade do |t|[m
+[1mdiff --git a/db/seeds.rb b/db/seeds.rb[m
+[1mindex dd17c52..f3026f7 100644[m
+[1m--- a/db/seeds.rb[m
+[1m+++ b/db/seeds.rb[m
+[36m@@ -8,7 +8,4 @@[m
+ [m
+ #User.find_or_create_by(:email => "test2@gmail.com", :password => "password", :password_confirmation => "password")[m
+ #Game.create[m
+[31m-[m
+[31m-%w(King Queen Rook Bishop Knight Pawn).each do |piece_name|[m
+[31m-  Piece.create(name: piece_name)[m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/spec/controllers/pieces_controller_spec.rb b/spec/controllers/pieces_controller_spec.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..35b677b[m
+[1m--- /dev/null[m
+[1m+++ b/spec/controllers/pieces_controller_spec.rb[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32mrequire 'rails_helper'[m
+[32m+[m
+[32m+[m[32mRSpec.describe PiecesController, type: :controller do[m
+[32m+[m
+[32m+[m[32mend[m
+[1mdiff --git a/spec/factories.rb b/spec/factories.rb[m
+[1mindex 980f851..92149e0 100644[m
+[1m--- a/spec/factories.rb[m
+[1m+++ b/spec/factories.rb[m
+[36m@@ -1,10 +1,29 @@[m
+ FactoryGirl.define do[m
+[32m+[m[32m  factory :pawn do[m
+[32m+[m[41m    [m
+[32m+[m[32m  end[m
+[32m+[m[32m  factory :king do[m
+[32m+[m[41m   [m
+[32m+[m[32m  end[m
+[32m+[m[32m  factory :queen do[m
+[32m+[m[41m    [m
+[32m+[m[32m  end[m
+[32m+[m[32m  factory :knight do[m
+[32m+[m[41m    [m
+[32m+[m[32m  end[m
+[32m+[m[32m  factory :bishop do[m
+[32m+[m[41m    [m
+[32m+[m[32m  end[m
+[32m+[m[32m  factory :rook do[m
+[32m+[m[41m    [m
+[32m+[m[32m  end[m
+   factory :game_piece do[m
+     [m
+   end[m
+   factory :piece do[m
+[31m-    [m
+[32m+[m[41m  [m
+   end[m
+[32m+[m
+   factory :user do[m
+     sequence :email do |n|[m
+       "dummyEmail#{n}@gmail.com"[m
+[1mdiff --git a/spec/helpers/pieces_helper_spec.rb b/spec/helpers/pieces_helper_spec.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..57b9076[m
+[1m--- /dev/null[m
+[1m+++ b/spec/helpers/pieces_helper_spec.rb[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32mrequire 'rails_helper'[m
+[32m+[m
+[32m+[m[32m# Specs in this file have access to a helper object that includes[m
+[32m+[m[32m# the PiecesHelper. For example:[m
+[32m+[m[32m#[m
+[32m+[m[32m# describe PiecesHelper do[m
+[32m+[m[32m#   describe "string concat" do[m
+[32m+[m[32m#     it "concats two strings with spaces" do[m
+[32m+[m[32m#       expect(helper.concat_strings("this","that")).to eq("this that")[m
+[32m+[m[32m#     end[m
+[32m+[m[32m#   end[m
+[32m+[m[32m# end[m
+[32m+[m[32mRSpec.describe PiecesHelper, type: :helper do[m
+[32m+[m[32m  pending "add some examples to (or delete) #{__FILE__}"[m
+[32m+[m[32mend[m
+[1mdiff --git a/spec/models/bishop_spec.rb b/spec/models/bishop_spec.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..564a62d[m
+[1m--- /dev/null[m
+[1m+++ b/spec/models/bishop_spec.rb[m
+[36m@@ -0,0 +1,32 @@[m
+[32m+[m[32mrequire 'rails_helper'[m
+[32m+[m
+[32m+[m[32mRSpec.describe Bishop, type: :model do[m
+[32m+[m[41m  [m
+[32m+[m[32m  describe "#valid move?" do[m
+[32m+[m
+[32m+[m[32m    it "should return true to move diagonally" do[m
+[32m+[m[32m      game = Game.create[m
+[32m+[m[32m      bishop = FactoryGirl.create :bishop, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m      expect(bishop.valid_move?(7, 7)).to eq(true)[m
+[32m+[m[32m    end[m
+[32m+[m
+[32m+[m[32m    it "should return false to move one square forward" do[m
+[32m+[m[32m      game = Game.create[m
+[32m+[m[32m      bishop = FactoryGirl.create :bishop, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m      expect(bishop.valid_move?(5, 6)).to eq(false)[m
+[32m+[m[32m    end[m[41m [m
+[32m+[m
+[32m+[m[32m    it "should return false to move three squares to the left" do[m
+[32m+[m[32m      game = Game.create[m
+[32m+[m[32m      bishop = FactoryGirl.create :bishop, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m      expect(bishop.valid_move?(2, 5)).to eq(false)[m
+[32m+[m[32m    end[m[41m     [m
+[32m+[m
+[32m+[m[32m    it "should return false to move to a non-same-color square" do[m
+[32m+[m[32m      game = Game.create[m
+[32m+[m[32m      bishop = FactoryGirl.create :bishop, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m      expect(bishop.valid_move?(2, 3).to eq(false)[m
+[32m+[m[32m    end[m[41m     [m
+[32m+[m[32m  end[m[41m [m
+[32m+[m
+[32m+[m[32mend[m
+[1mdiff --git a/spec/models/king_spec.rb b/spec/models/king_spec.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e6e3edc[m
+[1m--- /dev/null[m
+[1m+++ b/spec/models/king_spec.rb[m
+[36m@@ -0,0 +1,45 @@[m
+[32m+[m[32mrequire 'rails_helper'[m
+[32m+[m
+[32m+[m[32mRSpec.describe King, type: :model do[m
+[32m+[m[41m  [m
+[32m+[m[32m  describe "#valid move?" do[m
+[32m+[m[32m   it "should return true to move one square forward" do[m
+[32m+[m[32m    game = Game.create[m
+[32m+[m[32m    king = FactoryGirl.create :king, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m   expect(king.valid_move?(6, 5)).to eq(true)[m
+[32m+[m[32m   end[m[41m [m
+[32m+[m
+[32m+[m[32m   it "should return true to move one square backward" do[m
+[32m+[m[32m    game = Game.create[m
+[32m+[m[32m    king = FactoryGirl.create :king, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m   expect(king.valid_move?(4, 5)).to eq(true)[m
+[32m+[m[32m   end[m[41m [m
+[32m+[m
+[32m+[m[32m   it "should return true to move one square up" do[m
+[32m+[m[32m    game = Game.create[m
+[32m+[m[32m    king = FactoryGirl.create :king, x_coord: 5, y_coord: 5, game_id: game.id[m
+[32m+[m[32m   expect(king.valid_move?(5, 4)).to eq(true)[m
+[32m+[m[32m   end[m[41m [m
+[32m+[m
+[32m+[m[32m   it "should return true to move one squar
