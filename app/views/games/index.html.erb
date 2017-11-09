@@ -1,31 +1,31 @@
 <div class = "container">
   <%= link_to "Create a new game", new_game_path, class: "btn btn-primary" %>
 
-  <!-- UNMATCHED GAMES -->
-  <div class = "row">
-    <div class = "col-12 col-md-6 offset-md-3">
-      <h1>Unmatched games</h1>
-        <% if @unmatched_games.any? %>
-          <% @unmatched_games.each do |game| %>
-            <h5><%= link_to game.name, game_path(game) %></h5>
-            <% if game.white_player_user_id.blank? %>
-              <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                  <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                  <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                <%= f.submit "Join as white player", class: "btn btn-primary col-12" %>
-              <% end %>
-            <% else %>
-              <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                  <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                <%= f.submit "Join as black player", class: "btn btn-primary col-12" %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <%else%>
-          <h3>No games to join :(</h3>
-        <%end%>
-    </div>
-  </div>
+   <!-- UNMATCHED GAMES -->
+   <div class = "row">
+     <div class = "col-12 col-md-6 offset-md-3">
+        <h1>Unmatched games</h1>
+          <% if @unmatched_games.any? %>
+            <% @unmatched_games.each do |game| %>
+              <h5><%= link_to game.name, game_path(game) %></h5>
+              <% if game.white_player_user_id.blank? %>
+                <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                    <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                   <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                 <%= f.submit "Join as white player", class: "btn btn-primary col-12" %>
+               <% end %>
+             <% else %>
+               <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                   <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                 <%= f.submit "Join as black player", class: "btn btn-primary col-12" %>
+               <% end %>
+             <% end %>
+           <% end %>
+         <%else%>
+           <h3>No games to join :(</h3>
+         <%end%>
+     </div>
+   </div>
 
   <!-- STARTED GAMES -->
   <div class = "row">
@@ -33,7 +33,7 @@
       <h1>Started games</h1>
       <% if @started_games.any? %>
         <% @started_games.each do |game| %>
-          <h5><%= link_to game.name, game_path(game) %><h5>
+          <h5><%= link_to game.name, game_path(game) %>
         <% end %>
       <% else %>
         <h3>No games in play :(</h3>
