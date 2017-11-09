@@ -68,11 +68,7 @@
             <% (1..8).each do |x_coord| %>
               <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <% if gamepiece.white? == true %>
-                  <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece white-piece", id: gamepiece.id %></span>
-                <% else %>
-                  <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece black-piece", id: gamepiece.id %></span>
-                <% end %>
+                  <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
               <% end %>
               </td>
             <% end %>
@@ -86,8 +82,6 @@
   <div class="column">
     <div class="booyah-box captured-pieces">
       <p> Captured pieces show up here </p>
-      <%= @game.inspect %>
-      <%= current_user.id %>
     </div>
     <% if @game.users.count > 1 %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
