@@ -18,7 +18,7 @@ class PiecesController < ApplicationController
   end
 
   def find_piece
-  @piece = Piece.find_by_id(params[:id])
+  @piece = Piece.find_by_id(params[:id]).first
   p @piece
   end
 
