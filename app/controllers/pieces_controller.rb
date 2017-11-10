@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn
+  before_action :find_piece, :verify_player_turn, :verify_valid_move
   def update
     @game = @piece.game
     @piece.update_attributes(piece_params)
@@ -19,6 +19,13 @@ class PiecesController < ApplicationController
 
   def find_piece
   @piece = Piece.find(params[:id])
+  end
+
+  def verify_valid_move
+    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
+    (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false)
+    render json: {}, status: 422
   end
 
   def verify_player_turn
