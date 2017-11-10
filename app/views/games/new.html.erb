@@ -2,7 +2,7 @@
   <div class = "row">
     <div class = "col-12 col-md-6 offset-md-3">
       <h1>Start a new game</h1>
-      
+
       <%= simple_form_for @game do |f| %>
         <%= f.input :name, label: 'Name Your Game' %>
         <h5>I would like to be...</h5>
@@ -11,6 +11,7 @@
         <%= f.submit "White Player", class: "btn btn-primary col-12" %>
       <% end %>
       <%= simple_form_for @game do |f| %>
+        <%= f.input :name, label: 'Name Your Game' %>
         <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
         <%= f.submit "Black Player", class: "btn btn-primary col-12" %>
       <% end %>

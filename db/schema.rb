@@ -23,12 +23,14 @@ ActiveRecord::Schema.define(version: 20171108200617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.index ["name"], name: "index_games_on_name"
   end
 
   create_table "pieces", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
     t.boolean "white?"
     t.integer "x_coord"
     t.integer "y_coord"
