@@ -62,12 +62,6 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(5, 7)).to eq(false)
     end
 
-    it "should return false to move three squares forward" do
-      game = Game.create
-      pawn = FactoryGirl.create :pawn, x_coord: 5, y_coord: 5, game_id: game.id, white: false
-      expect(pawn.valid_move?(5, 2)).to eq(false)
-    end
-
     it "should return false to move one square sideways" do
       game = Game.create
       pawn = FactoryGirl.create :pawn, x_coord: 5, y_coord: 2, game_id: game.id, white: true
