@@ -28,7 +28,7 @@ class Piece < ApplicationRecord
     end
 
     # Check if end square contains own piece and if any of in between squares have a piece of any colour in
-    contains_own_piece?(x_end, y_end) && obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
+    obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
   end
 
   def color
