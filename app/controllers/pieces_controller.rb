@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn, :verify_valid_move
+  before_action :find_piece, :verify_player_turn, :verify_valid_move, :verify_player_piece
   def update
     @game = @piece.game
     @piece.update_attributes(piece_params)
@@ -39,5 +39,10 @@ class PiecesController < ApplicationController
 
   def piece_params
     params.require(:piece).permit(:x_coord, :y_coord)
+  end
+
+  def verify_player_piece
+    return if @piece.user.nil? || current_user.id = @piece.game.turn_user_id
+    render json: {}, status: 422
   end
 end
