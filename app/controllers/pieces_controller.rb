@@ -42,7 +42,7 @@ class PiecesController < ApplicationController
   end
 
   def verify_player_piece
-    return if @piece.user.nil? || current_user.id = @piece.game.turn_user_id
+    return if current_user.id == @piece.game.turn_user_id && @piece.white
     render json: {}, status: 422
   end
 end
