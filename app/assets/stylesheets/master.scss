@@ -74,15 +74,7 @@
   box-shadow: 0px 1px 3px #2a2a2a;
 }
 
-.btn-white {
-  color: black;
-  background-color: #ffffff;
-  border-color: gray;
-  border-radius: 0.1rem;
-  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
-}
-
-.btn-black:hover, .btn-white:hover, .btn-warning:hover {
+.btn-black:hover, .btn-warning:hover {
   background-color: #595959;
   color: white;
   border-color: white;
@@ -93,7 +85,7 @@
 }
 
 .color-choice {
-  margin-top: 100px;
+  margin-top: 95px;
 }
 
 .frosty {
@@ -164,7 +156,7 @@ img.about-image {
   color: lightgray;
 }
 
- .navbar-nav .nav-link {
+.navbar-nav .nav-link {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 25px;
   margin: 0px 15px;
@@ -190,10 +182,19 @@ img.about-image {
   border: 2px solid gray;
 }
 
+.player-button {
+  align-items: bottom;
+  margin: 0px 50px;
+}
+
 ul {
   list-style-type: none;
 }
 
 #user_remember_me.boolean.optional {
   margin-right: 10px;
+}
+
+.xyz {
+  margin: auto;
 }

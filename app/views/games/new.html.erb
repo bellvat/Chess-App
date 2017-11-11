@@ -1,20 +1,22 @@
 <div class="background">
   <br />
-  <div class="booyah-box col-8 offset-2 color-choice">
+  <div class="booyah-box col-6 offset-3 color-choice">
     <h1 class="text-center" id='about-header'>Start a New Game</h1>
-    <br />
+    <br /><br />
       <div class = "row">
-        <div class = "col-12 col-md-6 offset-md-3">
+        <div class = "xyz">
           <h5>I would like to be...</h5>
           <div class="row">
             <%= simple_form_for @game do |f| %>
+            
               <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
               <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-              <%= f.submit "White Player", class: "btn btn-white btn-lg player" %>
+              <%= f.submit "", :type => :image, :src => image_path("whiteKing.png"), class: "player-button" %>
+
             <% end %>
             <%= simple_form_for @game do |f| %>
               <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-              <%= f.submit "Black Player", class: "btn btn-black btn-lg player" %>
+              <%= f.submit "", :type => :image, :src => image_path("blackKing.png"), class: "player-button"  %>
             <% end %>
           </div>  
         </div>
