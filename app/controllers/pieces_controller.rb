@@ -19,7 +19,6 @@ class PiecesController < ApplicationController
 
   def find_piece
     @piece = Piece.find_by_id(params[:id])
-    p @piece
   end
 
   def verify_valid_move
