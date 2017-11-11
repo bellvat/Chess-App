@@ -85,7 +85,7 @@
 }
 
 .color-choice {
-  margin-top: 95px;
+  margin-top: 50px;
 }
 
 .frosty {
@@ -138,6 +138,11 @@ img.about-image {
 
 #lastlink {
   margin-right: 20px;
+}
+
+label.control-label.string.optional {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
 }
 
 .navbar {
