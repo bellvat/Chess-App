@@ -4,22 +4,19 @@ class Pawn < Piece
     x_distance = x_distance(new_x_coord)
     y_distance = y_distance(new_y_coord)
 
-# ----- Opening move ----- 
-    if y_coord == 2 && white?
+# ----- Opening move -----
+    if y_coord == 2 && black?
       x_distance == 0 && (new_y_coord == 3 || new_y_coord == 4)
-    elsif y_coord == 7 && black?
-      x_distance == 0 && (new_y_coord == 6 || new_y_coord == 5)  
-  
+    elsif y_coord == 7 && white?
+      x_distance == 0 && (new_y_coord == 6 || new_y_coord == 5)
+
 # ----- Otherwise -------
-    else 
-      if white?
+    else
+      if black?
         (x_distance == 0) && (new_y_coord == (y_coord + 1))
-      elsif black? 
+      elsif white? 
         (x_distance == 0) && (new_y_coord == (y_coord - 1))
-      end  
+      end
     end
   end
 end
-
-
-
