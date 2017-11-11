@@ -28,24 +28,43 @@ class Piece < ApplicationRecord
     end
 
     # Check if end square contains own piece and if any of in between squares have a piece of any colour in
-    contains_own_piece?(x_end, y_end) && obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
-
+    obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
   end
 
   def color
     white? ? 'white' : 'black'
   end
 
+  def white?
+    white
+  end
+
+  def black?
+    !white
+  end
+
   def image
     image ||= "#{name}.png"
   end
 
+  # determines horizontal distance travelled by piece
   def x_distance(new_x_coord)
     (new_x_coord - x_coord).abs
   end
 
+  # determines vertical distance travelled by piece
   def y_distance(new_y_coord)
     (new_y_coord - y_coord).abs
+  end
+
+  # returns true if piece is moving from bottom to top
+  def up?(new_y_coord)
+    return ((y_coord - new_y_coord) > 0)
+  end
+
+  # returns true if piece is moving from top to bottom
+  def down?(new_y_coord)
+    return ((y_coord - new_y_coord) < 0)
   end
 
 end

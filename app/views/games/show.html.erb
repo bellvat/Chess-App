@@ -4,7 +4,7 @@
       $("td").addClass("droppable-square");
       $( ".selectable-piece" ).draggable({
         cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid", // when not dropped, the item will revert back to its initial position
+        revert: "invalid",
         containment: "document",
         snap: ".document td",
         snapTolerance: 20,
@@ -21,13 +21,13 @@
 
         drop: function( event, ui ) {
           console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
-          $(this).append($(ui.draggable));
-          $.ajax({
+          const $newDroppableSquare = $(this)
+            $.ajax({
             beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             },
             type: "PATCH",
-            dataType: 'json',
+            dataType: 'text',
             url: "/pieces/" + ui.draggable.attr('id'),
             data: {
               piece: {
@@ -35,10 +35,16 @@
                 y_coord: $(this).data("y-coord")
               },
             },
+            error:  function(){
+            },
+            success: function(){
+              $newDroppableSquare.append($(ui.draggable));
+            }
           });
-        }
-      });
-    } );
+      }
+    });
+
+    });
 </script>
 
 
@@ -62,7 +68,7 @@
             <% (1..8).each do |x_coord| %>
               <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >
               <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
+                 <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
               <% end %>
               </td>
             <% end %>
