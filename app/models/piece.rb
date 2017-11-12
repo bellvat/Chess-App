@@ -49,22 +49,26 @@ class Piece < ApplicationRecord
 
   # determines horizontal distance travelled by piece
   def x_distance(new_x_coord)
-    (new_x_coord - x_coord).abs
+    x_distance = (new_x_coord - x_coord).abs
   end
 
   # determines vertical distance travelled by piece
   def y_distance(new_y_coord)
-    (new_y_coord - y_coord).abs
+    y_distance = (new_y_coord - y_coord).abs
   end
 
   # returns true if piece is moving from bottom to top
   def up?(new_y_coord)
-    return ((y_coord - new_y_coord) > 0)
+    (y_coord - new_y_coord) > 0
   end
 
   # returns true if piece is moving from top to bottom
   def down?(new_y_coord)
-    return ((y_coord - new_y_coord) < 0)
+    (y_coord - new_y_coord) < 0
+  end
+
+  def diagonal?(x_distance, y_distance)
+    x_distance == y_distance
   end
 
 end
