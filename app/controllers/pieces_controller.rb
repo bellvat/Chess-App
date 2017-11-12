@@ -41,8 +41,11 @@ class PiecesController < ApplicationController
     params.require(:piece).permit(:x_coord, :y_coord)
   end
 
+
   def verify_player_piece
-    return if current_user.id == @piece.game.turn_user_id && @piece.white
+    return if  current_user.id = @piece.game.turn_user_id
+    #some logic here to force white piece to be first move, currently white player can move black or white on first move. 
+    #code already makes white player first. Remove above "return". use @piece.white
     render json: {}, status: 422
   end
 end
