@@ -98,7 +98,7 @@ class Piece < ApplicationRecord
 
   def capture(capture_piece)
     move_to_empty_square(capture_piece.x_coord, capture_piece.y_coord)
-    remove_piece(destination_piece)
+    remove_piece(capture_piece)
   end
 
   def remove_piece(dead_piece)
