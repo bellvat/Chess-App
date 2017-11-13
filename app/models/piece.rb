@@ -3,7 +3,8 @@ class Piece < ApplicationRecord
   belongs_to :user, required: false
 
 
-  def piece_move
+   def piece_move 
+    return false if piece_belongs_to_opponent
     capture_piece = find_capture_piece(x_end, y_end)
     if capture_piece.nil?
       move_to_empty_square(x_end, y_end)
@@ -11,6 +12,13 @@ class Piece < ApplicationRecord
     else
       capture(capture_piece)
       move_to_capture_piece_and_capture
+    end
+  end
+
+  def piece_belongs_to_opponent (piece)
+    return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
+    else
+      render json: {}, status: 422
     end
   end
 
@@ -102,7 +110,7 @@ class Piece < ApplicationRecord
   end
 
   def remove_piece(dead_piece)
-    dead_piece.update_attributes(is_on_board?: false, row_coordinate: -1, column_coordinate: -1)
+    dead_piece.update_attributes(x_coord: nil, y_coord: nil) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
   end
 
   def move_to_empty_square(x_end, y_end)
