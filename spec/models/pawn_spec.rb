@@ -67,5 +67,14 @@ RSpec.describe Pawn, type: :model do
       pawn = FactoryGirl.create :pawn, x_coord: 5, y_coord: 2, game_id: game.id, white: true
       expect(pawn.valid_move?(6, 2)).to eq(false)
     end
+
+    # ------ En Passant ------------
+
+    it "should return true for black pawn to capture white pawn en passant" do
+      game = Game.create
+      pawn = FactoryGirl.create :pawn, x_coord: 5, y_coord: 5, game_id: game.id, white: false
+      pawn = FactoryGirl.create :pawn, x_coord: 6, y_coord: 4, game_id: game.id, white: true
+      expect(pawn.black.en_passant?(5, 5)).to eq(true)
+    end
   end
 end
