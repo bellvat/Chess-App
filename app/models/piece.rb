@@ -102,7 +102,7 @@ class Piece < ApplicationRecord
   end
 
   def remove_piece(dead_piece)
-    dead_piece.update_attributes(is_on_board?: false, row_coordinate: -1, column_coordinate: -1)
+    dead_piece.update_attributes(x_coord: nil, y_coord: nil) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
   end
 
   def move_to_empty_square(x_end, y_end)
