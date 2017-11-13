@@ -1,5 +1,6 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn, :verify_valid_move, :verify_player_piece
+  before_action :find_piece, :verify_valid_move
+
   def update
     @game = @piece.game
     @piece.update_attributes(piece_params)
@@ -19,6 +20,8 @@ class PiecesController < ApplicationController
 
   def find_piece
   @piece = Piece.find(params[:id])
+  @pieces = Piece.find_each
+  p @pieces
   end
 
   def verify_valid_move
@@ -44,7 +47,7 @@ class PiecesController < ApplicationController
 
   def verify_player_piece
     return if  current_user.id = @piece.game.turn_user_id
-    #some logic here to force white piece to be first move, currently white player can move black or white on first move. 
+    #some logic here to force white piece to be first move, currently white player can move black or white on first move.
     #code already makes white player first. Remove above "return". use @piece.white
     render json: {}, status: 422
   end
