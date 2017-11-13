@@ -2,13 +2,12 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
 
-
-  def piece_belongs_to_opponent (piece)
-    return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
-    else
-      render json: {}, status: 422
-    end
-  end
+  #def piece_belongs_to_opponent (piece)
+  #  return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
+  #  else
+  #    render json: {}, status: 422
+  #  end
+  #end
 
   def contains_own_piece?(x_end, y_end)
     piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
@@ -79,29 +78,29 @@ class Piece < ApplicationRecord
     x_distance == y_distance
   end
 
-  def capturable(capture_piece)
-    (capture_piece.present? && capture_piece.color != color) 
-  end
+  #def capturable(capture_piece)
+  #  (capture_piece.present? && capture_piece.color != color)
+  #end
 
   def find_capture_piece(x_end, y_end)
     game.pieces.find_by(x_coord: x_end, y_coord: y_end)
   end
 
-  def move_to_capture_piece_and_capture(dead_piece, x_end, y_end)
-    update_attributes(x_coord: x_end, y_coord: y_end)
-    remove_piece(dead_piece)
-  end
+  #def move_to_capture_piece_and_capture(dead_piece, x_end, y_end)
+  #  update_attributes(x_coord: x_end, y_coord: y_end)
+  #  remove_piece(dead_piece)
+  #end
 
-  def capture(capture_piece)
-    move_to_empty_square(capture_piece.x_coord, capture_piece.y_coord)
-    remove_piece(capture_piece)
-  end
+  #def capture(capture_piece)
+  #  move_to_empty_square(capture_piece.x_coord, capture_piece.y_coord)
+#    remove_piece(capture_piece)
+  #end
 
   def remove_piece(dead_piece)
     dead_piece.update_attributes(x_coord: nil, y_coord: nil) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
   end
 
-  def move_to_empty_square(x_end, y_end)
-    update_attributes(x_coord: x_end, y_coord: y_end)
-  end
-end 
+  #def move_to_empty_square(x_end, y_end)
+  #  update_attributes(x_coord: x_end, y_coord: y_end)
+  #end
+end
