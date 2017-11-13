@@ -2,6 +2,7 @@ class PiecesController < ApplicationController
   before_action :find_piece, :verify_player_turn, :verify_valid_move, :verify_player_piece
   def update
     @game = @piece.game
+    piece_move #??????????????????????????????????????????????
     @piece.update_attributes(piece_params)
     switch_turns
     render json: {}, status: 200
@@ -49,3 +50,7 @@ class PiecesController < ApplicationController
     render json: {}, status: 422
   end
 end
+
+
+
+
