@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_valid_move
+  before_action :find_piece, :verify_player_turn,:verify_valid_move
 
   def update
     @game = @piece.game
@@ -19,8 +19,7 @@ class PiecesController < ApplicationController
   end
 
   def find_piece
-  @piece = Piece.find(params[:id])
-  p @piece
+    @piece = Piece.find(params[:id])
   end
 
   def verify_valid_move
