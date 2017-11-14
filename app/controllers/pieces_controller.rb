@@ -1,7 +1,6 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn,:verify_valid_move,:verify_player_piece
+  before_action :find_piece, :verify_player_turn, :verify_valid_move
   def update
-    @game = @piece.game
     piece_move
     @piece.update_attributes(piece_params)
     switch_turns
@@ -20,6 +19,7 @@ class PiecesController < ApplicationController
 
   def find_piece
     @piece = Piece.find(params[:id])
+    @game = @piece.game
   end
 
   def verify_valid_move
@@ -30,12 +30,13 @@ class PiecesController < ApplicationController
   end
 
   def verify_player_turn
-    return if correct_turn?
+    return if correct_turn? && ((@game.white_player_user_id == current_user.id && @piece.white?) || (@game.black_player_user_id == current_user.id && @piece.black?))
     render json: {}, status: 422
   end
 
   def correct_turn?
     @piece.game.turn_user_id == current_user.id
+
   end
 
   def piece_params
@@ -56,4 +57,5 @@ class PiecesController < ApplicationController
       @piece.remove_piece(capture_piece)
     end
   end
+
 end
