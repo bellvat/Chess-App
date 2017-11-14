@@ -20,8 +20,7 @@ class PiecesController < ApplicationController
 
   def find_piece
   @piece = Piece.find(params[:id])
-  @pieces = Piece.find_each
-  p @pieces
+  p @piece
   end
 
   def verify_valid_move

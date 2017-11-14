@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe PiecesController, type: :controller do
   describe "piece#update" do
-
+  #for all tests in piece#update, game.create is creating objects called
+  #Pieces, instead of calling the object by its individual piece name, like Pawns
+  #or Rook. This doesn't allow methods that live in the individual pieces
+  #model to be called.
   it "should return success if the player turn is correct" do
-
-    user = FactoryGirl.create(:user)
-    sign_in user
-    game = FactoryGirl.create(:game)
-    pawn = game.pieces.first
+    game = Game.create
+    pawn = FactoryGirl.create(:pawn, game_id: game.id)
     patch :update, params: {id: pawn.id, piece:{x_coord: 5, y_coord: 2}}
     expect(response).to have_http_status(200)
   end
