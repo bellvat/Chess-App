@@ -7,6 +7,17 @@ class Piece < ApplicationRecord
     piece.present? && piece.white? == white?
   end
 
+  def active_player
+    if move_number % 2 == 0
+      return white_player
+    end
+    return black_player
+  end
+
+  def current_player
+    active_player.id
+  end
+
   def is_obstructed(x_end, y_end)
     y_change = y_coord - y_end
     x_change = x_coord - x_end
@@ -70,5 +81,7 @@ class Piece < ApplicationRecord
   def diagonal?(x_distance, y_distance)
     x_distance == y_distance
   end
+
+
 
 end
