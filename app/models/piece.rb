@@ -83,7 +83,7 @@ class Piece < ApplicationRecord
   #end
 
   def find_capture_piece(x_end, y_end)
-    game.pieces.find_by(x_coord: x_end, y_coord: y_end)
+    game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
   end
 
   #def move_to_capture_piece_and_capture(dead_piece, x_end, y_end)
@@ -97,7 +97,7 @@ class Piece < ApplicationRecord
   #end
 
   def remove_piece(dead_piece)
-    dead_piece.update_attributes(x_coord: nil, y_coord: nil) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
+    dead_piece.update_attributes(x_coord: nil, y_coord: nil, captured: true) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
   end
 
   #def move_to_empty_square(x_end, y_end)

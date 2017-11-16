@@ -81,7 +81,46 @@
 
   <div class="column">
     <div class="booyah-box captured-pieces">
-      <p> Captured pieces show up here </p>
+      <div class="white_captured_pieces">
+        <% @game.pieces.where(captured: true, white: true).each do |piece| %>
+          <div class= data-piece-url="<%= piece_path(piece) %>">
+            <% case piece.type %>
+              <% when "Pawn" %>
+                <%= image_tag "Pawn_white.png", :class => "piece_cap" %>
+              <% when "Rook" %>
+                <%= image_tag "Rook_white.png", :class => "piece_cap" %>
+              <% when "Knight" %>
+                <%= image_tag "Knight_white.png", :class => "piece_cap" %>
+              <% when "Bishop" %>
+                <%= image_tag "Bishop_white.png", :class => "piece_cap" %>
+              <% when "Queen" %>
+                <%= image_tag "Queen_white.png", :class => "piece_cap" %>
+              <% when "King" %>
+                <%= image_tag "King_white.png", :class => "piece_cap" %>
+            <% end %>
+          </div>
+        <% end %>
+      <br />
+      <div class="black_captured_pieces">
+        <% @game.pieces.where(captured: true, white: false).each do |piece| %>
+          <div class= data-piece-url="<%= piece_path(piece) %>">
+            <% case piece.type %>
+              <% when "Pawn" %>
+                <%= image_tag "Pawn_black.png", :class => "piece_cap" %>
+              <% when "Rook" %>
+                <%= image_tag "Rook_black.png", :class => "piece_cap" %>
+              <% when "Knight" %>
+                <%= image_tag "Knight_black.png", :class => "piece_cap" %>
+              <% when "Bishop" %>
+                <%= image_tag "Bishop_black.png", :class => "piece_cap" %>
+              <% when "Queen" %>
+                <%= image_tag "Queen_black.png", :class => "piece_cap" %>
+              <% when "King" %>
+                <%= image_tag "King_black.png", :class => "piece_cap" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
     <% if @game.users.count > 1 %>
       <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
