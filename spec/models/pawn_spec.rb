@@ -3,14 +3,7 @@ require 'rails_helper'
 RSpec.describe Pawn, type: :model do
 
   describe "#valid move?" do
-    it "should return true if black pawn is moving diagonally to capture opponent piece" do
-      game = Game.create
-      pawn = game.pieces.find_by(name: "Pawn_black")
-      pawn.update_attributes(x_coord: 3, y_coord: 3)
-      rook = game.pieces.find_by(name: "Rook_white")
-      rook.update_attributes(x_coord: 4, y_coord: 4)
-      expect(pawn.valid_move?(4,4)).to eq(true)
-    end
+
 # ------ Opening Move ------------
 
     it "should return true to move one square forward on first move" do
@@ -75,7 +68,14 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(6, 2)).to eq(false)
     end
 
-
+    it "should return true if black pawn is moving diagonally to capture opponent piece" do
+      game = Game.create
+      pawn = game.pieces.find_by(name: "Pawn_black")
+      pawn.update_attributes(x_coord: 3, y_coord: 3)
+      rook = game.pieces.find_by(name: "Rook_white")
+      rook.update_attributes(x_coord: 4, y_coord: 4)
+      expect(pawn.valid_move?(4,4)).to eq(true)
+    end
 
   end
 end
