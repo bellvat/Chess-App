@@ -35,7 +35,7 @@ class GamesController < ApplicationController
 
     #Half of the pieces are created without belonging to anyone, so here we update them to have that attribute
     @pieces = @game.pieces
-    @pieces.where(user_id = nil).update_all(user_id: current_user.id)
+    @pieces.where(user_id:nil).update_all(user_id: current_user.id)
 
     @game.update_attributes(game_params)
     @game.users << current_user
@@ -46,7 +46,11 @@ class GamesController < ApplicationController
 
   def forfeit
     @game = Game.find_by_id(params[:id])
-    @game.update_attributes(game_params)
+    if current_user.id == @game.white_player_user_id
+      @game.update_attributes(winner_user_id: @game.black_player_user_id)
+    else
+      @game.update_attributes(winner_user_id: @game.white_player_user_id)
+    end
     redirect_to games_path
   end
 

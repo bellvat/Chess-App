@@ -8,3 +8,4 @@
 
 #User.find_or_create_by(:email => "test2@gmail.com", :password => "password", :password_confirmation => "password")
 #Game.create
+#end
