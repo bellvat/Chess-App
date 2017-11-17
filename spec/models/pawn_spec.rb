@@ -77,5 +77,11 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(4,4)).to eq(true)
     end
 
+    it "should return false if pawn tries to move vertically to square with an opponent piece" do
+      game = Game.create
+      pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 6, game_id: game.id, white: false
+      expect(pawn.valid_move?(2, 7)).to eq(false)
+    end
+
   end
 end

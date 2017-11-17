@@ -108,4 +108,5 @@ class Piece < ApplicationRecord
   #def move_to_empty_square(x_end, y_end)
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
+
 end
