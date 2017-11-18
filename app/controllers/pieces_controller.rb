@@ -2,9 +2,19 @@ class PiecesController < ApplicationController
   before_action :find_piece, :verify_player_turn, :verify_valid_move
   def update
     @game = @piece.game
-    @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1)
-    switch_turns
-    render json: {}, status: 200
+    #@piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1)
+
+    is_captured
+    @piece.update_attributes(piece_params)
+    king = @game.pieces.find_by(type:"King", user_id: @game.turn_user_id)
+    if king.check?(king.x_coord, king.y_coord)
+      if king.find_threat_and_determine_checkmate(king)
+        king.update_winner
+      end
+    else
+      switch_turns
+      render json: {}, status: 200
+    end
   end
 
   private
@@ -25,14 +35,15 @@ class PiecesController < ApplicationController
   def verify_valid_move
     return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false)
+    (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (player_moving_own_king_to_check? == false)
     render json: {}, status: 422
   end
 
   def verify_player_turn
     return if correct_turn? &&
-    ((@game.white_player_user_id == current_user.id && @piece.white?) ||
-    (@game.black_player_user_id == current_user.id && @piece.black?))
+    ((@piece.game.white_player_user_id == current_user.id && @piece.white?) ||
+    (@piece.game.black_player_user_id == current_user.id && @piece.black?))
     render json: {}, status: 422
   end
 
@@ -49,6 +60,17 @@ class PiecesController < ApplicationController
     if !capture_piece.nil?
       @piece.remove_piece(capture_piece)
     end
+  end
+
+  def player_moving_own_king_to_check?
+    if @piece.type == "King"
+      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == true
+        return true
+      else
+        return false
+      end
+    end
+    return false
   end
 
 end

@@ -33,7 +33,6 @@ class Piece < ApplicationRecord
           obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
       end
     end
-
     # Check if end square contains own piece and if any of in between squares have a piece of any colour in
     obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
   end
@@ -103,4 +102,36 @@ class Piece < ApplicationRecord
   #def move_to_empty_square(x_end, y_end)
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
+
+  def build_obstruction_array(x_end, y_end)
+  y_change = y_coord - y_end
+  x_change = x_coord - x_end
+
+  # Build array squares which piece must move through
+  obstruction_array = []
+  if x_change.abs == 0 # If it's moving vertically
+    (1..(y_change.abs-1)).each do |i|
+        obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * i]
+    end
+  elsif y_change.abs == 0 # If horizontally
+    (1..(x_change.abs-1)).each do |i| # 7 times do (0..6).each do
+        obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord]
+    end
+  elsif y_change.abs == x_change.abs #if diagonally
+    (1..(y_change.abs-1)).each do |i|
+        obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
+    end
+  end
+
+  # Check if end square contains own piece and if any of in between squares have a piece of any colour in
+  obstruction_array
+  end
+
+  def update_winner
+    if white?
+      game.update_attributes(winner_user_id: game.black_player_user_id)
+    else
+      game.update_attributes(winner_user_id: game.white_player_user_id)
+    end
+  end
 end
