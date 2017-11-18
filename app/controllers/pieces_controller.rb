@@ -5,6 +5,11 @@ class PiecesController < ApplicationController
     @game = @piece.game
     is_captured
     @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+    #Below king_opp mean the opponent's player's king. After the player's turn,
+    #we'd like to know if the opponent king is in check, and if in check, does
+    #the opponent's king have any way to get out of check (see check_mate in king.rb)
+    #if the opponent's king is stuck, the game is over, right now noted by the 401 error
+    #will need to do a proper game end
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord)
       if king_opp.find_threat_and_determine_checkmate(king_opp)
@@ -62,6 +67,9 @@ class PiecesController < ApplicationController
   end
 
   def player_moves_own_king_to_check_or_keeps_king_in_check?
+    #function checks if player is not moving king into a check position
+    #and also checking that if king is in check, player must move king out of check,
+    #this function restricts any other random move if king is in check.
     king = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
     if @piece.type == "King"
       if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == true

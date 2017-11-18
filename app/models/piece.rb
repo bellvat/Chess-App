@@ -103,28 +103,27 @@ class Piece < ApplicationRecord
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
 
+  #build_obstruction_array is identical to is_obstruct, except that we want the array, and not the boolean
   def build_obstruction_array(x_end, y_end)
-  y_change = y_coord - y_end
-  x_change = x_coord - x_end
+    y_change = y_coord - y_end
+    x_change = x_coord - x_end
 
-  # Build array squares which piece must move through
-  obstruction_array = []
-  if x_change.abs == 0 # If it's moving vertically
-    (1..(y_change.abs-1)).each do |i|
-        obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * i]
+    # Build array squares which piece must move through
+    obstruction_array = []
+    if x_change.abs == 0 # If it's moving vertically
+      (1..(y_change.abs-1)).each do |i|
+          obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * i]
+      end
+    elsif y_change.abs == 0 # If horizontally
+      (1..(x_change.abs-1)).each do |i| # 7 times do (0..6).each do
+          obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord]
+      end
+    elsif y_change.abs == x_change.abs #if diagonally
+      (1..(y_change.abs-1)).each do |i|
+          obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
+      end
     end
-  elsif y_change.abs == 0 # If horizontally
-    (1..(x_change.abs-1)).each do |i| # 7 times do (0..6).each do
-        obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord]
-    end
-  elsif y_change.abs == x_change.abs #if diagonally
-    (1..(y_change.abs-1)).each do |i|
-        obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
-    end
-  end
-
-  # Check if end square contains own piece and if any of in between squares have a piece of any colour in
-  obstruction_array
+    obstruction_array
   end
 
   def update_winner
