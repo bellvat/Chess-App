@@ -134,4 +134,5 @@ class Piece < ApplicationRecord
       game.update_attributes(winner_user_id: game.white_player_user_id)
     end
   end
+
 end

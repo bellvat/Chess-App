@@ -41,12 +41,13 @@ RSpec.describe King, type: :model do
 
  end
  describe "#check?" do
+   #diagonal capture will pass once merged. It is failing for now because lacking diagonal logic
    it "should return true for pawn to put king in check" do
      user = FactoryGirl.create :user
      game = Game.create turn_user_id: user.id
      king = FactoryGirl.create :king, x_coord: 3, y_coord: 3, game_id: game.id
      pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 4, game_id: game.id, user_id: user.id
-     expect(king.check?).to eq(true)
+     expect(king.check?(king.x_coord, king.y_coord)).to eq(true)
     end
 
    it "should return false to put king in check" do
@@ -54,7 +55,7 @@ RSpec.describe King, type: :model do
      game = Game.create turn_user_id: user.id
      king = FactoryGirl.create :king, x_coord: 3, y_coord: 3, game_id: game.id
      rook = FactoryGirl.create :rook, x_coord: 7, y_coord: 4, game_id: game.id, user_id: user.id
-     expect(king.check?).to eq(false)
+     expect(king.check?(king.x_coord, king.y_coord)).to eq(false)
     end
 
     it "should return true for rook to put king in check" do
@@ -62,7 +63,7 @@ RSpec.describe King, type: :model do
      game = Game.create turn_user_id: user.id
      king = FactoryGirl.create :king, x_coord: 3, y_coord: 3, game_id: game.id
      rook = FactoryGirl.create :rook, x_coord: 3, y_coord: 7, game_id: game.id, user_id: user.id
-     expect(king.check?).to eq(true)
+     expect(king.check?(king.x_coord, king.y_coord)).to eq(true)
     end
  end
 
@@ -81,23 +82,7 @@ RSpec.describe King, type: :model do
      black_piece2 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 3, game_id: game.id, white:false)
      black_piece3 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 4, game_id: game.id, white:false)
      black_piece4 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 5, game_id: game.id, white:false)
-     expect(black_king.find_threat).to eq rook
      expect(black_king.find_threat_and_determine_checkmate(black_king)).to eq true
-   end
- end
-
- describe "#find_threat" do
-   it "should return the piece that is checking the king" do
-     game = Game.create turn_user_id: 1
-     black_king = game.pieces.find_by(name:"King_black")
-     black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 1)
-     white_pawn = game.pieces.where(name: "Pawn_white")
-     white_pawn.delete_all
-     black_pawn = game.pieces.where(name: "Pawn_black")
-     black_pawn.update_all(user_id: 1)
-     rook = game.pieces.find_by(name: "Rook_white")
-     rook.update_attributes(x_coord:1, y_coord: 8, user_id: 2)
-     expect(black_king.find_threat).to eq rook
    end
  end
 
@@ -112,7 +97,6 @@ RSpec.describe King, type: :model do
      black_pawn.update_all(user_id: 1)
      rook = game.pieces.find_by(name: "Rook_white")
      rook.update_attributes(x_coord:1, y_coord: 8, user_id: 2)
-     expect(black_king.find_threat).to eq rook
      expect(black_king.check_mate?(black_king, rook)).to eq false
    end
 
@@ -128,7 +112,6 @@ RSpec.describe King, type: :model do
      rook.update_attributes(x_coord:1, y_coord: 8, user_id: 2)
      black_knight = game.pieces.find_by(name:"Knight_black")
      black_knight.update_attributes(x_coord:2, y_coord:5, user_id: 1)
-     expect(black_king.find_threat).to eq rook
      expect(black_king.check_mate?(black_king, rook)).to eq false
    end
 
@@ -146,7 +129,6 @@ RSpec.describe King, type: :model do
      black_piece2 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 3, game_id: game.id, white:false)
      black_piece3 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 4, game_id: game.id, white:false)
      black_piece4 = FactoryGirl.create(:pawn,user_id: 1,x_coord:2, y_coord: 5, game_id: game.id, white:false)
-     expect(black_king.find_threat).to eq rook
      expect(black_king.check_mate?(black_king, rook)).to eq true
    end
  end

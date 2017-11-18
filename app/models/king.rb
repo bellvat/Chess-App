@@ -11,7 +11,7 @@ class King < Piece
 
   def check?(x_coord, y_coord)
     game.pieces.each do | f |
-      if f.user_id != game.turn_user_id && f.x_coord != nil
+      if f.user_id != self.user_id && f.x_coord != nil
         if f.valid_move?(x_coord, y_coord) == true && f.is_obstructed(x_coord, y_coord) == false
           return true
         end
@@ -20,7 +20,7 @@ class King < Piece
     return false
   end
 
-  def find_threat_and_determine_checkmate (king)
+  def find_threat_and_determine_checkmate(king)
     threat = find_threat
     if check_mate?(king,threat)
       return true
@@ -28,17 +28,7 @@ class King < Piece
     return false
   end
 
-  def find_threat
-    game.pieces.each do | f |
-      if f.user_id != game.turn_user_id && f.x_coord != nil
-        if f.valid_move?(x_coord, y_coord) && f.is_obstructed(x_coord,y_coord) == false
-          return f
-        end
-      end
-    end
-  end
-
-  def check_mate? (king, threat)
+  def check_mate?(king, threat)
     obstruction_array = threat.build_obstruction_array(king.x_coord, king.y_coord)
     # check if king can capture the threat
     if king.valid_move?(threat.x_coord, threat.y_coord) == true ||
@@ -53,6 +43,21 @@ class King < Piece
   end
 
   private
+
+  def find_threat
+    threat_found = false
+    while threat_found != true
+      game.pieces.each do | f |
+        if f.user_id != game.turn_user_id && f.x_coord != nil
+          if f.valid_move?(x_coord, y_coord) && f.is_obstructed(x_coord,y_coord) == false
+            return f
+            threat_found = true
+          end
+        end
+      end
+      threat_found
+    end
+  end
 
   def any_moves_left?(king,threat,obstruction_array)
     possible_coords = []
