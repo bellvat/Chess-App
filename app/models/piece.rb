@@ -11,7 +11,12 @@ class Piece < ApplicationRecord
 
   def contains_own_piece?(x_end, y_end)
     piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
-    piece.present? && piece.white? == white?
+    piece.present? && piece.white == white
+  end
+
+  def opposition_piece?(x_end, y_end)
+    piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
+    piece.present? && piece.white != white
   end
 
   def is_obstructed(x_end, y_end)
@@ -103,4 +108,5 @@ class Piece < ApplicationRecord
   #def move_to_empty_square(x_end, y_end)
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
+
 end
