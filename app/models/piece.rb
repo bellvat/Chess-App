@@ -11,7 +11,12 @@ class Piece < ApplicationRecord
 
   def contains_own_piece?(x_end, y_end)
     piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
-    piece.present? && piece.white? == white?
+    piece.present? && piece.white == white
+  end
+
+  def opposition_piece?(x_end, y_end)
+    piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
+    piece.present? && piece.white != white
   end
 
   #build_obstruction_array is identical to is_obstruct, except that we want the array, and not the boolean

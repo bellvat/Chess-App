@@ -41,15 +41,14 @@ RSpec.describe King, type: :model do
 
  end
  describe "#check?" do
-   #diagonal capture will pass once merged. It is failing for now because lacking diagonal logic
    it "should return true for pawn to put king in check" do
-     user = FactoryGirl.create :user
+     user = FactoryGirl.create :user, id: 1
      game = Game.create turn_user_id: user.id
-     king = FactoryGirl.create :king, x_coord: 3, y_coord: 3, game_id: game.id
-     pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 4, game_id: game.id, user_id: user.id
+     king = FactoryGirl.create :king, x_coord: 3, y_coord: 3, game_id: game.id, user_id: user.id
+     pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 4, game_id: game.id, user_id: 2
      threat = king.check?(king.x_coord, king.y_coord)
      expect(threat.present?).to eq(true)
-    end
+   end
 
    it "should return false to put king in check" do
      user = FactoryGirl.create :user
