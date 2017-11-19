@@ -11,14 +11,20 @@ class PiecesController < ApplicationController
     #if the opponent's king is stuck, the game is over, right now noted by the 401 error
     #will need to do a proper game end
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
-    if king_opp.check?(king_opp.x_coord, king_opp.y_coord)
-      if king_opp.find_threat_and_determine_checkmate(king_opp)
+    game_end = false
+    if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
+      if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
         render json: {}, status: 401
+        game_end = true
+      else
+        king_opp.update_attributes(king_check: 1)
       end
     end
-    switch_turns
-    render json: {}, status: 200
+    if game_end == false
+      switch_turns
+      render json: {}, status: 200
+    end
   end
 
   private
@@ -40,7 +46,7 @@ class PiecesController < ApplicationController
     return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (player_moves_own_king_to_check_or_keeps_king_in_check? == false)
+    (king_not_moved_to_check_or_king_not_kept_in_check? == true)
     render json: {}, status: 422
   end
 
@@ -66,21 +72,30 @@ class PiecesController < ApplicationController
     end
   end
 
-  def player_moves_own_king_to_check_or_keeps_king_in_check?
+  def king_not_moved_to_check_or_king_not_kept_in_check?
     #function checks if player is not moving king into a check position
     #and also checking that if king is in check, player must move king out of check,
     #this function restricts any other random move if king is in check.
     king = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
     if @piece.type == "King"
-      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == true
+      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i).blank?
+        king.update_attributes(king_check: 0)
         return true
       else
         return false
       end
-    elsif @piece.type != "King" && king.check?(king.x_coord,king.y_coord)
-      return true
+    elsif @piece.type != "King" && king.king_check == 1
+      if ([[piece_params[:x_coord].to_i, piece_params[:y_coord].to_i]] & king.check?(king.x_coord, king.y_coord).build_obstruction_array(king.x_coord, king.y_coord)).count == 1 ||
+        (@piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == true &&
+        king.check?(king.x_coord, king.y_coord).x_coord == piece_params[:x_coord].to_i &&
+        king.check?(king.x_coord, king.y_coord).y_coord == piece_params[:y_coord].to_i)
+        king.update_attributes(king_check: 0)
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
   end
 

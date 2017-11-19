@@ -72,6 +72,46 @@ RSpec.describe PiecesController, type: :controller do
     expect(response).to have_http_status(422)
   end
 
+  it "should return status 401 if opponent king is in check and cannot move out of check" do
+    current_user = FactoryGirl.create(:user, id: 1)
+    sign_in current_user
+    game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
+    black_king = game.pieces.find_by(name:"King_black")
+    black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 2)
+    white_pawn = game.pieces.where(name: "Pawn_white")
+    white_pawn.delete_all
+    black_pawn = game.pieces.where(name: "Pawn_black")
+    black_pawn.update_all(user_id: 2)
+    rook = game.pieces.find_by(name: "Rook_white")
+    rook.update_attributes(user_id: 1, x_coord:1, y_coord:8)
+    black_piece1 = FactoryGirl.create(:pawn,user_id: 2,x_coord:1, y_coord: 3, game_id: game.id, white:false)
+    black_piece2 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 3, game_id: game.id, white:false)
+    black_piece3 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 4, game_id: game.id, white:false)
+    black_piece4 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 5, game_id: game.id, white:false)
+    post :update, params: {id: rook.id, piece: {x_coord:1, y_coord:7 }}
+    expect(response).to have_http_status(401)
   end
+
+  it "should return status 401 if opponent king is in check and cannot move out of check" do
+    current_user = FactoryGirl.create(:user, id: 1)
+    sign_in current_user
+    game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
+    black_king = game.pieces.find_by(name:"King_black")
+    black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 2)
+    white_pawn = game.pieces.where(name: "Pawn_white")
+    white_pawn.delete_all
+    black_pawn = game.pieces.where(name: "Pawn_black")
+    black_pawn.update_all(user_id: 2)
+    rook = game.pieces.find_by(name: "Rook_white")
+    rook.update_attributes(user_id: 1, x_coord:1, y_coord:8)
+    black_piece1 = FactoryGirl.create(:pawn,user_id: 2,x_coord:1, y_coord: 3, game_id: game.id, white:false)
+    black_piece2 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 3, game_id: game.id, white:false)
+    black_piece3 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 4, game_id: game.id, white:false)
+    post :update, params: {id: rook.id, piece: {x_coord:1, y_coord:7 }}
+    black_king.reload
+    expect(black_king.king_check).to eq 1
+    expect(response).to have_http_status(200)
+  end
+end
 
 end
