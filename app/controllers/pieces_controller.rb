@@ -5,6 +5,7 @@ class PiecesController < ApplicationController
     @game = @piece.game
     is_captured
     @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+    
     #Below king_opp mean the opponent's player's king. After the player's turn,
     #we'd like to know if the opponent king is in check, and if in check, does
     #the opponent's king have any way to get out of check (see check_mate in king.rb)
@@ -25,7 +26,6 @@ class PiecesController < ApplicationController
       switch_turns
       render json: {}, status: 200
     end
-  end
 
   private
 
@@ -62,7 +62,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured)
   end
 
   def is_captured
