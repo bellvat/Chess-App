@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20171115212045) do
     t.integer "user_id"
     t.string "type"
     t.boolean "captured"
+    t.integer "move_number", default: 0
   end
 
   create_table "user_games", force: :cascade do |t|

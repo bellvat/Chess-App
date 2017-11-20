@@ -11,7 +11,12 @@ class Piece < ApplicationRecord
 
   def contains_own_piece?(x_end, y_end)
     piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
-    piece.present? && piece.white? == white?
+    piece.present? && piece.white == white
+  end
+
+  def opposition_piece?(x_end, y_end)
+    piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
+    piece.present? && piece.white != white
   end
 
   def is_obstructed(x_end, y_end)
@@ -21,16 +26,16 @@ class Piece < ApplicationRecord
     # Build array squares which piece must move through
     obstruction_array = []
     if x_change.abs == 0 # If it's moving vertically
-      y_change.abs.times do |i|
-          obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * (i + 1)]
+      (1..(y_change.abs-1)).each do |i|
+          obstruction_array << [x_coord, y_coord - (y_change/y_change.abs) * i]
       end
     elsif y_change.abs == 0 # If horizontally
-      x_change.abs.times do |i| # 7 times do (0..6).each do
-          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord]
+      (1..(x_change.abs-1)).each do |i| # 7 times do (0..6).each do
+          obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord]
       end
     elsif y_change.abs == x_change.abs #if diagonally
-      y_change.abs.times do |i|
-          obstruction_array << [x_coord - (x_change/x_change.abs) * (i + 1), y_coord - (y_change/y_change.abs) * (i + 1)]
+      (1..(y_change.abs-1)).each do |i|
+          obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
       end
     end
 
@@ -103,4 +108,5 @@ class Piece < ApplicationRecord
   #def move_to_empty_square(x_end, y_end)
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
+
 end

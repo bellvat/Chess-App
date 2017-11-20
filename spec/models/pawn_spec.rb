@@ -67,5 +67,50 @@ RSpec.describe Pawn, type: :model do
       pawn = FactoryGirl.create :pawn, x_coord: 5, y_coord: 2, game_id: game.id, white: true
       expect(pawn.valid_move?(6, 2)).to eq(false)
     end
+
+    it "should return true if black pawn is moving diagonally to capture opponent piece" do
+      game = Game.create
+      pawn = game.pieces.find_by(name: "Pawn_black")
+      pawn.update_attributes(x_coord: 3, y_coord: 3)
+      rook = game.pieces.find_by(name: "Rook_white")
+      rook.update_attributes(x_coord: 4, y_coord: 4)
+      expect(pawn.valid_move?(4,4)).to eq(true)
+    end
+
+    it "should return false if pawn tries to move vertically to square with an opponent piece" do
+      game = Game.create
+      pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 6, game_id: game.id, white: false
+      expect(pawn.valid_move?(2, 7)).to eq(false)
+    end
+
+    # ------ En Passant ------------
+
+    it "should return true for black pawn to capture white pawn en passant" do
+      game = Game.create
+      black_pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 5, game_id: game.id, white: false
+      white_pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 5, game_id: game.id, white: true, move_number: 1
+      expect(black_pawn.en_passant?(1, 6)).to eq(true)
+    end
+
+    it "should return false for black pawn to capture white pawn en passant if not white's first move" do
+      game = Game.create
+      black_pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 5, game_id: game.id, white: false
+      white_pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 5, game_id: game.id, white: true, move_number: 2
+      expect(black_pawn.en_passant?(1, 6)).to eq(false)
+    end
+
+    it "should return false when white pawn is not in a valid position" do
+      game = Game.create
+      black_pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 5, game_id: game.id, white: false
+      white_pawn = FactoryGirl.create :pawn, x_coord: 4, y_coord: 5, game_id: game.id, white: true, move_number: 1
+      expect(black_pawn.en_passant?(1, 6)).to eq(false)
+    end
+
+    it "should return false for black pawn to capture white rook en passant" do
+      game = Game.create
+      black_pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 5, game_id: game.id, white: false
+      white_rook = FactoryGirl.create :rook, x_coord: 1, y_coord: 5, game_id: game.id, white: true, move_number: 1
+      expect(black_pawn.en_passant?(1, 6)).to eq(false)
+    end
   end
 end

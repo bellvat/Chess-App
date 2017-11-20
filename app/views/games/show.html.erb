@@ -109,10 +109,14 @@
           <% end %>
           <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
         <% end %>
+  <div class="column">
+    <div class="booyah-box captured-pieces">
+      <p> Captured pieces show up here </p>
+    </div>
+    <% if @game.users.count > 1 %>
+      <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+        <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
       <% end %>
       </div>
     </div>
   </div>
-
-
-
