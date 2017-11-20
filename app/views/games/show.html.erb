@@ -47,8 +47,6 @@
     });
 </script>
 
-
-
 <div class="background">
   <div class="row">
     <div class="column">
@@ -59,6 +57,10 @@
         <p> Possible list of last X moves </p>
       </div>
   </div>
+
+<% if check?(x_coord, y_coord) %>
+   <p class="alert alert-danger"> You are in check! </p>
+<% end %>
 
   <div class="board">
     <table>
