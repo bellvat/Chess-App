@@ -2,7 +2,13 @@ class PiecesController < ApplicationController
   before_action :find_piece, :verify_player_turn, :verify_valid_move
   def update
     @game = @piece.game
-    @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1)
+    # SPECIAL CASE FOR WHEN IT'S A KING AND CASTLING
+    if @piece.type == "King" && @piece.legal_to_castle?(params[:x_coord].to_i, params[:y_coord].to_i) # Doesn't seem to return true when it should --> to be investigated
+      @piece.castle(params[:x_coord].to_i, params[:y_coord].to_i)
+    else
+      @piece.update_attributes(piece_params) # MAKE REGULAR MOVE
+    end
+    @piece.update_attributes(move_number: @piece.move_number + 1)
     switch_turns
     render json: {}, status: 200
   end
@@ -41,7 +47,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured)
   end
 
   def is_captured
