@@ -50,7 +50,7 @@ class King < Piece
     possible_coords = []
     (1..8).each do |num1|
       (1..8).each do |num2|
-        if valid_move?(num1,num2) == true && contains_own_piece?(num1,num2) == false
+        if valid_move?(num1,num2) == true && contains_own_piece?(num1,num2) == false && check?(num1, num2).blank?
           possible_coords << [num1, num2]
         end
       end

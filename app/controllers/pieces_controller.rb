@@ -15,18 +15,21 @@ class PiecesController < ApplicationController
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
     game_end = false
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
-      render json: {status: "continue", code: 100, message: "You are in check"}
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
-        render json: {}, status: 401
         game_end = true
       else
+        flash[:notice] = "#{king_opp.name} is in check!" #need to refresh to see
         king_opp.update_attributes(king_check: 1)
       end
     end
     if game_end == false
       switch_turns
       render json: {}, status: 200
+    else
+      render json: {}, status: 201
+      #somehow will need the code below to pass so we can have a message. Right now below is failing tests and saying the http code is 200 :(
+      #render json: {status: "Not modified (standing in for success)", code: 304, message: "Game over!"}
     end
   end
 
