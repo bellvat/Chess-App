@@ -56,52 +56,40 @@
       <div class="booyah-box move-history">
         <p> Possible list of last X moves </p>
       </div>
-  </div>
+    </div>
 
-<% if check?(x_coord, y_coord) %>
-   <p class="alert alert-danger"> You are in check! </p>
-<% end %>
 
-  <div class="board">
-    <table>
-      <tbody>
-        <% (1..8).each do |y_coord| %>
-          <tr id = <%= y_coord %>>
-            <% (1..8).each do |x_coord| %>
-              <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >
-              <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
-                 <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
+    <div class="board">
+      <table>
+        <tbody>
+          <% (1..8).each do |y_coord| %>
+            <tr id = <%= y_coord %>>
+              <% (1..8).each do |x_coord| %>
+                <td data-x-coord = <%= x_coord %> data-y-coord = <%= y_coord %> class = <%= "#{(y_coord % 2 == x_coord % 2 ? "white-square droppable-square" : "black-square droppable-square")}" %> >
+                <% if gamepiece = @pieces.where("(x_coord = ? AND y_coord = ?)", x_coord, y_coord).first %>
+                   <span><%= image_tag gamepiece.image, class: "#{gamepiece.name} selectable-piece", id: gamepiece.id %></span>
+                <% end %>
+                </td>
               <% end %>
-              </td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-
-  <div class="row">
     <div class="column">
       <div class="booyah-box captured-pieces">
-        <div class="booyah-box white_captured_pieces">
-          <span id="white_captured">
-            <h5>White Captured Pieces</h5>
-            <% @game.pieces.where(captured: true, white: true).each do |piece| %>
-              <%= image_tag piece.image, :class => "piece_cap" %>
-            <% end %>
-          </span>
-        </div>
-        <br />
-        <div class="booyah-box black_captured_pieces">
-          <span id="black_captured">
-            <h5>Black Captured Pieces</h5>
-            <% @game.pieces.where(captured: true, white: false).each do |piece| %>
-              <%= image_tag piece.image, :class => "piece_cap" %>
-            <% end %>
-          </span>
-        </div>
+        <% @game.pieces.where(captured: true, white: true).each do |piece| %>
+          <%= image_tag piece.image, :class => "piece_cap" %>
+        <% end %>
       </div>
+        <br />
+      <div class="booyah-box captured-pieces">   
+        <% @game.pieces.where(captured: true, white: false).each do |piece| %>
+          <%= image_tag piece.image, :class => "piece_cap" %>
+        <% end %>
+      </div>
+
       <% if @game.users.count > 1 %>
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
           <% if current_user.id == @game.white_player %>
@@ -112,3 +100,5 @@
           <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
         <% end %>
       <% end %>
+    </div>
+  </div>

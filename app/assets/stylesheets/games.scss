@@ -8,13 +8,14 @@
 }
 
 .board {
-  margin: 20px 50px; /* if just board w/o chat boxes, use margin:20px auto; */
+  margin: 20px auto; /* if just board w/o chat boxes, use margin:20px auto; */
   border-collapse: collapse;
   border: 15px solid #595959;
 }
 
 .captured-pieces {
-  height: 600px;
+  height: auto;
+  width: 300px;
 }
 
 .chatbox {

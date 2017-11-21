@@ -14,6 +14,7 @@ class PiecesController < ApplicationController
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
     game_end = false
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
+      render json: { "You are in check!" }, status: 401
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
         render json: {}, status: 401
@@ -26,6 +27,7 @@ class PiecesController < ApplicationController
       switch_turns
       render json: {}, status: 200
     end
+  end
 
   private
 
