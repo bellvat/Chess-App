@@ -26,9 +26,9 @@ class Piece < ApplicationRecord
       end
     elsif self.id == id && piece.blank? #empty square
       return false
-    elsif self.id == id && piece.white != white
+    elsif self.id == id && piece.white != white #the piece is moving into square that has a opposite piece
       return true
-    elsif self.id != id && self.white != color #
+    elsif self.id != id && self.white != color # ex: King moving to square above pawn, and when performing king.check?, pawn will recognize there is an opposition piece, making the vertical move false
       return true
     else
       return false
