@@ -1,5 +1,7 @@
 <script>
     $( function() {
+
+
       //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
       $("td").addClass("droppable-square");
       $( ".selectable-piece" ).draggable({
@@ -32,7 +34,9 @@
             data: {
               piece: {
                 x_coord: $(this).data("x-coord"),
-                y_coord: $(this).data("y-coord")
+                y_coord: $(this).data("y-coord"),
+                id: ui.draggable.attr("id"),
+                white: ui.draggable.data("white")
               },
             },
             error:  function(){
@@ -46,8 +50,6 @@
 
     });
 </script>
-
-
 
 <div class="background">
   <div class="row">
