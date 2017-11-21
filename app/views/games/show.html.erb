@@ -81,15 +81,34 @@
   </div>
 
 
-  <div class="column">
-    <div class="booyah-box captured-pieces">
-      <p> Captured pieces show up here </p>
-    </div>
-    <% if @game.users.count > 1 %>
-      <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
-        <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
+  <div class="row">
+    <div class="column">
+      <div class="booyah-box captured-pieces">
+        <div class="booyah-box white_captured_pieces">
+          <span id="white_captured">
+            <h5>White Captured Pieces</h5>
+            <% @game.pieces.where(captured: true, white: true).each do |piece| %>
+              <%= image_tag piece.image, :class => "piece_cap" %>
+            <% end %>
+          </span>
+        </div>
+        <br />
+        <div class="booyah-box black_captured_pieces">
+          <span id="black_captured">
+            <h5>Black Captured Pieces</h5>
+            <% @game.pieces.where(captured: true, white: false).each do |piece| %>
+              <%= image_tag piece.image, :class => "piece_cap" %>
+            <% end %>
+          </span>
+        </div>
+      </div>
+      <% if @game.users.count > 1 %>
+        <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
+          <% if current_user.id == @game.white_player %>
+            <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
+          <% else %>
+            <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
+          <% end %>
+          <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
+        <% end %>
       <% end %>
-    <% end %>
-    </div>
-  </div>
-</div>
