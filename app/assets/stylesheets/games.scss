@@ -13,8 +13,16 @@
   border: 15px solid #595959;
 }
 
+.captured-box {
+  flex-grow: 10;
+  flex-shrink: 8;
+}
+
 .captured-pieces {
-  height: auto;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 600px;
   width: 300px;
 }
 
@@ -29,6 +37,10 @@
 
 .move-history {
   height: 325px;
+}
+
+.spacing {
+  flex-shrink: 8;
 }
 
 td {

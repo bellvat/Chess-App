@@ -79,16 +79,24 @@
 
     <div class="column">
       <div class="booyah-box captured-pieces">
-        <% @game.pieces.where(captured: true, white: true).each do |piece| %>
-          <%= image_tag piece.image, :class => "piece_cap" %>
-        <% end %>
+   
+        <div class="captured-box">
+          <% @game.pieces.where(captured: true, white: true).each do |piece| %>
+            <%= image_tag piece.image, :class => "piece_cap" %>
+          <% end %>
+
       </div>
+      <div class="spacing">
         <br />
-      <div class="booyah-box captured-pieces">   
-        <% @game.pieces.where(captured: true, white: false).each do |piece| %>
-          <%= image_tag piece.image, :class => "piece_cap" %>
-        <% end %>
       </div>
+        <div class="captured-box">
+          
+          <% @game.pieces.where(captured: true, white: false).each do |piece| %>
+            <%= image_tag piece.image, :class => "piece_cap" %>
+          <% end %>
+        </div> 
+      </div>
+    
 
       <% if @game.users.count > 1 %>
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
