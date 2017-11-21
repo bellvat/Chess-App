@@ -1,20 +1,21 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn, :verify_valid_move
+  before_action :find_piece, :verify_player_turn, :verify_valid_move, :verify_two_players
 
   def update
     @game = @piece.game
     is_captured
     @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
-    
+
     #Below king_opp mean the opponent's player's king. After the player's turn,
     #we'd like to know if the opponent king is in check, and if in check, does
     #the opponent's king have any way to get out of check (see check_mate in king.rb)
     #if the opponent's king is stuck, the game is over, right now noted by the 401 error
     #will need to do a proper game end
+
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
     game_end = false
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
-      render json: { "You are in check!" }, status: 401
+      render json: {status: "continue", code: 100, message: "You are in check"}
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
         render json: {}, status: 401
@@ -30,6 +31,12 @@ class PiecesController < ApplicationController
   end
 
   private
+
+  def verify_two_players
+    return if @game.black_player_user_id && @game.white_player_user_id
+    render json: {}, status: 422
+  end
+
 
   def switch_turns
     if @game.white_player_user_id == @game.turn_user_id
