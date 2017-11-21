@@ -14,9 +14,25 @@ class Piece < ApplicationRecord
     piece.present? && piece.white == white
   end
 
-  def opposition_piece?(x_end, y_end)
+  def opposition_piece?(x_end, y_end, id = nil, color = nil)
     piece = game.pieces.where("x_coord = ? AND y_coord = ?", x_end, y_end).first
-    piece.present? && piece.white != white
+    if id == nil
+      if piece.blank?
+        return false
+      elsif piece.white != white
+        return true
+      elsif piece.white == white
+        return false
+      end
+    elsif self.id == id && piece.blank? #empty square
+      return false
+    elsif self.id == id && piece.white != white #the piece is moving into square that has a opposite piece
+      return true
+    elsif self.id != id && self.white != color # ex: King moving to square above pawn, and when performing king.check?, pawn will recognize there is an opposition piece, making the vertical move false
+      return true
+    else
+      return false
+    end
   end
 
   #build_obstruction_array is identical to is_obstruct, except that we want the array, and not the boolean

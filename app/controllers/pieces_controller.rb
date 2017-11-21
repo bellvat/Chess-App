@@ -52,7 +52,7 @@ class PiecesController < ApplicationController
   end
 
   def verify_valid_move
-    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
+    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) &&
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (king_not_moved_to_check_or_king_not_kept_in_check? == true)
@@ -71,7 +71,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord, :captured)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id)
   end
 
   def is_captured
@@ -87,7 +87,7 @@ class PiecesController < ApplicationController
     #this function restricts any other random move if king is in check.
     king = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
     if @piece.type == "King"
-      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i).blank?
+      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true).blank?
         king.update_attributes(king_check: 0)
         return true
       else
@@ -95,7 +95,7 @@ class PiecesController < ApplicationController
       end
     elsif @piece.type != "King" && king.king_check == 1
       if ([[piece_params[:x_coord].to_i, piece_params[:y_coord].to_i]] & king.check?(king.x_coord, king.y_coord).build_obstruction_array(king.x_coord, king.y_coord)).count == 1 ||
-        (@piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == true &&
+        (@piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) == true &&
         king.check?(king.x_coord, king.y_coord).x_coord == piece_params[:x_coord].to_i &&
         king.check?(king.x_coord, king.y_coord).y_coord == piece_params[:y_coord].to_i)
         king.update_attributes(king_check: 0)
