@@ -5,7 +5,7 @@ class PiecesController < ApplicationController
     @game = @piece.game
     is_captured
     @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
-    
+
     #Below king_opp mean the opponent's player's king. After the player's turn,
     #we'd like to know if the opponent king is in check, and if in check, does
     #the opponent's king have any way to get out of check (see check_mate in king.rb)
@@ -15,7 +15,7 @@ class PiecesController < ApplicationController
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
     game_end = false
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
-      render json: {}, status: 401
+      render json: {status: "continue", code: 100, message: "You are in check"}
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
         render json: {}, status: 401
@@ -35,7 +35,7 @@ class PiecesController < ApplicationController
   def verify_two_players
     return if @game.black_player_user_id && @game.white_player_user_id
     render json: {}, status: 422
-  end 
+  end
 
 
   def switch_turns
