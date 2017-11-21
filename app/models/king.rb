@@ -14,6 +14,7 @@ class King < Piece
       if f.user_id != self.user_id && f.x_coord != nil
         if f.valid_move?(x_coord, y_coord, id, color) == true && f.is_obstructed(x_coord, y_coord) == false
           return f
+          flash[:alert] = "Alerting you to the monkey on your car!"
           break
         end
       end
