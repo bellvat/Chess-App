@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :message do
+    
+  end
   factory :pawn do
 
   end

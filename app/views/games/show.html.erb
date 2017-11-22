@@ -1,52 +1,3 @@
-<script>
-    $( function() {
-      //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
-      $("td").addClass("droppable-square");
-      $( ".selectable-piece" ).draggable({
-        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid",
-        containment: "document",
-        snap: ".document td",
-        snapTolerance: 20,
-        helper: "clone",
-        cursor: "move"
-      });
-      $( ".droppable-square").droppable({
-        accept: ".selectable-piece",
-        tolerance: "pointer",
-        classes: {
-          "ui-droppable-active": "ui-state-active",
-          "ui-droppable-hover": "ui-state-hover"
-        },
-
-        drop: function( event, ui ) {
-          console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
-          const $newDroppableSquare = $(this)
-            $.ajax({
-            beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            },
-            type: "PATCH",
-            dataType: 'text',
-            url: "/pieces/" + ui.draggable.attr('id'),
-            data: {
-              piece: {
-                x_coord: $(this).data("x-coord"),
-                y_coord: $(this).data("y-coord")
-              },
-            },
-            error:  function(){
-            },
-            success: function(){
-              $newDroppableSquare.append($(ui.draggable));
-            }
-          });
-      }
-    });
-
-    });
-</script>
-
 <div class="background">
   <div class="row">
     <div class="column">
@@ -96,7 +47,18 @@
           <% end %>
         </div> 
       </div>
-    
+      
+      <% @messages.each do |message| %>
+        <div class = "message-box">
+          <p><%= message.body %></p>    
+        </div>
+        
+      <% end %>
+
+      <%= simple_form_for @message, url: game_messages_path(@game) do |f| %>
+        <%= f.input :body %>
+        <%= f.submit "Send", class: "btn btn-primary" %>
+      <% end %>
 
       <% if @game.users.count > 1 %>
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
@@ -110,3 +72,81 @@
       <% end %>
     </div>
   </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+  var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
+  console.log(lastMessagePageShown);
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDUMKEQ7hnoKOhw4JzjKNylY2akSXyGsA4",
+    authDomain: "chess-space.firebaseapp.com",
+    databaseURL: "https://chess-space.firebaseio.com",
+    projectId: "chess-space",
+    storageBucket: "",
+    messagingSenderId: "503457861595"
+  };
+
+  firebase.initializeApp(config);
+
+  // Get a reference to the database service
+  var database = firebase.database();
+  var messageRef = database.ref('message');
+  messageRef.on('value', function(snapshot) {
+    var values = snapshot.val();
+    var ids = Object.keys(values);
+    var lastId = ids[ids.length - 1];
+    var lastMessage = values[lastId];
+    if(lastMessagePageShown.id < lastMessage.id) {
+      location.reload();
+    }
+  }); 
+</script>
+
+<script>
+  $( function() {
+    //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
+    $("td").addClass("droppable-square");
+    $( ".selectable-piece" ).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid",
+      containment: "document",
+      snap: ".document td",
+      snapTolerance: 20,
+      helper: "clone",
+      cursor: "move"
+    });
+    $( ".droppable-square").droppable({
+      accept: ".selectable-piece",
+      tolerance: "pointer",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+
+      drop: function( event, ui ) {
+        const $newDroppableSquare = $(this)
+          $.ajax({
+          beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          type: "PATCH",
+          dataType: 'text',
+          url: "/pieces/" + ui.draggable.attr('id'),
+          data: {
+            piece: {
+              x_coord: $(this).data("x-coord"),
+              y_coord: $(this).data("y-coord")
+            },
+          },
+          error:  function(){
+          },
+          success: function(){
+            $newDroppableSquare.append($(ui.draggable));
+          }
+        });
+      }
+    });
+  });
+</script>
