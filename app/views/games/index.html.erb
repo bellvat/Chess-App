@@ -1,65 +1,66 @@
 <div class="background">
+  <div class="text-center"><%= link_to "Create a New Game", new_game_path, class: "btn btn-newgame" %></div>  
 
   <div class = "container">
-    <%= link_to "Create a New Game", new_game_path, class: "btn btn-warning new-game-btn" %>
    <!-- UNMATCHED GAMES -->
-   <div class ="booyah-box">
-    <div class ="col-12 col-md-6 offset-md-3">
+   <div class="section">
       <h1 class="text-center">Join A Match</h1>
-      <% if @unmatched_games.any? %>
-      <% @unmatched_games.each do |game| %>
-      <div class="indexgame">
-        <h5><%= link_to game.name, game_path(game) %></h5>
-        <% if game.white_player_user_id.blank? %>
-        <%= simple_form_for game, url: join_game_path(game) do |f| %>
-        <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.submit "Join as white player", class: " float right btn btn-secondary" %>
-        <% end %>
-        <% else %>
-        <%= simple_form_for game, url: join_game_path(game) do |f| %>
-        <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-        <%= f.submit "Join as black player", class: "btn btn-inverse" %>
-        <% end %>
-        <% end %>
+        <div class="row matches" >
+          <% if @unmatched_games.any? %>
+            <% @unmatched_games.each do |game| %>
+              <div class="indexgame">
+                <h5 class="text-center"><%= link_to game.name, game_path(game) %></h5>
+                  <% if game.white_player_user_id.blank? %>
+                    <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                      <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                      <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                      <%= f.submit "Join as white player", class: "float right btn btn-secondary" %>
+                    <% end %>
+                  <% else %>
+                    <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                      <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                      <%= f.submit "Join as black player", class: "btn btn-inverse" %>
+                    <% end %>
+                  <% end %>
+              </div>
+            <% end %>
+          <%else%>
+            <h3 class="text-center">No games to join :(</h3>
+          <%end%>
       </div>
-      <% end %>
-      <%else%>
-      <h3>No games to join :(</h3>
-      <%end%>
     </div>
-  </div>
+  
 
   <!-- STARTED GAMES -->
-  <div class = "booyah-box">
-    <div class = "col-12 col-md-6 offset-md-3">
-      <h1 class="text-center">Your Unfinished Matches</h1>
-      <% if @started_games.any? %>
-      <% @started_games.each do |game| %>
-      <div class="indexgame">
-        Click to Resume <%= link_to game.name, game_path(game) %>
-      </div>          
-      <% end %>
-      <% else %>
-      <h3>No games in play :(</h3>
-      <% end %>
-    </div>
+  <div class="section">
+    <h1 class="text-center">Your Unfinished Matches</h1>
+      <div class="row matches" >
+        <% if @started_games.any? %>
+          <% @started_games.each do |game| %>
+            <div class="indexgame">
+              <%= link_to game_path(game) %>
+            </div>          
+          <% end %>
+        <% else %>
+          <h3 class="text-center">No games in play :(</h3>
+        <% end %>
+      </div>
   </div>
 
   <!-- COMPLETED GAMES -->
-  <div class = "booyah-box">
-    <div class = "col-12 col-md-6 offset-md-3">
-      <h1><h1 class="text-center">Completed Matches</h1>
-      <% if @completed_games.any? %>
-      <% @completed_games.each do |game| %>
-      <div class="indexgame">
-        <h5><%= game.winner.email %> won in a game between <%= game.white_player.email %> and <%= game.black_player.email %></h5>
+  <div class="section">
+    <h1 class="text-center">Completed Matches</h1>
+      <div class="row matches" >
+        <% if @completed_games.any? %>
+          <% @completed_games.each do |game| %>
+            <div class="indexgame">
+              <h5><%= game.winner.email %> won the game against <%= game.loser.email %></h5>
+            </div>
+          <% end %>
+        <% else %>
+          <h3>No completed games :(</h3>
+        <% end %>
       </div>
-      <% end %>
-      <% else %>
-      <h3>No completed games :(</h3>
-      <% end %>
-    </div>
   </div>
-</div>
+  </div>
 </div>
