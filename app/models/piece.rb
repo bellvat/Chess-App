@@ -19,7 +19,8 @@ class Piece < ApplicationRecord
     piece.present? && piece.white != white
   end
 
-  def is_obstructed(x_end, y_end)
+  #build_obstruction_array is identical to is_obstruct, except that we want the array, and not the boolean
+  def build_obstruction_array(x_end, y_end)
     y_change = y_coord - y_end
     x_change = x_coord - x_end
 
@@ -38,7 +39,11 @@ class Piece < ApplicationRecord
           obstruction_array << [x_coord - (x_change/x_change.abs) * i, y_coord - (y_change/y_change.abs) * i]
       end
     end
+    obstruction_array
+  end
 
+  def is_obstructed(x_end, y_end)
+    obstruction_array = build_obstruction_array(x_end, y_end)
     # Check if end square contains own piece and if any of in between squares have a piece of any colour in
     obstruction_array.any?{|square| game.contains_piece?(square[0], square[1]) == true}
   end
@@ -88,7 +93,7 @@ class Piece < ApplicationRecord
   #end
 
   def find_capture_piece(x_end, y_end)
-    game.pieces.find_by(x_coord: x_end, y_coord: y_end)
+    game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
   end
 
   #def move_to_capture_piece_and_capture(dead_piece, x_end, y_end)
@@ -102,11 +107,19 @@ class Piece < ApplicationRecord
   #end
 
   def remove_piece(dead_piece)
-    dead_piece.update_attributes(x_coord: nil, y_coord: nil) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
+    dead_piece.update_attributes(x_coord: nil, y_coord: nil, captured: true) ##Should we have a piece status to add to db? Like captured/in play? This would be helpful for stats also
   end
 
   #def move_to_empty_square(x_end, y_end)
   #  update_attributes(x_coord: x_end, y_coord: y_end)
   #end
+
+  def update_winner
+    if white?
+      game.update_attributes(winner_user_id: game.black_player_user_id)
+    else
+      game.update_attributes(winner_user_id: game.white_player_user_id)
+    end
+  end
 
 end
