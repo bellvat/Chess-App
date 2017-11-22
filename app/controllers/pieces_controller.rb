@@ -18,6 +18,7 @@ class PiecesController < ApplicationController
       render json: {status: "continue", code: 100, message: "You are in check"}
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
+        !king_opp.update_loser
         render json: {}, status: 401
         game_end = true
       else
