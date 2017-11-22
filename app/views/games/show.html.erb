@@ -92,7 +92,7 @@
 
   // Get a reference to the database service
   var database = firebase.database();
-  var messageRef = database.ref('message');
+  var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
   messageRef.on('value', function(snapshot) {
     var values = snapshot.val();
     var ids = Object.keys(values);

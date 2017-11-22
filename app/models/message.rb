@@ -5,6 +5,6 @@ class Message < ApplicationRecord
   belongs_to :user
 
   def send_to_firebase
-    FIREBASE.push("game_message", { id: self.id, body: self.body, user_id: self.user_id, game_id: self.game_id, '.priority': 1 })
+    FIREBASE.push("games/" + self.game.id.to_s + "/message/", { id: self.id, body: self.body, user_id: self.user_id, game_id: self.game_id, '.priority': 1 })
   end
 end
