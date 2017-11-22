@@ -13,13 +13,13 @@ class PiecesController < ApplicationController
     #will need to do a proper game end
 
     king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
+    king_current = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
     game_end = false
     if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
-      render json: {status: "continue", code: 100, message: "You are in check"}
+      render json: {status: "continue", code: 100, message: "You are in check!"}
       if king_opp.find_threat_and_determine_checkmate
         king_opp.update_winner
-        !king_opp.update_loser
-        render json: {}, status: 401
+        king_current.update_loser
         game_end = true
       else
         king_opp.update_attributes(king_check: 1)
