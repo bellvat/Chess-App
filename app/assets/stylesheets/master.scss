@@ -4,7 +4,7 @@
 .about-links {
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 
 .about-names {
@@ -60,6 +60,18 @@
   border-color: gray;
   border-radius: 0.1rem;
   text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+}
+
+.btn-newgame {
+  color: white;
+  background-color: #000000;
+  border-color: gray;
+  border-radius: 0.1rem;
+  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+  margin: 30px;
+  font-size: 35px;
+  font-weight: 600;
+  box-shadow: 0px 1px 3px #2a2a2a;
 }
 
 .btn-warning {
@@ -145,6 +157,12 @@ label.control-label.string.optional {
   font-size: 20px;
 }
 
+.matches {
+  flex-wrap: wrap;
+  padding: 15px;
+  justify-content: center;
+}
+
 .navbar {
   font-family: 'didonesque-roman';
   font-size: 20px;
@@ -192,6 +210,17 @@ label.control-label.string.optional {
   margin: 0px 50px;
 }
 
+.section {
+  background-color: #fff;
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px 20px 0px;
+  min-width: 800px;
+}
+
 ul {
   list-style-type: none;
 }
@@ -229,8 +258,6 @@ ul {
   border: 1px solid #ccc;
   border-radius: 10px;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 10px;
   padding: 20px 30px;
-
 }

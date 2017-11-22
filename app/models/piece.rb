@@ -146,4 +146,12 @@ class Piece < ApplicationRecord
     end
   end
 
+  def update_loser
+    if white?
+      game.update_attributes(loser_user_id: game.black_player_user_id)
+    else
+      game.update_attributes(loser_user_id: game.white_player_user_id)
+    end
+  end
+
 end
