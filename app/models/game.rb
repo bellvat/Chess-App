@@ -83,6 +83,11 @@ class Game < ApplicationRecord
     User.find_by_id(winner_user_id)
   end
 
+  def loser
+    User.find_by_id(loser_user_id)
+  end
+
+
 
 
 
