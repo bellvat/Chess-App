@@ -2,8 +2,20 @@
   <div class="row">
     <div class="column">
       <div class="booyah-box chatbox">
-        <p> Possible chat box goes here </p>
+        <% @messages.each do |message| %>
+          <div class = "message-box">
+            <!-- NOTE: For now, I've left out the user email, as I can't think how to get this from Firebase. Would have to store everything on firebase -->
+            <!-- <p class = "text-muted"><%= message.user.email %></p> -->
+            <p><%= message.body %></p>
+          </div>
+        <% end %>
+
+        <%= simple_form_for @message, url: game_messages_path(@game) do |f| %>
+          <%= f.input :body, class: "enter-message-box", prompt: "Enter your message" %>
+          <div class="chatbutton"> <%= f.submit "Send", class: "float-right btn-sm btn-chat submit-message", remote: true %> </div>
+        <% end %>
       </div>
+      
       <div class="booyah-box move-history">
         <p> Possible list of last X moves </p>
       </div>
@@ -47,22 +59,6 @@
           <% end %>
         </div>
       </div>
-
-      <div class = "all-messages">
-        <% @messages.each do |message| %>
-          <div class = "message-box">
-            <!-- NOTE: For now, I've left out the user email, as I can't think how to get this from Firebase. Would have to store everything on firebase -->
-            <!-- <p class = "text-muted"><%= message.user.email %></p> -->
-            <p><%= message.body %></p>
-          </div>
-
-        <% end %>
-      </div>
-
-      <%= simple_form_for @message, url: game_messages_path(@game) do |f| %>
-        <%= f.input :body, class: "enter-message-box", prompt: "Enter your message" %>
-        <%= f.submit "Send", class: "btn btn-primary submit-message", remote: true %>
-      <% end %>
 
       <% if @game.users.count > 1 %>
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
