@@ -113,20 +113,19 @@ class PiecesController < ApplicationController
     end
   end
 
-  def pawn_promotion?(new_y_coord)
-    if @piece.type == "Pawn" && ((new_y_coord == 8 && !white?) || (new_y_coord == 1 && white?))  #black pawn white baseline or white pawn black baseline
-     #pop up modal
-     #allowing button selection for new piece
-
+  def pawn_promotion?(y_coord)
+    pawn = @game.pieces.where(:type =>"Pawn").where(:user_id => @game.turn_user_id)[0]
+    if @piece.type == "Pawn" && ((y_coord == 8 && !white?) || (y_coord == 1 && white?))  #black pawn white baseline or white pawn black baseline
+     
     # get input from player - queen, rook, bishop or knight?
         if params[:commit] == "Queen"
-          update_attributes(type: "Queen") # update attribute to change type
+          pawn.update_attributes(type: "Queen") # update attribute to change type
         elsif params[:commit] == "Bishop"
-          update_attributes(type: "Bishop") # update attribute to change type
+          pawn.update_attributes(type: "Bishop") 
         elsif params[:commit] == "Rook"
-          update_attributes(type: "Rook") # update attribute to change type
+          pawn.update_attributes(type: "Rook") 
         elsif params[:commit] == "Knight"
-          update_attributes(type: "Knight") # update attribute to change type
+          pawn.update_attributes(type: "Knight") 
          end
     else
       return false
