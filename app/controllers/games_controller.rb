@@ -19,6 +19,8 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     @pieces = @game.pieces
+    @message = Message.new
+    @messages = @game.messages.order(:id).all
   end
 
   def update

@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 20171121234856) do
     t.index ["name"], name: "index_games_on_name"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id"
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pieces", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
