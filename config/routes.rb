@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root "static_pages#home"
   get "/about", :controller => "static_pages", :action => "about"
   resources :games do
+    resources :messages, only: :create
     member do
       patch :join
       put :join

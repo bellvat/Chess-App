@@ -261,3 +261,16 @@ ul {
   margin: 10px;
   padding: 20px 30px;
 }
+
+.message-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px 5px;
+}
