@@ -44,9 +44,14 @@ class King < Piece
     end
   end
 
+  def stalemate?
+    return true if !any_moves_left?
+    return false
+  end
+
   private
 
-  def any_moves_left?(threat, obstruction_array)
+  def any_moves_left?(threat = nil, obstruction_array = nil)
     possible_coords = []
     (1..8).each do |num1|
       (1..8).each do |num2|
@@ -55,7 +60,11 @@ class King < Piece
         end
       end
     end
-    return true if (possible_coords - obstruction_array).count >= 1
+    if threat.present?
+      return true if (possible_coords - obstruction_array).count >= 1
+    else
+      possible_coords.any?
+    end
   end
 
   def can_block_king?(threat,obstruction_array)
