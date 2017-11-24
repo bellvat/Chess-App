@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   def index
     @unmatched_games = Game.where(:white_player_user_id => nil).where.not(:black_player_user_id => nil).or (Game.where.not(:white_player_user_id => nil).where(:black_player_user_id => nil))
     @started_games = Game.where.not(:white_player_user_id => nil).where.not(:black_player_user_id => nil).where(:winner_user_id => nil)
-    @completed_games = Game.where.not(:winner_user_id => nil)
+    @completed_games = Game.where(:state => "end")
   end
 
   def new
