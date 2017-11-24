@@ -15,7 +15,7 @@
           <div class="chatbutton"> <%= f.submit "Send", class: "float-right btn-sm btn-chat submit-message", remote: true %> </div>
         <% end %>
       </div>
-      
+
       <div class="booyah-box move-history">
         <p> Possible list of last X moves </p>
       </div>
@@ -64,8 +64,10 @@
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
           <% if current_user.id == @game.white_player %>
             <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
+            <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
           <% else %>
             <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
+            <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
           <% end %>
           <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
         <% end %>
