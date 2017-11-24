@@ -27,13 +27,18 @@
 }
 
 .chatbox {
-  height: flex;
+  height: 325px;
+  overflow: auto;
   padding-bottom: 20px;
 }
 
 .column {
   margin-left: auto;
   margin-right: auto;
+}
+
+label.control-label.text.optional {
+  font-size: 0;
 }
 
 .move-history {
