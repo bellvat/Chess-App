@@ -55,8 +55,12 @@
         <% if @completed_games.any? %>
           <% @completed_games.each do |game| %>
             <div class="indexgame">
-              <%if game.winner_user_id.present? && game.loser_user_id.present? %>
+              <% if game.winner_user_id.present? && game.loser_user_id.present? %>
                 <h5><%= game.winner.email %> won the game against <%= game.loser.email %></h5>
+              <% else %>
+                <% if game.white_player_user_id.present? && game.black_player_user_id.present? %>
+                  <h5>Stalemate between <%= game.white_player.email %> and <%= game.black_player.email %></h5>
+                <% end %>
               <% end %>
             </div>
           <% end %>

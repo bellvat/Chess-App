@@ -25,6 +25,7 @@ class PiecesController < ApplicationController
         king_opp.update_attributes(king_check: 1)
       end
     elsif king_opp.stalemate?
+      @game.update_attributes(state: "end")
       game_end = true
     end
     if game_end == false

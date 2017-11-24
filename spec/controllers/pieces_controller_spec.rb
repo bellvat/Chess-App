@@ -7,7 +7,10 @@ RSpec.describe PiecesController, type: :controller do
       current_user = FactoryGirl.create(:user, id: 1)
       sign_in current_user
       game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
-      pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 6, game_id: game.id, white: true
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, x_coord:5, y_coord: 8, user_id: 1, game_id: game.id, white:true)
+      pawn = FactoryGirl.create(:pawn, x_coord: 1, y_coord: 6, user_id: 1, game_id: game.id, white: true)
       post :update, params: {id: pawn.id, piece:{x_coord: 1, y_coord: 5}}
       expect(response).to have_http_status(200)
       pawn.reload
@@ -18,20 +21,14 @@ RSpec.describe PiecesController, type: :controller do
       current_user = FactoryGirl.create(:user, id: 1)
       sign_in current_user
       game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
-      pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 6, game_id: game.id, white: true
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, x_coord:5, y_coord: 8, user_id: 1, game_id: game.id, white:true)
+      pawn = FactoryGirl.create(:pawn, x_coord: 1, y_coord: 6, user_id: 1, game_id: game.id, white: true)
       post :update, params: {id: pawn.id, piece:{x_coord: 1, y_coord: 5}}
       expect(response).to have_http_status(200)
       game.reload
       expect(game.turn_user_id).to eq 2
-    end
-
-    it "should return success if correct player turn and move is valid" do
-      current_user = FactoryGirl.create(:user, id: 1)
-      sign_in current_user
-      game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
-      pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 6, game_id: game.id, white: true
-      post :update, params: {id: pawn.id, piece:{x_coord: 1, y_coord: 5}}
-      expect(response).to have_http_status(200)
     end
 
      it "should return error if player turn is incorrect" do
@@ -76,10 +73,11 @@ RSpec.describe PiecesController, type: :controller do
       current_user = FactoryGirl.create(:user, id: 2)
       sign_in current_user
       game = Game.create turn_user_id: 2, white_player_user_id: 1, black_player_user_id: 2
-      rook = game.pieces.find_by(name: "Rook_black")
-      rook.update_attributes(x_coord: 3, y_coord: 3)
-      bishop = game.pieces.find_by(name: "Bishop_white")
-      bishop.update_attributes(x_coord: 5, y_coord: 3)
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, x_coord:5, y_coord: 8, user_id: 1, game_id: game.id, white:true)
+      rook = FactoryGirl.create(:rook, x_coord:3, y_coord: 3, user_id: 2, game_id: game.id, white:false)
+      bishop = FactoryGirl.create(:bishop, x_coord:5, y_coord: 3, user_id: 1, game_id: game.id, white:true)
       post :update, params: {id:rook.id, piece:{x_coord: 5, y_coord: 3}}
       expect(response).to have_http_status(200)
       bishop.reload
@@ -101,9 +99,11 @@ RSpec.describe PiecesController, type: :controller do
       current_user = FactoryGirl.create(:user, id: 1)
       sign_in current_user
       game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
-      pawn = game.pieces.find_by(name: "Pawn_white")
-      bishop = game.pieces.find_by(name: "Bishop_black")
-      bishop.update_attributes(x_coord: 2, y_coord: 6)
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, x_coord:5, y_coord: 8, user_id: 1, game_id: game.id, white:true)
+      pawn = FactoryGirl.create(:pawn, x_coord:1, y_coord: 7, user_id: 1, game_id: game.id, white:true)
+      bishop = FactoryGirl.create(:bishop, x_coord:2, y_coord: 6, user_id: 2, game_id: game.id, white:false)
       post :update, params: {id:pawn.id, piece:{x_coord: 2, y_coord:6}}
       expect(response).to have_http_status(200)
     end
@@ -158,6 +158,20 @@ RSpec.describe PiecesController, type: :controller do
       black_king.reload
       expect(black_king.king_check).to eq 1
       expect(response).to have_http_status(200)
+    end
+
+    it "should return status 201 if opponent king is not in check but has no valide moves left (stalemate)" do
+      current_user = FactoryGirl.create(:user, id: 1)
+      sign_in current_user
+      game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:8, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king,user_id: 1,x_coord:6, y_coord: 2, game_id: game.id, white:true)
+      white_queen = FactoryGirl.create(:queen,user_id: 1,x_coord:7, y_coord: 4, game_id: game.id, white:true)
+      post :update, params: {id: white_queen.id, piece: {x_coord:7, y_coord:3 }}
+      expect(response).to have_http_status(201)
+      game.reload
+      expect(game.state).to eq "end"
     end
   end
 
