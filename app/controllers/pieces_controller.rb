@@ -24,6 +24,9 @@ class PiecesController < ApplicationController
         flash[:notice] = "#{king_opp.name} is in check!" #need to refresh to see
         king_opp.update_attributes(king_check: 1)
       end
+    elsif king_opp.stalemate?
+      @game.update_attributes(state: "end")
+      game_end = true
     end
     if game_end == false
       switch_turns
