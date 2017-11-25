@@ -1,60 +1,21 @@
-<script>
-    $( function() {
-
-
-      //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
-      $("td").addClass("droppable-square");
-      $( ".selectable-piece" ).draggable({
-        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        revert: "invalid",
-        containment: "document",
-        snap: ".document td",
-        snapTolerance: 20,
-        helper: "clone",
-        cursor: "move"
-      });
-      $( ".droppable-square").droppable({
-        accept: ".selectable-piece",
-        tolerance: "pointer",
-        classes: {
-          "ui-droppable-active": "ui-state-active",
-          "ui-droppable-hover": "ui-state-hover"
-        },
-
-        drop: function( event, ui ) {
-          console.log(ui.draggable.attr('id') + " moved to " + $(this).data("x-coord") + ", " + $(this).data("y-coord"));
-          const $newDroppableSquare = $(this)
-            $.ajax({
-            beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            },
-            type: "PATCH",
-            dataType: 'text',
-            url: "/pieces/" + ui.draggable.attr('id'),
-            data: {
-              piece: {
-                x_coord: $(this).data("x-coord"),
-                y_coord: $(this).data("y-coord"),
-              },
-            },
-            error:  function(){
-            },
-            success: function(){
-              $newDroppableSquare.append($(ui.draggable));
-            }
-          });
-      }
-    });
-
-    });
-</script>
-
 <div class="background">
   <div class="row">
     <div class="column">
       <div class="booyah-box chatbox">
-        <p> Possible chat box goes here </p>
+        <% @messages.each do |message| %>
+          <div class = "message-box">
+            <!-- NOTE: For now, I've left out the user email, as I can't think how to get this from Firebase. Would have to store everything on firebase -->
+            <!-- <p class = "text-muted"><%= message.user.email %></p> -->
+            <p><%= message.body %></p>
+          </div>
+        <% end %>
+
+        <%= simple_form_for @message, url: game_messages_path(@game) do |f| %>
+          <%= f.input :body, class: "enter-message-box", prompt: "Enter your message" %>
+          <div class="chatbutton"> <%= f.submit "Send", class: "float-right btn-sm btn-chat submit-message", remote: true %> </div>
+        <% end %>
       </div>
+
       <div class="booyah-box move-history">
         <p> Possible list of last X moves </p>
       </div>
@@ -81,7 +42,7 @@
 
     <div class="column">
       <div class="booyah-box captured-pieces">
-   
+
         <div class="captured-box">
           <% @game.pieces.where(captured: true, white: true).each do |piece| %>
             <%= image_tag piece.image, :class => "piece_cap" %>
@@ -92,20 +53,21 @@
         <br />
       </div>
         <div class="captured-box">
-          
+
           <% @game.pieces.where(captured: true, white: false).each do |piece| %>
             <%= image_tag piece.image, :class => "piece_cap" %>
           <% end %>
-        </div> 
+        </div>
       </div>
-    
 
       <% if @game.users.count > 1 %>
         <%= simple_form_for @game, url: forfeit_game_path(@game) do |f| %>
           <% if current_user.id == @game.white_player %>
             <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
+            <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
           <% else %>
             <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
+            <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
           <% end %>
           <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
         <% end %>
@@ -113,30 +75,121 @@
     </div>
   </div>
 
-  <% if @piece.pawn_promotion?(y_coord) %>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <h3 class="modal-title" id="myModalLabel">You've Been Promoted!</h3>
-          </div>
-          <div class="modal-body">
-            <h5> Choose the piece to be promoted to: </h5>
+  <% @pieces.each do |piece| %>
+    <% if piece.type == "Pawn" && piece.pawn_promotion? %>
+      <!-- Modal -->
+      <div class="modal fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog text-center" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <h3 class="modal-title text-center" id="myModalLabel">You've Been Promoted!</h3>
+            </div>
+            <div class="modal-body">
+              <h5 class="text-center"> Choose the piece to be promoted to: </h5>
               <br />
-              <%= simple_form_for @pieces do |f| %>
-                <%= f.submit "", :type => :image, :src => image_path("blackQueen.png"), class: "player-button" %>  
-                <%= f.submit "", :type => :image, :src => image_path("blackBishop.png"), class: "player-button" %>
-                <%= f.submit "", :type => :image, :src => image_path("blackKnight.png"), class: "player-button" %>
-                <%= f.submit "", :type => :image, :src => image_path("blackRook.png"), class: "player-button" %>
-              <% end %>
+              <div class="row text-center">
+              <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put do %>
+                <%= image_tag "Queen_black.png", class: "player-button" %> 
+              <% end %>  
+              <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put do %>
+                <%= image_tag "Bishop_black.png", class: "player-button" %> 
+              <% end %>  
+              <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put do %>
+                <%= image_tag "Knight_black.png", class: "player-button" %> 
+              <% end %>  
+              <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put do %>
+                <%= image_tag "Rook_black.png", class: "player-button" %> 
+              <% end %>  
+            </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>  
-
+    <% end %> 
+  <% end %> 
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+  var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
+  console.log(lastMessagePageShown);
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDUMKEQ7hnoKOhw4JzjKNylY2akSXyGsA4",
+    authDomain: "chess-space.firebaseapp.com",
+    databaseURL: "https://chess-space.firebaseio.com",
+    projectId: "chess-space",
+    storageBucket: "",
+    messagingSenderId: "503457861595"
+  };
+
+  firebase.initializeApp(config);
+
+  // Get a reference to the database service
+  var database = firebase.database();
+  var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
+  messageRef.on('value', function(snapshot) {
+    var values = snapshot.val();
+    var ids = Object.keys(values);
+    var lastId = ids[ids.length - 1];
+    var lastMessage = values[lastId];
+    if(lastMessagePageShown.id < lastMessage.id) {
+      $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
+    }
+  });
+</script>
+
+<script>
+  $( function() {
+    $(".submit-message").click(function() {
+      $(".enter-message-box").text("Enter your message");
+    });
+
+    //Ultimately, we'll have to assign droppable square based on piece rules and position of other pieces
+    $("td").addClass("droppable-square");
+    $( ".selectable-piece" ).draggable({
+      cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+      revert: "invalid",
+      containment: "document",
+      snap: ".document td",
+      snapTolerance: 20,
+      helper: "clone",
+      cursor: "move"
+    });
+    $( ".droppable-square").droppable({
+      accept: ".selectable-piece",
+      tolerance: "pointer",
+      classes: {
+        "ui-droppable-active": "ui-state-active",
+        "ui-droppable-hover": "ui-state-hover"
+      },
+
+      drop: function( event, ui ) {
+        const $newDroppableSquare = $(this)
+          $.ajax({
+          beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          type: "PATCH",
+          dataType: 'text',
+          url: "/pieces/" + ui.draggable.attr('id'),
+          data: {
+            piece: {
+              x_coord: $(this).data("x-coord"),
+              y_coord: $(this).data("y-coord")
+            },
+          },
+          error:  function(){
+          },
+          success: function(){
+            $newDroppableSquare.append($(ui.draggable));
+          }
+        });
+      }
+    });
+  });
+</script>
+>>>>>>> cff4be2c027aff80c60c5cbb8d2fe82e0573f189

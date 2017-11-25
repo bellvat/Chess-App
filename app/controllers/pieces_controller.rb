@@ -24,8 +24,11 @@ class PiecesController < ApplicationController
         flash[:notice] = "#{king_opp.name} is in check!" #need to refresh to see
         king_opp.update_attributes(king_check: 1)
       end
+    elsif king_opp.stalemate?
+      @game.update_attributes(state: "end")
+      game_end = true
     end
-    if game_end == false
+    if game_end == false && !(@piece.type == "Pawn" && @piece.pawn_promotion?)
       switch_turns
       render json: {}, status: 200
     else
@@ -76,7 +79,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id, type: ["Queen", "Bishop", "Knight", "Rook"])
   end
 
   def is_captured
@@ -112,25 +115,4 @@ class PiecesController < ApplicationController
       return true
     end
   end
-
-  def pawn_promotion?(y_coord)
-    pawn = @game.pieces.where(:type =>"Pawn").where(:user_id => @game.turn_user_id)[0]
-    if @piece.type == "Pawn" && ((y_coord == 8 && !white?) || (y_coord == 1 && white?))  #black pawn white baseline or white pawn black baseline
-     
-    # get input from player - queen, rook, bishop or knight?
-        if params[:commit] == "Queen"
-          pawn.update_attributes(type: "Queen") # update attribute to change type
-        elsif params[:commit] == "Bishop"
-          pawn.update_attributes(type: "Bishop") 
-        elsif params[:commit] == "Rook"
-          pawn.update_attributes(type: "Rook") 
-        elsif params[:commit] == "Knight"
-          pawn.update_attributes(type: "Knight") 
-         end
-    else
-      return false
-    end
-
-end
-
 end

@@ -31,4 +31,9 @@ class Pawn < Piece
     return false if other_piece.nil? || other_piece.move_number != 1
     return true
    end
+
+  def pawn_promotion?
+    pawn = game.pieces.where(:type =>"Pawn").where(:user_id => game.turn_user_id)[0]
+    (y_coord == 8 && !white?) || (y_coord == 1 && white?) #black pawn white baseline or white pawn black baseline
+  end
 end

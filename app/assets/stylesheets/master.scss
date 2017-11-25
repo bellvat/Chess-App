@@ -62,6 +62,14 @@
   text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
 }
 
+.btn-chat {
+  color: white;
+  background-color: #000000;
+  border-color: gray;
+  border-radius: 3px;
+  text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
+}
+
 .btn-newgame {
   color: white;
   background-color: #000000;
@@ -86,7 +94,7 @@
   box-shadow: 0px 1px 3px #2a2a2a;
 }
 
-.btn-black:hover, .btn-warning:hover {
+.btn-black:hover, .btn-chat:hover, .btn-warning:hover {
   background-color: #595959;
   color: white;
   border-color: white;
@@ -98,6 +106,10 @@
 
 .color-choice {
   margin-top: 50px;
+}
+
+div#myModal.modal.fade.show {
+  display: flex;
 }
 
 .frosty {
@@ -161,6 +173,17 @@ label.control-label.string.optional {
   flex-wrap: wrap;
   padding: 15px;
   justify-content: center;
+}
+
+@media (min-width: 576px) {
+.modal-dialog {
+    margin: auto;
+    max-width: 800px;
+  }
+}
+
+.modal-title {
+  margin: auto;
 }
 
 .navbar {
@@ -260,4 +283,17 @@ ul {
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 10px;
   padding: 20px 30px;
+}
+
+.message-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  background: rgba(153, 153, 153, 0.05);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  margin: 5px 0px;
+  padding: 5px 5px;
+  width: 300px; 
 }
