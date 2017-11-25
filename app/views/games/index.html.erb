@@ -16,10 +16,16 @@
                       <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                       <%= f.submit "Join as white player", class: "float right btn btn-secondary" %>
                     <% end %>
+                    <% if current_user.id == game.black_player_user_id %>
+                      <%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Are you sure you want to delete this game?"} %>
+                    <% end %>
                   <% else %>
                     <%= simple_form_for game, url: join_game_path(game) do |f| %>
                       <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                       <%= f.submit "Join as black player", class: "btn btn-inverse" %>
+                    <% end %>
+                    <% if current_user.id == game.white_player_user_id %>
+                      <%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Are you sure you want to delete this game?"} %>
                     <% end %>
                   <% end %>
               </div>
