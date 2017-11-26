@@ -108,6 +108,10 @@
   margin-top: 50px;
 }
 
+.delete {
+margin: 0 20px;
+}
+
 .frosty {
   background: rgba(0, 0, 0, 0.4);
   color: white;
@@ -150,6 +154,10 @@ img.about-image {
   display: block;
   margin-left: auto;
   margin-right: auto
+}
+
+.indexgame {
+  width: 250px;
 }
 
 .landing-buttons {
@@ -219,6 +227,8 @@ label.control-label.string.optional {
 }
 
 .section {
+  display: flex;
+  justify-content: space-between;
   background-color: #fff;
   border: 2px solid;
   border-radius: 10px;

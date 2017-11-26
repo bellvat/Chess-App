@@ -5,34 +5,35 @@
    <!-- UNMATCHED GAMES -->
     <div class="section">
       <h1 class="text-center">Join A Match</h1>
-        <ul class='game-list'>
+      
           <% if @unmatched_games.any? %>
             <% @unmatched_games.each do |game| %>
-              <div class="indexgame">
-                <li><h5><%= "Game No. #{game.id}" %></h5></li>
-                  <% if game.white_player_user_id.blank? %>
-                    <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                      <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                      <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                      <li><%= f.submit "Join as white player", class: "float right btn btn-secondary btn-sm" %></li>
-                    <% end %>
-                    <li><h5><%= "Opponent: #{game.black_player.email}" %></h5></li>
-                    <% if current_user.id == game.black_player_user_id %>
-                      <li><%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger btn-sm", :data => {:confirm => "Are you sure you want to delete this game?"} %></li>
-                    <% end %>
+              <div class="row indexgame">
+                <span class="column">
+                <h5 class="text-center"><%= "Game #{game.id}" %></h5>
+                  <% if game.white_player_user_id.blank? && current_user != game.white_player_user_id %>
+                      <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                      <h6 class="text-center"><%= "Opponent: #{game.black_player.email}" %></h5></span>
+                        <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                        <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                        <br />
+                        <span class="column"><%= f.submit "Join as white player", class: "btn btn-secondary btn-sm" %></span>
+                      <% end %>
+                    
                   <% else %>
-                    <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                      <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
-                      <li><%= f.submit "Join as black player", class: "btn btn-inverse btn-sm" %></li>
-                    <% end %>
-                    <li><h5><%= "Opponent: #{game.white_player.email}" %></h5></li>
-                    <% if current_user.id == game.white_player_user_id %>
-                      <%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger btn-sm", :data => {:confirm => "Are you sure you want to delete this game?"} %>
-                    <% end %>
+                      <%= simple_form_for game, url: join_game_path(game) do |f| %>
+                       <h6 class="text-center"><%= "Opponent: #{game.white_player.email}" %></h6>
+                        <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+                         <span class="row text-center"><%= f.submit "Join as black player", class: "btn btn-inverse btn-sm" %>
+                      <% end %>
+                  
+                    
+                    <% if ((current_user.id == game.white_player_user_id) && game.black_player_user_id.blank?) || ((current_user.id == game.black_player_user_id) && game.white_player_user_id.blank?) %>
+                      <%= link_to "Delete", game_path(game), :method => :delete, :class => "delete btn btn-danger btn-sm", :data => {:confirm => "Are you sure you want to delete this game?"} %>
+                    <% end %></span>
                   <% end %>
               </div>
             <% end %>
-        </ul>
           <%else%>
             <h3 class="text-center">No games to join :(</h3>
           <%end%>
