@@ -174,17 +174,4 @@ RSpec.describe PiecesController, type: :controller do
       expect(game.state).to eq "end"
     end
   end
-
-# ------------ Pawn Promotion -------------------------
-
-describe "#pawn_promotion?" do
- it "should offer player choice of promotion when pawn moved to final row" do
-      game = Game.create
-      pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 2, game_id: game.id, white: true
-      expect(pawn.update_attributes(2, 1)).to redirect_to(promotion_choice_piece_path(black_pawn))
-    end
-
-
-end
-
 end

@@ -36,4 +36,9 @@ class Pawn < Piece
     pawn = game.pieces.where(:type =>"Pawn").where(:user_id => game.turn_user_id)[0]
     (y_coord == 8 && !white?) || (y_coord == 1 && white?) #black pawn white baseline or white pawn black baseline
   end
+
+  def promote_pawn_to_Queen
+    return false unless pawn_promotion?
+    self.update_attributes(type: "Queen")
+  end
 end
