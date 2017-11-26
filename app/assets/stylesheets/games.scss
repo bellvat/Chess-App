@@ -27,6 +27,7 @@
 }
 
 .chatbox {
+  display: flex;
   height: 325px;
   overflow: auto;
   padding-bottom: 20px;
@@ -66,12 +67,29 @@ td {
   background: white;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px) and (min-width:600px) {
+  .board { 
+    display: flex; 
+    order: 1; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  .leftside {
+    display: flex; 
+    order: 2;
+    height: auto;
+  }
+  .move-history {
+    display: none;
+  }
+  .rightside { 
+    display: flex; 
+    order: 3; 
+  }
   td {
     width: 50px;
     height: 50px;
   }
-
   img {
     width: 45px;
     height: 45px;
@@ -79,13 +97,26 @@ td {
 }
 
 @media (max-width: 600px) {
+  .board { 
+    display: flex; 
+    order: 1; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  .leftside {
+    display: flex; 
+    order: 2; 
+    justify-content: space-between;
+  }
+  .rightside { 
+    display: none; 
+  }
   td {
     width: 40px;
     height: 40px;
   }
-
   img {
     width: 35px;
     height: 35px;
-  }
+  }  
 }
