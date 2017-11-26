@@ -279,6 +279,7 @@ ul {
   width: 300px; 
 }
 
+
 @media (max-width: 1024px) and (min-width:600px) {
   .btn-warning {
     margin-left: auto;
@@ -315,4 +316,18 @@ ul {
   .tools {
     display: none;
   }
+}
+
+.game-list {
+  text-align: left;
+  margin-top: 1em;
+  display: inline;
+}
+
+.game-list li {
+  display: inline;
+  float: left;
+  padding-bottom: 5px;
+
+
 }

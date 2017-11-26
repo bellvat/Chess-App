@@ -53,17 +53,25 @@ class King < Piece
 
   def any_moves_left?(threat = nil, obstruction_array = nil)
     possible_coords = []
+    king_surrounding = []
     (1..8).each do |num1|
       (1..8).each do |num2|
         if valid_move?(num1,num2) == true && contains_own_piece?(num1,num2) == false && check?(num1, num2).blank?
           possible_coords << [num1, num2]
         end
+        if valid_move?(num1,num2) == true && contains_own_piece?(num1,num2)
+          king_surrounding << [num1, num2]
+        end
       end
     end
     if threat.present?
       return true if (possible_coords - obstruction_array).count >= 1
+    elsif move_number == 0 && king_surrounding.count == 5
+      return true
+    elsif possible_coords.any?
+      return true
     else
-      possible_coords.any?
+      return false
     end
   end
 
