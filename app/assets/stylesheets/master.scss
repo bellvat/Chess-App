@@ -108,9 +108,7 @@
   margin-top: 50px;
 }
 
-.delete {
-margin: 0 20px;
-}
+
 
 .frosty {
   background: rgba(0, 0, 0, 0.4);
@@ -154,10 +152,6 @@ img.about-image {
   display: block;
   margin-left: auto;
   margin-right: auto
-}
-
-.indexgame {
-  width: 250px;
 }
 
 .landing-buttons {
@@ -228,7 +222,8 @@ label.control-label.string.optional {
 
 .section {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: #fff;
   border: 2px solid;
   border-radius: 10px;
@@ -237,6 +232,11 @@ label.control-label.string.optional {
   margin-bottom: 20px;
   padding: 15px 20px 0px;
   min-width: 800px;
+}
+
+.turn {
+  margin: 3px auto;
+  justify-content: space-around;
 }
 
 ul {
@@ -266,6 +266,7 @@ ul {
   color: #fff !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
   -webkit-font-smoothing: antialiased;
+  margin: 0 20px;
 }
 
 .indexgame {
@@ -277,7 +278,8 @@ ul {
   border-radius: 10px;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 10px;
-  padding: 20px 30px;
+  padding: 20px;
+  width: 390px;
 }
 
 .message-box {
@@ -293,18 +295,5 @@ ul {
   width: 300px; 
 }
 
-.game-list {
-  text-align: left;
-  margin-top: 1em;
-  display: inline;
-}
-
-.game-list li {
-  display: inline;
-  float: left;
-  padding-bottom: 5px;
-
-
-}
 
 
