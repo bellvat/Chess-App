@@ -1,15 +1,17 @@
-<div class="booyah-box">
-  <div class="row">
-    <div class="col-4">
-      <%= image_tag 'user.png' %>
-    </div>
-
-    <div class="col-8">
-      <h1><%= @user.email %></h1>
-      <br /><br />
-      <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
-      <h4><%= @user.games.count %> total games</h4>
+<div class="background">
+  <br />
+  <div class="booyah-box col-10 offset-1">
+    <br />
+    <div class="row">
+      <div class="col-4">
+        <%= image_tag 'user.png' %>
+      </div>
+      <div class="col-8">
+        <h1 class="username"><%= @user.email %></h1>
+        <h4 class="member-since">Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h4>
+        <h4 class="game-count" ><%= @user.games.count %> total games</h4>
+      </div>
     </div>
   </div>
-  <div class="clear"></div>
+  <br />
 </div>
