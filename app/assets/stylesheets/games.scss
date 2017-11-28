@@ -73,7 +73,7 @@ td {
   opacity: 1;
 }
 
-@media (max-width: 1024px) and (min-width:600px) {
+@media (max-width: 1024px) and (min-width:700px) {
   .board { 
     display: flex; 
     order: 1; 
@@ -83,13 +83,33 @@ td {
   .leftside {
     display: flex; 
     order: 2;
+    width: 200px;
     height: auto;
   }
   .move-history {
     display: none;
   }
+  .piece_cap {
+    width: 45px;
+    height: 45px;
+  }
+  .captured-pieces {
+    height: 100px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
   .rightside { 
+    align-items: flex-end;
     display: flex; 
+    flex-direction: column;
+    flex-grow: 3;
+    height: 100px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
     order: 3; 
   }
   td {
@@ -102,7 +122,7 @@ td {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .board { 
     display: flex; 
     order: 1; 
