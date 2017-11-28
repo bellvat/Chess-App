@@ -108,6 +108,8 @@
   margin-top: 50px;
 }
 
+
+
 .frosty {
   background: rgba(0, 0, 0, 0.4);
   color: white;
@@ -215,6 +217,9 @@ label.control-label.string.optional {
 }
 
 .section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: #fff;
   border: 2px solid;
   border-radius: 10px;
@@ -223,6 +228,11 @@ label.control-label.string.optional {
   margin-bottom: 20px;
   padding: 15px 20px 0px;
   min-width: 800px;
+}
+
+.turn {
+  margin: 3px auto;
+  justify-content: space-around;
 }
 
 ul {
@@ -252,6 +262,7 @@ ul {
   color: #fff !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
   -webkit-font-smoothing: antialiased;
+  margin: 0 20px;
 }
 
 .indexgame {
@@ -263,7 +274,8 @@ ul {
   border-radius: 10px;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 10px;
-  padding: 20px 30px;
+  padding: 20px;
+  width: 390px;
 }
 
 .message-box {
@@ -278,7 +290,6 @@ ul {
   padding: 5px 5px;
   width: 300px; 
 }
-
 
 @media (max-width: 1024px) and (min-width:600px) {
   .btn-warning {
