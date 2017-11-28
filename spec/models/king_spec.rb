@@ -34,8 +34,9 @@ RSpec.describe King, type: :model do
    end
 
    it "should return false to move two squares forward" do
+    current_user = FactoryGirl.create(:user, id: 1)
     game = Game.create
-    king = FactoryGirl.create :king, x_coord: 5, y_coord: 5, game_id: game.id
+    king = FactoryGirl.create :king, x_coord: 5, y_coord: 5, game_id: game.id, user_id: 1
    expect(king.valid_move?(7, 5)).to eq(false)
    end
 
@@ -71,6 +72,7 @@ RSpec.describe King, type: :model do
 
  describe "#find_threat_and_determine_checkmate" do
    it "should return true if checkmate is true" do
+     current_user = FactoryGirl.create(:user, id: 1)
      game = Game.create turn_user_id: 1
      black_king = game.pieces.find_by(name:"King_black")
      black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 1)
@@ -90,6 +92,7 @@ RSpec.describe King, type: :model do
 
  describe "#check_mate?" do
    it "should return false if the king has valid_moves left" do
+     current_user = FactoryGirl.create(:user, id: 1)
      game = Game.create turn_user_id: 1
      black_king = game.pieces.find_by(name:"King_black")
      black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 1)
@@ -118,6 +121,7 @@ RSpec.describe King, type: :model do
    end
 
    it "should return true if the king has no valid moves, no piece can help block and king cannot capture threat" do
+     current_user = FactoryGirl.create(:user, id: 1)
      game = Game.create turn_user_id: 1
      black_king = game.pieces.find_by(name:"King_black")
      black_king.update_attributes(x_coord:1, y_coord: 4, user_id: 1)
