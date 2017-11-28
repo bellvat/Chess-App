@@ -193,11 +193,6 @@ label.control-label.string.optional {
   background: image_url('gun_metal.png');
 }
 
-.navbar-brand {
-  font-size: 25px;
-  font-weight: 700;
-}
-
 .navbar-inverse .navbar-brand:hover {
   color: lightgray;
 }
@@ -216,9 +211,10 @@ label.control-label.string.optional {
   color: lightgray;
 }
 
-.navbar-inverse .navbar-brand, .navbar-inverse .navbar-toggler {
+.navbar-inverse .navbar-brand {
   font-family: 'didonesque-roman';
   font-size: 67px;
+  font-weight: 700;
   color: white;
   padding: 0px 20px;
 }
@@ -296,4 +292,57 @@ ul {
   margin: 5px 0px;
   padding: 5px 5px;
   width: 300px; 
+}
+
+
+@media (max-width: 1024px) and (min-width:600px) {
+  .btn-warning {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .btn-warning {
+    margin: 15px auto;
+    font-size: 25px;
+    white-space: normal;
+  }
+  .col-6 {
+    max-width: 75%
+  }
+  input.player-button {
+    margin: 0px 65px;
+  }
+  .navbar-inverse .navbar-brand {
+    font-size: 40px;
+    line-height: .7em;
+    margin-top: 20px;
+  }
+  .offset-3 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tools {
+    display: none;
+  }
+}
+
+.game-list {
+  text-align: left;
+  margin-top: 1em;
+  display: inline;
+}
+
+.game-list li {
+  display: inline;
+  float: left;
+  padding-bottom: 5px;
+
+
 }
