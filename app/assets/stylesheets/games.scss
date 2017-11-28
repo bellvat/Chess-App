@@ -77,20 +77,40 @@ td {
   .board { 
     display: flex; 
     order: 1; 
-    margin-left: 25%; 
-    margin-right: 25%;
+    margin-left: auto; 
+    margin-right: auto;
   }
   .leftside {
     display: flex; 
-    order: 3;
+    order: 2;
+    width: 200px;
     height: auto;
   }
   .move-history {
     display: none;
   }
+  .piece_cap {
+    width: 45px;
+    height: 45px;
+  }
+  .captured-pieces {
+    height: 100px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
   .rightside { 
+    align-items: flex-end;
     display: flex; 
-    order: 4; 
+    flex-direction: column;
+    flex-grow: 3;
+    height: 100px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+    order: 3; 
   }
   td {
     width: 50px;
