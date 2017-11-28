@@ -92,24 +92,24 @@
               <br />
               <div class="row text-center">
               <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put, async: true do %>
-                <%= image_tag "Queen_black.png", class: "player-button" %> 
-              <% end %>  
+                <%= image_tag "Queen_black.png", class: "player-button", id: "closing"%>
+              <% end %>
               <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put, async: true do %>
-                <%= image_tag "Bishop_black.png", class: "player-button" %> 
-              <% end %>  
+                <%= image_tag "Bishop_black.png", class: "player-button" %>
+              <% end %>
               <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put, async: true do %>
-                <%= image_tag "Knight_black.png", class: "player-button" %> 
-              <% end %>  
+                <%= image_tag "Knight_black.png", class: "player-button" %>
+              <% end %>
               <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put, async: true do %>
-                <%= image_tag "Rook_black.png", class: "player-button" %> 
-              <% end %>  
+                <%= image_tag "Rook_black.png", class: "player-button" %>
+              <% end %>
             </div>
             </div>
           </div>
         </div>
       </div>
-    <% end %> 
-  <% end %> 
+    <% end %>
+  <% end %>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>

@@ -6,7 +6,7 @@ class PiecesController < ApplicationController
     is_captured
     if params[:piece][:type] == "Queen" || params[:piece][:type] == "Bishop" || params[:piece][:type] == "Knight" || params[:piece][:type] == "Rook"
       @piece.update_attributes(type: params[:piece][:type])
-    else  
+    else
       @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
     end
 
@@ -67,8 +67,8 @@ class PiecesController < ApplicationController
     return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) &&
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (king_not_moved_to_check_or_king_not_kept_in_check? == true) && 
-    @piece.pawn_promotion?
+    (king_not_moved_to_check_or_king_not_kept_in_check? == true) ||
+    @piece.type == "Pawn" && @piece.pawn_promotion?
     render json: {}, status: 422
   end
 
@@ -84,7 +84,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id, :type)
   end
 
   def is_captured
