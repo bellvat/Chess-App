@@ -104,6 +104,20 @@
       $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
     }
   });
+
+  var moveRef = database.ref('games/' + <%= @game.id %> + '/pieces');
+  moveRef.on('value', function(snapshot) {
+    var values = snapshot.val();
+    var ids = Object.keys(values);
+    var lastId = ids[ids.length - 1];
+    var lastMove = values[lastId];
+    // If update was done in the last 2 seconds (just to deal with version control, as we'll all have different game #9s, for example)
+    // Or, in Tristen's case, game #24648795678349
+    // And we'll all be submitting locally
+    if(lastMove.timestamp > <%= Time.now.to_i - 2 %>) {
+      location.reload();
+    }
+  });
 </script>
 
 <script>
