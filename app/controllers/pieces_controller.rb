@@ -4,7 +4,10 @@ class PiecesController < ApplicationController
   def update
     @game = @piece.game
     is_captured
-    @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+    if @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    else
+      @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+    end
 
     #Below king_opp mean the opponent's player's king. After the player's turn,
     #we'd like to know if the opponent king is in check, and if in check, does
