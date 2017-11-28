@@ -113,10 +113,10 @@ class Piece < ApplicationRecord
       if en_passant?(x_end, y_end)
         game.pieces.where(y_coord: y_coord, x_coord: x_end, type: "Pawn").first
       else
-        game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
+        game.pieces.find_by(x_coord: x_end, y_coord: y_end)
       end
     else
-      game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
+      game.pieces.where(x_coord: x_end, y_coord: y_end).first
     end
   end
 
@@ -153,6 +153,11 @@ class Piece < ApplicationRecord
       game.update_attributes(loser_user_id: game.black_player_user_id)
     else
       game.update_attributes(loser_user_id: game.white_player_user_id)
+    end
+  end
+
+end
+r_user_id)
     end
   end
 
