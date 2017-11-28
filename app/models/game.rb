@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   has_many :users, through: :user_games
   has_many :pieces
   has_many :messages
+  has_many :moves, through: :pieces  
 
   after_create :lay_out_board!
 
