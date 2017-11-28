@@ -28,6 +28,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  width: 100%;
   min-height: 600px;
   height: auto;
 }
@@ -108,7 +109,9 @@
   margin-top: 50px;
 }
 
-
+#flex-content-container {
+  width: 100%;
+}
 
 .frosty {
   background: rgba(0, 0, 0, 0.4);
@@ -298,7 +301,7 @@ ul {
   width: 300px; 
 }
 
-@media (max-width: 1024px) and (min-width:600px) {
+@media (max-width: 1024px) and (min-width:700px) {
   .btn-warning {
     margin-left: auto;
     margin-right: auto;
@@ -310,9 +313,16 @@ ul {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .avatar {
     max-width: 25%;
+  }
+  .btn-newgame {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
   }
   .btn-warning {
     margin: 15px auto;
@@ -324,6 +334,10 @@ ul {
   }
   .game-count {
     font-size: 20px;
+  }
+  .indexgame {
+    width: 325px;
+    padding: 10px;    
   }
   input.player-button {
     margin: 0px 65px;
@@ -339,6 +353,9 @@ ul {
   .offset-3 {
     margin-left: auto;
     margin-right: auto;
+  }
+  .section {
+    min-width: 350px;
   }
   .tools {
     display: none;
