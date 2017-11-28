@@ -12,13 +12,13 @@ class Pawn < Piece
       new_y_coord == y_coord + 1
     elsif (x_distance == y_distance) && white? && opposition_piece?(new_x_coord, new_y_coord, id, color)
       new_y_coord == y_coord - 1
-    elsif y_coord == 2 && black? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif y_coord == 2 && black? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       x_distance == 0 && (new_y_coord == 3 || new_y_coord == 4)
-    elsif y_coord == 7 && white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif y_coord == 7 && white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       x_distance == 0 && (new_y_coord == 6 || new_y_coord == 5)
-    elsif !white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif !white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       (x_distance == 0) && (new_y_coord == (y_coord + 1))
-    elsif white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       (x_distance == 0) && (new_y_coord == (y_coord - 1))
     else
       false

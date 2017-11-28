@@ -84,7 +84,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id, :type => [:type] )
+    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id)
   end
 
   def is_captured
