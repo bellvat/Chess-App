@@ -91,16 +91,16 @@
               <h5 class="text-center"> Choose the piece to be promoted to: </h5>
               <br />
               <div class="row text-center">
-              <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put do %>
+              <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put, async: true do %>
                 <%= image_tag "Queen_black.png", class: "player-button" %> 
               <% end %>  
-              <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put do %>
+              <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put, async: true do %>
                 <%= image_tag "Bishop_black.png", class: "player-button" %> 
               <% end %>  
-              <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put do %>
+              <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put, async: true do %>
                 <%= image_tag "Knight_black.png", class: "player-button" %> 
               <% end %>  
-              <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put do %>
+              <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put, async: true do %>
                 <%= image_tag "Rook_black.png", class: "player-button" %> 
               <% end %>  
             </div>
