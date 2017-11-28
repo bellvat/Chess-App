@@ -73,16 +73,16 @@ td {
   opacity: 1;
 }
 
-@media (max-width: 1024px) and (min-width:600px) {
+@media (max-width: 1024px) and (min-width:700px) {
   .board { 
     display: flex; 
     order: 1; 
-    margin-left: auto; 
-    margin-right: auto;
+    margin-left: 25%; 
+    margin-right: 25%;
   }
   .leftside {
     display: flex; 
-    order: 2;
+    order: 3;
     height: auto;
   }
   .move-history {
@@ -90,7 +90,7 @@ td {
   }
   .rightside { 
     display: flex; 
-    order: 3; 
+    order: 4; 
   }
   td {
     width: 50px;
@@ -102,7 +102,7 @@ td {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .board { 
     display: flex; 
     order: 1; 
