@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20171128211929) do
     t.string "name"
     t.integer "loser_user_id"
     t.string "state"
+    t.index ["name"], name: "index_games_on_name"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -57,10 +58,10 @@ ActiveRecord::Schema.define(version: 20171128211929) do
     t.integer "y_coord"
     t.integer "game_id"
     t.integer "user_id"
-    t.boolean "captured"
+    t.string "type"
+    t.boolean "captured", default: false, null: false
     t.integer "move_number", default: 0
     t.integer "king_check", default: 0
-    t.string "type"
   end
 
   create_table "user_games", force: :cascade do |t|
