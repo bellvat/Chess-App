@@ -26,11 +26,11 @@
   width: 300px;
 }
 
-.chatbox {
-  display: flex;
+.booyah-box.chatbox {
+  flex-direction: column;
   height: 325px;
   overflow: auto;
-  padding-bottom: 20px;
+  padding: 10px;
 }
 
 .column {
@@ -131,13 +131,16 @@ td {
   }
   .booyah-box.chatbox {
     width: 350px;
-    height: auto;
-    padding: 5px;
   }
   .leftside {
     display: flex; 
     order: 2; 
     justify-content: space-between;
+  }
+  .message-box {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .move-history {
     display: none;
@@ -146,8 +149,9 @@ td {
     display: none; 
   }
   textarea#message_body {
-    width: 330px;
-    margin-left: 5px;
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
   td {
     width: 40px;
