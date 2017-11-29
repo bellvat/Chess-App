@@ -1,6 +1,7 @@
 class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user, required: false
+  after_update :send_to_firebase
 
   #def piece_belongs_to_opponent (piece)
   #  return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
@@ -113,10 +114,10 @@ class Piece < ApplicationRecord
       if en_passant?(x_end, y_end)
         game.pieces.where(y_coord: y_coord, x_coord: x_end, type: "Pawn").first
       else
-        game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
+        game.pieces.find_by(x_coord: x_end, y_coord: y_end)
       end
     else
-      game.pieces.find_by(x_coord: x_end, y_coord: y_end, captured: false)
+      game.pieces.where(x_coord: x_end, y_coord: y_end).first
     end
   end
 
@@ -156,6 +157,11 @@ class Piece < ApplicationRecord
     end
   end
 
+  def send_to_firebase
+    FIREBASE.push("games/" + self.game.id.to_s + "/pieces/", { id: self.id, x_coord: self.x_coord, y_coord: self.y_coord, game_id: self.game_id, timestamp: Time.now.to_i, '.priority': 1 })
+  end
+
+end
   def name
     "#{self.type}_#{self.white ? 'white' : 'black' }"
   end

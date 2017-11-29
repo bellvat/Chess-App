@@ -28,6 +28,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  width: 100%;
   min-height: 600px;
   height: auto;
 }
@@ -108,8 +109,8 @@
   margin-top: 50px;
 }
 
-div#myModal.modal.fade.show {
-  display: flex;
+#flex-content-container {
+  width: 100%;
 }
 
 .frosty {
@@ -121,7 +122,10 @@ div#myModal.modal.fade.show {
   margin-left: auto;
   margin-right: auto;
   padding: 30px;
+}
 
+.game-count {
+  margin-bottom: 20px;
 }
 
 .help-block {
@@ -182,8 +186,8 @@ label.control-label.string.optional {
   }
 }
 
-.modal-title {
-  margin: auto;
+.member-since {
+  margin-top: 30px;
 }
 
 .navbar {
@@ -230,6 +234,9 @@ label.control-label.string.optional {
 }
 
 .section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: #fff;
   border: 2px solid;
   border-radius: 10px;
@@ -238,6 +245,11 @@ label.control-label.string.optional {
   margin-bottom: 20px;
   padding: 15px 20px 0px;
   min-width: 800px;
+}
+
+.turn {
+  margin: 3px auto;
+  justify-content: space-around;
 }
 
 ul {
@@ -267,6 +279,7 @@ ul {
   color: #fff !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.56);
   -webkit-font-smoothing: antialiased;
+  margin: 0 20px;
 }
 
 .indexgame {
@@ -278,7 +291,8 @@ ul {
   border-radius: 10px;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 10px;
-  padding: 20px 30px;
+  padding: 20px;
+  width: 390px;
 }
 
 .message-box {
@@ -291,11 +305,10 @@ ul {
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 5px 0px;
   padding: 5px 5px;
-  width: 300px; 
+  width: 300px;
 }
 
-
-@media (max-width: 1024px) and (min-width:600px) {
+@media (max-width: 1024px) and (min-width:700px) {
   .btn-warning {
     margin-left: auto;
     margin-right: auto;
@@ -307,7 +320,17 @@ ul {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+  .avatar {
+    max-width: 25%;
+  }
+  .btn-newgame {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+  }
   .btn-warning {
     margin: 15px auto;
     font-size: 25px;
@@ -315,6 +338,13 @@ ul {
   }
   .col-6 {
     max-width: 75%
+  }
+  .game-count {
+    font-size: 20px;
+  }
+  .indexgame {
+    width: 325px;
+    padding: 10px;
   }
   input.player-button {
     margin: 0px 65px;
@@ -324,25 +354,20 @@ ul {
     line-height: .7em;
     margin-top: 20px;
   }
+  .member-since {
+    font-size: 20px;
+  }
   .offset-3 {
     margin-left: auto;
     margin-right: auto;
   }
+  .section {
+    min-width: 350px;
+  }
   .tools {
     display: none;
   }
-}
-
-.game-list {
-  text-align: left;
-  margin-top: 1em;
-  display: inline;
-}
-
-.game-list li {
-  display: inline;
-  float: left;
-  padding-bottom: 5px;
-
-
+  .username {
+    font-size: 20px;
+  }
 }
