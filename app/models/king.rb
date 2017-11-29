@@ -13,9 +13,8 @@ class King < Piece
   def check?(x_coord, y_coord, id = nil, color = nil)
     game.pieces.each do | f |
       if f.user_id != self.user_id && f.x_coord != nil
-        if f.valid_move?(x_coord, y_coord) == true && f.is_obstructed(x_coord, y_coord) == false
+        if f.valid_move?(x_coord, y_coord, id, color) == true && f.is_obstructed(x_coord, y_coord) == false
           return f
-          flash[:alert] = "Alerting you to the monkey on your car!"
           break
         end
       end
@@ -69,6 +68,7 @@ class King < Piece
     else
       @rook_for_castling = self.game.pieces.where(type: "Rook", user_id: self.user.id, x_coord: 1).first
     end
+    return false if @rook_for_castling.nil?
     if !@rook_for_castling.nil?
       return false unless @rook_for_castling.move_number == 0
       return false if is_obstructed(@rook_for_castling.x_coord, @rook_for_castling.y_coord)
