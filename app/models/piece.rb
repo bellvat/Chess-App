@@ -161,7 +161,7 @@ class Piece < ApplicationRecord
     FIREBASE.push("games/" + self.game.id.to_s + "/pieces/", { id: self.id, x_coord: self.x_coord, y_coord: self.y_coord, game_id: self.game_id, timestamp: Time.now.to_i, '.priority': 1 })
   end
 
-end
+
   def name
     "#{self.type}_#{self.white ? 'white' : 'black' }"
   end
