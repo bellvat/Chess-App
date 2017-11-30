@@ -57,19 +57,19 @@
             <div class="row turn">
               <% if current_user && (current_user.id == game.white_player_user_id || current_user.id == game.black_player_user_id)%>
                  <% if game.turn_user_id == current_user.id %>
-                  <%= link_to 'Your Turn!', game_path(game, id: game.id), :class => 'btn btn-success join-game-link' %>
+                  <%= link_to 'Your Turn!', game_path(game, id: game.id), :class => 'btn btn-success' %>
                 <% else %>
-                  <%= link_to "Your Opponent's Turn", game_path(game, id: game.id), :class => 'btn btn-info join-game-link' %>
+                  <%= link_to "Your Opponent's Turn", '', :class => 'btn btn-info' %>
                 <% end %>
               <% else %>
-                <%= link_to 'Watch Game', game_path(game, id: game.id), :class => 'btn btn-success join-game-link' %>
+                <%= link_to 'Watch Game', game_path(game, id: game.id), :class => 'btn btn-success' %>
               <% end %>
               <%= link_to "Delete", game_path(game), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Are you sure you want to delete this game?"} %>
               </div>
             </div>
           <% end %>
         <% else %>
-          <h3 class="text-center">No games in play :(</h3>
+         <h3 class="text-center">No games in play :(</h3>
         <% end %>
       </div>
   </div>
