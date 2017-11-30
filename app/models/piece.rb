@@ -165,4 +165,34 @@ class Piece < ApplicationRecord
     #piece.update_attributes(x_coord, x_end, y_coord, y_end) to display in show page
   end
 
+  private
+
+  def verify_valid_move
+    return if valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, id, white == true) &&
+    (is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (king_not_moved_to_check_or_king_not_kept_in_check? == true)
+    render json: {}, status: 422
+  end
+
+  def verify_player_turn
+    return if correct_turn? &&
+    ((game.white_player_user_id == current_user.id && white?)) ||
+    ((game.black_player_user_id == current_user.id && black?))
+    render json: {}, status: 422
+  end
+
+  def correct_turn?
+    game.turn_user_id == current_user.id
+  end
+
+  def is_captured
+    capture_piece = find_capture_piece(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    if !capture_piece.nil?
+      remove_piece(capture_piece)
+    end
+  end
+
+
+
 end

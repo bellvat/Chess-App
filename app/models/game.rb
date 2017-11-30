@@ -87,4 +87,28 @@ class Game < ApplicationRecord
   def loser
     User.find_by_id(loser_user_id)
   end
+
+  private
+
+  def verify_two_players
+    return if black_player_user_id && white_player_user_id
+    render json: {}, status: 422
+  end
+
+  def switch_turns
+    if white_player_user_id == turn_user_id
+      update_attributes(turn_user_id:black_player_user_id)
+    elsif black_player_user_id == turn_user_id
+      update_attributes(turn_user_id:white_player_user_id)
+    end
+  end
+
+  def forfeit
+    if current_user.id == white_player_user_id
+      update_attributes(winner_user_id: black_player_user_id, loser_user_id: white_player_user_id)
+    else
+      update_attributes(winner_user_id: white_player_user_id, loser_user_id: black_player_user_id)
+    end
+    redirect_to games_path
+  end
 end

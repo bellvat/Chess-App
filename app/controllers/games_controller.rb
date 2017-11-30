@@ -42,18 +42,6 @@ class GamesController < ApplicationController
     @game.update_attributes(game_params)
     @game.users << current_user
     redirect_to game_path(@game)
-
-  end
-
-
-  def forfeit
-    @game = Game.find_by_id(params[:id])
-    if current_user.id == @game.white_player_user_id
-      @game.update_attributes(winner_user_id: @game.black_player_user_id, loser_user_id: @game.white_player_user_id)
-    else
-      @game.update_attributes(winner_user_id: @game.white_player_user_id, loser_user_id: @game.black_player_user_id)
-    end
-    redirect_to games_path
   end
   
   def destroy
