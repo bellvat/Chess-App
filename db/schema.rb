@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 20171128211929) do
     t.integer "y_coord"
     t.integer "game_id"
     t.integer "user_id"
+    t.integer "move_number", default: 0
     t.string "type"
     t.boolean "captured", default: false, null: false
-    t.integer "move_number", default: 0
     t.integer "king_check", default: 0
   end
 
