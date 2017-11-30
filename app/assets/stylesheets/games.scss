@@ -8,9 +8,17 @@
 }
 
 .board {
-  margin: 20px auto; /* if just board w/o chat boxes, use margin:20px auto; */
+  margin: 20px auto; 
   border-collapse: collapse;
   border: 15px solid #595959;
+}
+
+.booyah-box.chatbox {
+  flex-direction: column;
+  width: 300px;
+  height: 325px;
+  overflow: auto;
+  padding: 10px;
 }
 
 .captured-box {
@@ -24,13 +32,6 @@
   justify-content: space-between;
   height: 600px;
   width: 300px;
-}
-
-.booyah-box.chatbox {
-  flex-direction: column;
-  height: 325px;
-  overflow: auto;
-  padding: 10px;
 }
 
 .column {

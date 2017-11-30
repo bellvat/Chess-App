@@ -71,6 +71,12 @@
   text-shadow: rgba(0, 0, 0, 0.10) 1px 1px;
 }
 
+.btn-info, .btn-info:hover {
+  background-color: #cccccc;
+  color: black;
+  border-color: #bfbfbf;
+}
+
 .btn-newgame {
   color: white;
   background-color: #000000;
@@ -357,6 +363,9 @@ ul {
   }
   .section {
     min-width: 350px;
+  }
+  .spacer {
+    width: 100%;
   }
   .tools {
     display: none;
