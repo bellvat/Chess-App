@@ -305,7 +305,7 @@ ul {
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
   margin: 5px 0px;
   padding: 5px 5px;
-  width: 300px; 
+  width: 300px;
 }
 
 @media (max-width: 1024px) and (min-width:700px) {
@@ -344,7 +344,7 @@ ul {
   }
   .indexgame {
     width: 325px;
-    padding: 10px;    
+    padding: 10px;
   }
   input.player-button {
     margin: 0px 65px;
@@ -372,5 +372,8 @@ ul {
   }
   .username {
     font-size: 20px;
+  }
+  #result {
+    height: 15px
   }
 }
