@@ -1,7 +1,122 @@
 class Piece < ApplicationRecord
+  # shared functionality for all pieces goes here
   belongs_to :game
   belongs_to :user, required: false
   after_update :send_to_firebase
+
+
+
+  def can_move(params)
+    #return false if !is_players_piece
+    return false if !valid_move(params)
+      #fail ActiveRecord::Rollback if game is in check?
+    move_piece(params)
+  end 
+
+  def move_piece
+    is_captured
+    if @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+      @piece.castle(params[:x_coord].to_i, params[:y_coord].to_i)
+    else
+      @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+    end 
+    switch_turns
+  end 
+
+  #BELOW: Important, add to move_piece 
+     #Below king_opp mean the opponent's player's king. After the player's turn,
+    #we'd like to know if the opponent king is in check, and if in check, does
+    #the opponent's king have any way to get out of check (see check_mate in king.rb)
+    #if the opponent's king is stuck, the game is over, right now noted by the 401 error
+    #will need to do a proper game end
+
+    #   king_opp = @game.pieces.where(:type =>"King").where.not(:user_id => @game.turn_user_id)[0]
+    #   king_current = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
+    #   game_end = false
+    #   if king_opp.check?(king_opp.x_coord, king_opp.y_coord).present?
+    #     if king_opp.find_threat_and_determine_checkmate
+    #       king_opp.update_winner
+    #       king_current.update_loser
+    #       game_end = true
+    #     else
+    #       flash[:notice] = "#{king_opp.name} is in check!" #need to refresh to see
+    #       king_opp.update_attributes(king_check: 1)
+    #     end
+    #   elsif king_opp.stalemate?
+    #     @game.update_attributes(state: "end")
+    #     game_end = true
+    #   end
+    #   if game_end == false
+    #     switch_turns
+    #     render json: {}, status: 200
+    #   else
+    #     render json: {}, status: 201
+    #     #somehow will need the code below to pass so we can have a message. Right now below is failing tests and saying the http code is 200 :(
+    #     #render json: {status: "Not modified (standing in for success)", code: 304, message: "Game over!"}
+    #   end
+    # end
+    
+  
+
+
+  #***Logic taken from p/c
+
+  def switch_turns
+    if @game.white_player_user_id == @game.turn_user_id
+      @game.update_attributes(turn_user_id:@game.black_player_user_id)
+    elsif @game.black_player_user_id == @game.turn_user_id
+      @game.update_attributes(turn_user_id:@game.white_player_user_id)
+    end
+  end
+    
+  def valid_move
+    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) &&
+    (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
+    (king_not_moved_to_check_or_king_not_kept_in_check? == true)
+  end
+
+  def is_players_piece
+    if @piece.white_player_user_id == current_user.id && @piece.white?
+    else
+      @piece.black_player_user_id == current_user.id && @piece.black?
+    end 
+  end
+
+
+  def is_captured
+    capture_piece = @piece.find_capture_piece(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    if !capture_piece.nil?
+      @piece.remove_piece(capture_piece)
+    end
+  end
+
+  def king_not_moved_to_check_or_king_not_kept_in_check?
+    #function checks if player is not moving king into a check position
+    #and also checking that if king is in check, player must move king out of check,
+    #this function restricts any other random move if king is in check.
+    king = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
+    if @piece.type == "King"
+      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true).blank?
+        king.update_attributes(king_check: 0)
+        return true
+      else
+        return false
+      end
+    elsif @piece.type != "King" && king.king_check == 1
+      if ([[piece_params[:x_coord].to_i, piece_params[:y_coord].to_i]] & king.check?(king.x_coord, king.y_coord).build_obstruction_array(king.x_coord, king.y_coord)).count == 1 ||
+        (@piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) == true &&
+        king.check?(king.x_coord, king.y_coord).x_coord == piece_params[:x_coord].to_i &&
+        king.check?(king.x_coord, king.y_coord).y_coord == piece_params[:y_coord].to_i)
+        king.update_attributes(king_check: 0)
+        return true
+      else
+        return false
+      end
+    else
+      return true
+    end
+  end  
 
   #def piece_belongs_to_opponent (piece)
   #  return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
@@ -105,9 +220,9 @@ class Piece < ApplicationRecord
     x_distance == y_distance
   end
 
-  #def capturable(capture_piece)
-  #  (capture_piece.present? && capture_piece.color != color)
-  #end
+  def capturable(capture_piece)
+    (capture_piece.present? && capture_piece.color != color)
+  end
 
   def find_capture_piece(x_end, y_end)
     if self.type == "Pawn"

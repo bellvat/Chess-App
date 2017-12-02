@@ -15,6 +15,7 @@ class Game < ApplicationRecord
     end
   end
 
+
   def lay_out_board!
     # WHITE PIECES
       # Pawns
@@ -87,4 +88,6 @@ class Game < ApplicationRecord
   def loser
     User.find_by_id(loser_user_id)
   end
+
+
 end
