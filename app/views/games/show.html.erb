@@ -160,7 +160,11 @@
               y_coord: $(this).data("y-coord")
             },
           },
-          error:  function(){
+          error:  function(xhr){
+            var errorMessage = $.parseJSON(xhr.responseText).message
+            var alertClass = $.parseJSON(xhr.responseText).class
+            $("#alert_msg").addClass(alertClass)
+            $("#alert_msg").html('<p>'+ errorMessage + '</p>')
           },
           success: function(){
             $newDroppableSquare.append($(ui.draggable));

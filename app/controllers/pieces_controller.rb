@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :verify_player_turn, :verify_valid_move, :verify_two_players
+  before_action :find_piece,:verify_two_players, :verify_player_turn, :verify_valid_move
 
   def update
     @game = @piece.game
@@ -46,7 +46,9 @@ class PiecesController < ApplicationController
 
   def verify_two_players
     return if @game.black_player_user_id && @game.white_player_user_id
-    render json: {}, status: 422
+    respond_to do |format|
+      format.json {render :json => { message: "Need to wait for second player!", class: "alert alert-warning"}, status: 422}
+    end
   end
 
 
@@ -68,14 +70,19 @@ class PiecesController < ApplicationController
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (king_not_moved_to_check_or_king_not_kept_in_check? == true)
-    render json: {}, status: 422
+
+    respond_to do |format|
+      format.json {render :json => { message: "Invalid move!", class: "alert alert-warning"}, status: 422}
+    end
   end
 
   def verify_player_turn
     return if correct_turn? &&
     ((@piece.game.white_player_user_id == current_user.id && @piece.white?) ||
     (@piece.game.black_player_user_id == current_user.id && @piece.black?))
-    render json: {}, status: 422
+    respond_to do |format|
+      format.json {render :json => { message: "Not yet your turn!", class: "alert alert-warning"}, status: 422}
+    end
   end
 
   def correct_turn?
