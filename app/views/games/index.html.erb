@@ -4,7 +4,7 @@
   <div class = "container">
    <!-- UNMATCHED GAMES -->
     <div class="section">
-     <h1 class="text-center spacing">Join A Match</h1>
+     <h1 class="text-center space">Join A Match</h1>
       <div class="row matches" >
           <% if @unmatched_games.any? %>
             <% @unmatched_games.each do |game| %>
@@ -42,7 +42,7 @@
 
   <!-- STARTED GAMES -->
   <div class="section">
-    <h1 class="text-center spacing">Your Unfinished Matches</h1>
+    <h1 class="text-center space">Your Unfinished Matches</h1>
     <div class="row matches" >
         <% if @started_games.any? %>
           <% @started_games.each do |game| %>
@@ -76,7 +76,7 @@
 
   <!-- COMPLETED GAMES -->
   <div class="section">
-    <h1 class="text-center spacing">Completed Matches</h1>
+    <h1 class="text-center space">Completed Matches</h1>
       <div class="row matches" >
         <% if @completed_games.any? %>
           <% @completed_games.each do |game| %>
