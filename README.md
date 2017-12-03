@@ -1,30 +1,27 @@
-# README
+# Team Awesome! Chess Application  - Agile Team Development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Play it for yourself at https://chessapp-team-awesome.herokuapp.com/!
 
-Things you may want to cover:
+This is a fully functional two-player chess application built as a capstone project for The Firehose Project full-stack development program. Under the guidance of a senior software engineer, we had weekly Agile team meetings for code reviews, sprint planning, and feature assignments. Users are able to create accounts and play games against each other.
 
-* Ruby version
+The following tools were used to create this application:
 
-* System dependencies
+Ruby on Rails
+Bootstrap framework
+PostgreSQL database
+Heroku hosting
+RSpec test driven development
+AJAX requests
+jQuery for drag and drop functionality
+Firebase for real-time updates and chat feature
 
-* Configuration
 
-* Database creation
+Team Awesome! is composed of the following members:
 
-* Database initialization
+<a href="https://github.com/mdunnettstone">Mike Dunnett-Stone</a>
+<a href="http://github.com/denisekelsey">Denise Kelsey</a>
+<a href="http://github.com/tscheitle">Tristen Scheitle</a>
+<a href="http://github.com/bellvat">Monica Sirathanarun</a>
 
-* How to run the test suite
+Team Awesome! was led by Ashmeet Sidhu.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-[ ] Take start and end point
-[ ] For end point, check if there's one of your pieces (opposition piece is ok) --> OBSTRUCTED
-[ ] Build array of inbetween squares
-[ ] For each of these, check if there's a piece in them --> OBSTRUCTED
-[ ] Else not obstructed
