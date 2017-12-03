@@ -1,7 +1,7 @@
 <div class="background">
-  <div class="row">
+  <div class= "row">
     <div class="column leftside">
-      <div class="booyah-box chatbox">
+      <div class="booyah-box chatbox column">
         <% @messages.each do |message| %>
           <div class = "message-box">
             <!-- NOTE: For now, I've left out the user email, as I can't think how to get this from Firebase. Would have to store everything on firebase -->
@@ -17,7 +17,7 @@
       </div>
 
       <div class="booyah-box move-history">
-        <p> Possible list of last X moves </p>
+        <p> <%= "#{@whitemove} / #{@blackmove}" %> </p>
       </div>
     </div>
 
@@ -76,7 +76,7 @@
   </div>
 
   <% @pieces.each do |piece| %>
-    <% if piece.type == "Pawn" && piece.pawn_promotion? %>
+    <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
       <!-- Modal -->
       <div class="modal fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog text-center" role="document">
@@ -85,7 +85,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
-              <h3 class="modal-title text-center" id="myModalLabel">You've Been Promoted!</h3>
+              <h3 class="modal-title text-center" id="myModalLabel"><%= piece.name %>, you've Been Promoted!</h3>
             </div>
             <div class="modal-body">
               <h5 class="text-center"> Choose the piece to be promoted to: </h5>
@@ -140,6 +140,20 @@
       $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
     }
   });
+
+  var moveRef = database.ref('games/' + <%= @game.id %> + '/pieces');
+  moveRef.on('value', function(snapshot) {
+    var values = snapshot.val();
+    var ids = Object.keys(values);
+    var lastId = ids[ids.length - 1];
+    var lastMove = values[lastId];
+    // If update was done in the last 2 seconds (just to deal with version control, as we'll all have different game #9s, for example)
+    // Or, in Tristen's case, game #24648795678349
+    // And we'll all be submitting locally
+    if(lastMove.timestamp > <%= Time.now.to_i - 2 %>) {
+      location.reload();
+    }
+  });
 </script>
 
 <script>
@@ -182,7 +196,11 @@
               y_coord: $(this).data("y-coord")
             },
           },
-          error:  function(){
+          error:  function(xhr){
+            var errorMessage = $.parseJSON(xhr.responseText).message
+            var alertClass = $.parseJSON(xhr.responseText).class
+            $("#alert_msg").addClass(alertClass)
+            $("#alert_msg").html('<p>'+ errorMessage + '</p>')
           },
           success: function(){
             $newDroppableSquare.append($(ui.draggable));
@@ -192,4 +210,3 @@
     });
   });
 </script>
->>>>>>> cff4be2c027aff80c60c5cbb8d2fe82e0573f189

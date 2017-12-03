@@ -8,9 +8,17 @@
 }
 
 .board {
-  margin: 20px auto; /* if just board w/o chat boxes, use margin:20px auto; */
+  margin: 20px auto; 
   border-collapse: collapse;
   border: 15px solid #595959;
+}
+
+.booyah-box.chatbox {
+  flex-direction: column;
+  width: 300px;
+  height: 325px;
+  overflow: auto;
+  padding: 10px;
 }
 
 .captured-box {
@@ -24,13 +32,6 @@
   justify-content: space-between;
   height: 600px;
   width: 300px;
-}
-
-.chatbox {
-  display: flex;
-  height: 325px;
-  overflow: auto;
-  padding-bottom: 20px;
 }
 
 .column {
@@ -67,7 +68,13 @@ td {
   background: white;
 }
 
-@media (max-width: 1024px) and (min-width:600px) {
+.piece_cap {
+  width: 70px;
+  height: 70px;
+  opacity: 1;
+}
+
+@media (max-width: 1024px) and (min-width:700px) {
   .board { 
     display: flex; 
     order: 1; 
@@ -77,13 +84,33 @@ td {
   .leftside {
     display: flex; 
     order: 2;
+    width: 200px;
     height: auto;
   }
   .move-history {
     display: none;
   }
+  .piece_cap {
+    width: 45px;
+    height: 45px;
+  }
+  .captured-pieces {
+    height: 100px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
   .rightside { 
+    align-items: flex-end;
     display: flex; 
+    flex-direction: column;
+    flex-grow: 3;
+    height: 100px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
     order: 3; 
   }
   td {
@@ -96,7 +123,7 @@ td {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .board { 
     display: flex; 
     order: 1; 
@@ -105,13 +132,16 @@ td {
   }
   .booyah-box.chatbox {
     width: 350px;
-    height: auto;
-    padding: 5px;
   }
   .leftside {
     display: flex; 
     order: 2; 
     justify-content: space-between;
+  }
+  .message-box {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .move-history {
     display: none;
@@ -120,8 +150,9 @@ td {
     display: none; 
   }
   textarea#message_body {
-    width: 330px;
-    margin-left: 5px;
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
   }
   td {
     width: 40px;

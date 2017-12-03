@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124185812) do
+ActiveRecord::Schema.define(version: 20171128211929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 20171124185812) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "moves", force: :cascade do |t|
+    t.integer "x_coord"
+    t.integer "y_coord"
+    t.integer "x_end"
+    t.integer "y_end"
+    t.integer "move_count"
+    t.boolean "captured"
+    t.integer "game_id"
+    t.integer "piece_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pieces", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -45,9 +58,9 @@ ActiveRecord::Schema.define(version: 20171124185812) do
     t.integer "y_coord"
     t.integer "game_id"
     t.integer "user_id"
+    t.integer "move_number", default: 0
     t.string "type"
     t.boolean "captured", default: false, null: false
-    t.integer "move_number", default: 0
     t.integer "king_check", default: 0
   end
 
