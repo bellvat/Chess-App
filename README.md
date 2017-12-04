@@ -6,22 +6,21 @@ This is a fully functional two-player chess application built as a capstone proj
 
 The following tools were used to create this application:
 
-Ruby on Rails
-Bootstrap framework
-PostgreSQL database
-Heroku hosting
-RSpec test driven development
-AJAX requests
-jQuery for drag and drop functionality
-Firebase for real-time updates and chat feature
+Ruby on Rails  
+Bootstrap framework  
+PostgreSQL database  
+Heroku hosting  
+RSpec test driven development  
+AJAX requests  
+jQuery for drag and drop functionality  
+Firebase for real-time updates and chat feature  
 
 
 Team Awesome! is composed of the following members:
 
-<a href="https://github.com/mdunnettstone">Mike Dunnett-Stone</a>
-<a href="http://github.com/denisekelsey">Denise Kelsey</a>
-<a href="http://github.com/tscheitle">Tristen Scheitle</a>
-<a href="http://github.com/bellvat">Monica Sirathanarun</a>
+<a href="https://github.com/mdunnettstone">Mike Dunnett-Stone</a>  
+<a href="http://github.com/denisekelsey">Denise Kelsey</a>  
+<a href="http://github.com/tscheitle">Tristen Scheitle</a>  
+<a href="http://github.com/bellvat">Monica Sirathanarun</a>  
 
 Team Awesome! was led by Ashmeet Sidhu.
-
