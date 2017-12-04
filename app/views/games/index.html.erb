@@ -59,7 +59,7 @@
                  <% if game.turn_user_id == current_user.id %>
                   <%= link_to 'Your Turn!', game_path(game, id: game.id), :class => 'btn btn-success' %>
                 <% else %>
-                  <%= link_to "Your Opponent's Turn", '', :class => 'btn btn-info' %>
+                  <%= link_to "Your Opponent's Turn", game_path(game, id: game.id), :class => 'btn btn-info' %>
                 <% end %>
               <% else %>
                 <%= link_to 'Watch Game', game_path(game, id: game.id), :class => 'btn btn-success' %>
