@@ -4,7 +4,9 @@ class PiecesController < ApplicationController
   def update
     @game = @piece.game
     is_captured
-    if @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    if params[:piece][:type] == "Queen" || params[:piece][:type] == "Bishop" || params[:piece][:type] == "Knight" || params[:piece][:type] == "Rook"
+      @piece.update_attributes(type: params[:piece][:type])
+    elsif @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
       @piece.castle(params[:x_coord].to_i, params[:y_coord].to_i)
     else
       @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
@@ -32,7 +34,7 @@ class PiecesController < ApplicationController
       @game.update_attributes(state: "end")
       game_end = true
     end
-    if game_end == false
+    if game_end == false && !(@piece.type == "Pawn" && @piece.pawn_promotion?)
       switch_turns
       render json: {}, status: 200
     else
@@ -69,7 +71,8 @@ class PiecesController < ApplicationController
     return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) &&
     (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
     (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (king_not_moved_to_check_or_king_not_kept_in_check? == true)
+    (king_not_moved_to_check_or_king_not_kept_in_check? == true) ||
+    @piece.type == "Pawn" && @piece.pawn_promotion?
 
     respond_to do |format|
       format.json {render :json => { message: "Invalid move!", class: "alert alert-warning"}, status: 422}
@@ -90,7 +93,7 @@ class PiecesController < ApplicationController
   end
 
   def piece_params
-    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id)
+    params.require(:piece).permit(:x_coord, :y_coord, :captured, :white, :id, :type)
   end
 
   def is_captured
@@ -126,5 +129,4 @@ class PiecesController < ApplicationController
       return true
     end
   end
-
 end

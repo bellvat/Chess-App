@@ -43,7 +43,7 @@ RSpec.describe PiecesController, type: :controller do
        sign_in current_user
        game = Game.create turn_user_id: 2, white_player_user_id: 1, black_player_user_id: 2
        pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 6, game_id: game.id, white: true
-       post :update, params: {id: pawn.id, piece:{x_coord: 1, y_coord: 5}}
+       post :update, params: {id: pawn.id, piece:{x_coord: 1, y_coord: 5}}, :format => :json
        expect(response).to have_http_status(422)
      end
 
@@ -52,7 +52,7 @@ RSpec.describe PiecesController, type: :controller do
        sign_in current_user
        game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
        pawn = FactoryGirl.create :pawn, x_coord: 1, y_coord: 6, game_id: game.id, white: true
-       post :update, params: {id: pawn.id, piece:{x_coord: 3, y_coord: 4}}
+       post :update, params: {id: pawn.id, piece:{x_coord: 3, y_coord: 4}}, :format => :json
        expect(response).to have_http_status(422)
      end
 
@@ -62,7 +62,7 @@ RSpec.describe PiecesController, type: :controller do
        game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
        bishop = FactoryGirl.create :bishop, x_coord: 1, y_coord: 6, game_id: game.id, white: true
        pawn = FactoryGirl.create :pawn, x_coord: 2, y_coord: 5, game_id: game.id, white: true
-       post :update, params: {id: bishop.id, piece:{x_coord: 3, y_coord: 4}}
+       post :update, params: {id: bishop.id, piece:{x_coord: 3, y_coord: 4}}, :format => :json
        expect(response).to have_http_status(422)
      end
 
@@ -75,7 +75,7 @@ RSpec.describe PiecesController, type: :controller do
       game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
       bishop = FactoryGirl.create :bishop, x_coord: 1, y_coord: 6, game_id: game.id, white: true
       pawn = FactoryGirl.create :pawn, x_coord: 3, y_coord: 4, game_id: game.id, white: true
-      post :update, params: {id: bishop.id, piece:{x_coord: 3, y_coord: 4}}
+      post :update, params: {id: bishop.id, piece:{x_coord: 3, y_coord: 4}}, :format => :json
       expect(response).to have_http_status(422)
     end
 
@@ -107,7 +107,7 @@ RSpec.describe PiecesController, type: :controller do
       pawn = game.pieces.find_by(name: "Pawn_white")
       bishop = game.pieces.find_by(name: "Bishop_black")
       bishop.update_attributes(x_coord: 1, y_coord: 6)
-      post :update, params: {id:pawn.id, piece:{x_coord: 1, y_coord:6}}
+      post :update, params: {id:pawn.id, piece:{x_coord: 1, y_coord:6}}, :format => :json
       expect(response).to have_http_status(422)
     end
 
@@ -137,7 +137,7 @@ RSpec.describe PiecesController, type: :controller do
       pawn = game.pieces.find_by(name: "Pawn_white")
       bishop = game.pieces.find_by(name: "Bishop_white")
       bishop.update_attributes(x_coord: 1, y_coord: 6)
-      post :update, params: {id:pawn.id, piece:{x_coord: 1, y_coord:6}}
+      post :update, params: {id:pawn.id, piece:{x_coord: 1, y_coord:6}}, :format => :json
       expect(response).to have_http_status(422)
     end
 
@@ -214,10 +214,8 @@ RSpec.describe PiecesController, type: :controller do
       black_king = FactoryGirl.create(:king, x_coord:8, y_coord: 1, user_id: 2, game_id: game.id, white: false)
       white_king = FactoryGirl.create(:king, user_id: 1, x_coord:1, y_coord: 6, game_id: game.id, white:true)
       black_pawn = FactoryGirl.create(:pawn, x_coord: 2, y_coord: 4, game_id: game.id, white:false, user_id: 2)
-      post :update, params: {id: white_king.id, piece: {x_coord:1, y_coord:5 }}
+      post :update, params: {id: white_king.id, piece: {x_coord:1, y_coord:5 }}, :format => :json
       expect(response).to have_http_status(422)
     end
   end
-
-
 end

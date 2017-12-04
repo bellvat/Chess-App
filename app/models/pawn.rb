@@ -12,13 +12,13 @@ class Pawn < Piece
       new_y_coord == y_coord + 1
     elsif (x_distance == y_distance) && white? && opposition_piece?(new_x_coord, new_y_coord, id, color)
       new_y_coord == y_coord - 1
-    elsif y_coord == 2 && black? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif y_coord == 2 && black? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       x_distance == 0 && (new_y_coord == 3 || new_y_coord == 4)
-    elsif y_coord == 7 && white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif y_coord == 7 && white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       x_distance == 0 && (new_y_coord == 6 || new_y_coord == 5)
-    elsif !white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif !white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       (x_distance == 0) && (new_y_coord == (y_coord + 1))
-    elsif white? && !opposition_piece?(new_x_coord, new_y_coord,  id, color)
+    elsif white? && !opposition_piece?(new_x_coord, new_y_coord, id, color)
       (x_distance == 0) && (new_y_coord == (y_coord - 1))
     else
       false
@@ -31,4 +31,9 @@ class Pawn < Piece
     return false if other_piece.nil? || other_piece.move_number != 1
     return true
    end
+
+  def pawn_promotion?
+    pawn = game.pieces.where(:type =>"Pawn").where(:user_id => game.turn_user_id)[0]
+    (y_coord == 8 && !white?) || (y_coord == 1 && white?) #black pawn white baseline or white pawn black baseline
+  end
 end
