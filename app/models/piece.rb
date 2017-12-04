@@ -6,19 +6,18 @@ class Piece < ApplicationRecord
 
 
 
-  def can_move(params)
-    #return false if !is_players_piece
-    return false if !valid_move(params)
+  def can_move(x_coord, y_coord, id, color)
+    return false if !valid_move(x_coord, y_coord, id, color)
       #fail ActiveRecord::Rollback if game is in check?
-    move_piece(params)
+    move_piece(x_coord, y_coord)
   end 
 
-  def move_piece
+  def move_piece(x_coord, y_coord)
     is_captured
-    if @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
-      @piece.castle(params[:x_coord].to_i, params[:y_coord].to_i)
+    if type == "King" && legal_to_castle?(x_coord, y_coord)
+      castle(x_coord, y_coord)
     else
-      @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
+      update_attributes(piece_params.merge(move_number: move_number + 1))
     end 
     switch_turns
   end 
@@ -69,25 +68,19 @@ class Piece < ApplicationRecord
     end
   end
     
-  def valid_move
-    return if @piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) &&
-    (@piece.is_obstructed(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (@piece.contains_own_piece?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) == false) &&
-    (king_not_moved_to_check_or_king_not_kept_in_check? == true)
+  def valid_move(x_coord, y_coord, id, color)
+    return if valid_move?(x_coord, y_coord, id, color) &&
+    (is_obstructed(x_coord, y_coord) == false) &&
+    (contains_own_piece?(x_coord, y_coord) == false) 
+    #(king_not_moved_to_check_or_king_not_kept_in_check? == true)
   end
 
-  def is_players_piece
-    if @piece.white_player_user_id == current_user.id && @piece.white?
-    else
-      @piece.black_player_user_id == current_user.id && @piece.black?
-    end 
-  end
 
 
   def is_captured
-    capture_piece = @piece.find_capture_piece(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    capture_piece = find_capture_piece(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
     if !capture_piece.nil?
-      @piece.remove_piece(capture_piece)
+      remove_piece(capture_piece)
     end
   end
 
@@ -96,16 +89,16 @@ class Piece < ApplicationRecord
     #and also checking that if king is in check, player must move king out of check,
     #this function restricts any other random move if king is in check.
     king = @game.pieces.where(:type =>"King").where(:user_id => @game.turn_user_id)[0]
-    if @piece.type == "King"
-      if @piece.check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true).blank?
+    if type == "King"
+      if check?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, id, white == true).blank?
         king.update_attributes(king_check: 0)
         return true
       else
         return false
       end
-    elsif @piece.type != "King" && king.king_check == 1
+    elsif type != "King" && king.king_check == 1
       if ([[piece_params[:x_coord].to_i, piece_params[:y_coord].to_i]] & king.check?(king.x_coord, king.y_coord).build_obstruction_array(king.x_coord, king.y_coord)).count == 1 ||
-        (@piece.valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, @piece.id, @piece.white == true) == true &&
+        (valid_move?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i, id, white == true) == true &&
         king.check?(king.x_coord, king.y_coord).x_coord == piece_params[:x_coord].to_i &&
         king.check?(king.x_coord, king.y_coord).y_coord == piece_params[:y_coord].to_i)
         king.update_attributes(king_check: 0)
@@ -119,7 +112,7 @@ class Piece < ApplicationRecord
   end  
 
   #def piece_belongs_to_opponent (piece)
-  #  return if (@game.white_player_user_id == current_user.id && @piece.black) || (@game.black_player_user_id == current_user.id && @piece.white)
+  #  return if (@game.white_player_user_id == current_user.id && black) || (@game.black_player_user_id == current_user.id && white)
   #  else
   #    render json: {}, status: 422
   #  end
