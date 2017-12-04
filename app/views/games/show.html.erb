@@ -115,7 +115,6 @@
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script>
   var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
-  console.log(lastMessagePageShown);
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDUMKEQ7hnoKOhw4JzjKNylY2akSXyGsA4",
@@ -129,17 +128,20 @@
   firebase.initializeApp(config);
 
   // Get a reference to the database service
+
   var database = firebase.database();
-  var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
-  messageRef.on('value', function(snapshot) {
-    var values = snapshot.val();
-    var ids = Object.keys(values);
-    var lastId = ids[ids.length - 1];
-    var lastMessage = values[lastId];
-    if(lastMessagePageShown.id < lastMessage.id) {
-      $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
-    }
-  });
+  if (lastMessagePageShown !== null){
+    var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
+    messageRef.on('value', function(snapshot) {
+      var values = snapshot.val();
+      var ids = Object.keys(values);
+      var lastId = ids[ids.length - 1];
+      var lastMessage = values[lastId];
+      if(lastMessagePageShown.id < lastMessage.id) {
+        $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
+      }
+    });
+  };
 
   var moveRef = database.ref('games/' + <%= @game.id %> + '/pieces');
   moveRef.on('value', function(snapshot) {
