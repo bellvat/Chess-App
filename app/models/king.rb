@@ -33,7 +33,7 @@ class King < Piece
   def check_mate?(threat)
     obstruction_array = threat.build_obstruction_array(x_coord, y_coord)
     # check if king can capture the threat
-    if valid_move?(threat.x_coord, threat.y_coord) == true ||
+    if valid_move?(threat.x_coord, threat.y_coord) == true && check?(threat.x_coord, threat.y_coord).blank? ||
     # check if any other piece can move to block the king, or capture the threat
       can_block_king?(threat, obstruction_array) == true ||
     # check if king has many moves left
@@ -118,15 +118,19 @@ class King < Piece
 
   def can_block_king?(threat,obstruction_array)
     game.pieces.each do |f|
-      if f.user_id == self.user_id && f.x_coord != nil
-        obstruction_array.each do |coord|
-          return true if (f.valid_move?(coord[0],coord[1]) == true &&
-          f.contains_own_piece?(coord[0],coord[1]) == false &&
-          f.is_obstructed(coord[0],coord[1]) == false) ||
-          (f.valid_move?(threat.x_coord, threat.y_coord) == true &&
-          f.contains_own_piece?(threat.x_coord, threat.y_coord) == false &&
-          f.is_obstructed(threat.x_coord, threat.y_coord) == false)
+      if f.user_id == self.user_id && f.x_coord != nil && f != self
+        if (f.valid_move?(threat.x_coord, threat.y_coord) == true &&
+        f.contains_own_piece?(threat.x_coord, threat.y_coord) == false &&
+        f.is_obstructed(threat.x_coord, threat.y_coord) == false)
+          return true
           break
+        elsif !obstruction_array.empty?
+          obstruction_array.each do |coord|
+            return true if (f.valid_move?(coord[0],coord[1]) == true &&
+            f.contains_own_piece?(coord[0],coord[1]) == false &&
+            f.is_obstructed(coord[0],coord[1]) == false)
+            break
+          end
         end
       end
     end

@@ -115,7 +115,13 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
-            <h3 class="modal-title text-center" id="gameEndModalLabel"><%= @game.winner_user_id %> has won the game!</h3>
+            <h3 class="modal-title text-center" id="gameEndModalLabel">
+              <% if @game.winner_user_id.present? %>
+                <%= @game.winner_user_id %> has won the game!
+              <% else %>
+                Stalemate!
+              <% end %>
+            </h3>
           </div>
           <br />
           <hr />
@@ -136,8 +142,8 @@
   <%end%>
 <%end%>
 
-<% if @game.winner_user_id.present? %>
- <script> $('#gameEndModal').modal('show');</script>
+<% if @game.state == "end" %>
+   <script> $('#gameEndModal').modal('show');</script>
 <% end %>
 
 
