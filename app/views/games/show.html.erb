@@ -77,6 +77,9 @@
 
   <% @pieces.each do |piece| %>
     <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
+      <script> $('#myModal').modal('show');</script>
+    <%end%>
+  <%end%>
       <!-- Pawn Promotion Modal -->
       <div class="modal fade show" id="promotionModal" tabindex="-1" role="dialog" aria-labelledby="promotionModalLabel">
         <div class="modal-dialog text-center" role="document">
@@ -111,7 +114,7 @@
     <% end %>
   <% end %>
 
-  <% if @game.winner_user_id.present? %>
+<% if @game.winner_user_id.present? %>
     <!-- Game End Modal -->
     <div class="modal fade show" id="gameEndModal" tabindex="-1" role="dialog" aria-labelledby="gameEndModalLabel">
       <div class="modal-dialog text-center" role="document">
