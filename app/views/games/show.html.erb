@@ -75,42 +75,44 @@
     </div>
   </div>
 
-  <% @pieces.each do |piece| %>
-    <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
-      <!-- Modal -->
-      <div class="modal fade show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog text-center" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              <h3 class="modal-title text-center" id="myModalLabel"><%= piece.name %>, you've Been Promoted!</h3>
-            </div>
-            <div class="modal-body">
-              <h5 class="text-center"> Choose the piece to be promoted to: </h5>
-              <br />
-              <div class="row text-center">
-              <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put, async: true do %>
-                <%= image_tag "Queen_black.png", class: "player-button", id: "closing"%>
-              <% end %>
-              <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put, async: true do %>
-                <%= image_tag "Bishop_black.png", class: "player-button" %>
-              <% end %>
-              <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put, async: true do %>
-                <%= image_tag "Knight_black.png", class: "player-button" %>
-              <% end %>
-              <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put, async: true do %>
-                <%= image_tag "Rook_black.png", class: "player-button" %>
-              <% end %>
-            </div>
-            </div>
-          </div>
+  <!-- Modal -->
+  <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog text-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h3 class="modal-title text-center" id="myModalLabel">You've Been Promoted!</h3>
+        </div>
+        <div class="modal-body">
+          <h5 class="text-center"> Choose the piece to be promoted to: </h5>
+          <br />
+          <div class="row text-center">
+          <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put, async: true do %>
+            <%= image_tag "Queen_black.png", class: "player-button", id: "closing"%>
+          <% end %>
+          <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put, async: true do %>
+            <%= image_tag "Bishop_black.png", class: "player-button" %>
+          <% end %>
+          <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put, async: true do %>
+            <%= image_tag "Knight_black.png", class: "player-button" %>
+          <% end %>
+          <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put, async: true do %>
+            <%= image_tag "Rook_black.png", class: "player-button" %>
+          <% end %>
+        </div>
         </div>
       </div>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 </div>
+
+<% @pieces.each do |piece| %>
+  <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
+    <script> $('#myModal').modal('show');</script>
+  <%end%>
+<%end%>
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script>
