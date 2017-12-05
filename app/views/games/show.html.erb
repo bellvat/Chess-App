@@ -75,83 +75,79 @@
     </div>
   </div>
 
-  <!-- Pawn Promotion Modal -->
-  <div class="modal" id="promotionModal" tabindex="-1" role="dialog" aria-labelledby="promotionModalLabel">
+  <% @pieces.each do |piece| %>
+    <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
+      <!-- Pawn Promotion Modal -->
+      <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog text-center" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <h3 class="modal-title text-center" id="myModalLabel">You've Been Promoted!</h3>
+            </div>
+            <div class="modal-body">
+              <h5 class="text-center"> Choose the piece to be promoted to: </h5>
+              <br />
+              <div class="row text-center">
+                <%= link_to piece_path(piece, piece: {type: "Queen"}), method: :put, async: true do %>
+                  <%= image_tag "Queen_black.png", class: "player-button", id: "closing"%>
+                <% end %>
+                <%= link_to piece_path(piece, piece: {type: "Bishop"}), method: :put, async: true do %>
+                  <%= image_tag "Bishop_black.png", class: "player-button" %>
+                <% end %>
+                <%= link_to piece_path(piece, piece: {type: "Knight"}), method: :put, async: true do %>
+                  <%= image_tag "Knight_black.png", class: "player-button" %>
+                <% end %>
+                <%= link_to piece_path(piece, piece: {type: "Rook"}), method: :put, async: true do %>
+                  <%= image_tag "Rook_black.png", class: "player-button" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script> $('#myModal').modal('show');</script>
+    <% end %>
+  <% end %>
+
+  <!-- Game End Modal -->
+  <div class="modal fade show" id="gameEndModal" tabindex="-1" role="dialog" aria-labelledby="gameEndModalLabel">
     <div class="modal-dialog text-center" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
-          <h3 class="modal-title text-center" id="promotionModalLabel">You've Been Promoted!</h3>
+          <h3 class="modal-title text-center" id="gameEndModalLabel">
+            <% if @game.winner_user_id.present? %>
+              <%= @game.winner_user_id %> has won the game!
+            <% else %>
+              Stalemate!
+            <% end %>
+          </h3>
         </div>
+        <br />
+        <hr />
         <div class="modal-body">
-          <h5 class="text-center"> Choose the piece to be promoted to: </h5>
-          <br />
-          <div class="row text-center">
-          <%= link_to piece_path(piece: {type: "Queen"}), method: :put, async: true do %>
-            <%= image_tag "Queen_black.png", class: "player-button", id: "closing"%>
-          <% end %>
-          <%= link_to piece_path(piece: {type: "Bishop"}), method: :put, async: true do %>
-            <%= image_tag "Bishop_black.png", class: "player-button" %>
-          <% end %>
-          <%= link_to piece_path(piece: {type: "Knight"}), method: :put, async: true do %>
-            <%= image_tag "Knight_black.png", class: "player-button" %>
-          <% end %>
-          <%= link_to piece_path(piece: {type: "Rook"}), method: :put, async: true do %>
-            <%= image_tag "Rook_black.png", class: "player-button" %>
-          <% end %>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="float-right btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= link_to 'Okay', games_path, :class => 'btn btn-inverse' %>
         </div>
       </div>
     </div>
   </div>
-
-    <!-- Game End Modal -->
-    <div class="modal fade show" id="gameEndModal" tabindex="-1" role="dialog" aria-labelledby="gameEndModalLabel">
-      <div class="modal-dialog text-center" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <h3 class="modal-title text-center" id="gameEndModalLabel">
-              <% if @game.winner_user_id.present? %>
-                <%= @game.winner_user_id %> has won the game!
-              <% else %>
-                Stalemate!
-              <% end %>
-            </h3>
-          </div>
-          <br />
-          <hr />
-          <div class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="float-right btn btn-secondary" data-dismiss="modal">Close</button>
-            <%= link_to 'Okay', games_path, :class => 'btn btn-inverse' %>
-          </div>
-        </div>
-      </div>
-    </div>
 </div>
-
-<% @pieces.each do |piece| %>
-  <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
-    <script> $('#promotionModal').modal('show');</script>
-  <%end%>
-<%end%>
 
 <% if @game.state == "end" %>
    <script> $('#gameEndModal').modal('show');</script>
 <% end %>
 
-
-
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script>
   var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
-  console.log(lastMessagePageShown);
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDUMKEQ7hnoKOhw4JzjKNylY2akSXyGsA4",
@@ -165,17 +161,20 @@
   firebase.initializeApp(config);
 
   // Get a reference to the database service
+
   var database = firebase.database();
-  var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
-  messageRef.on('value', function(snapshot) {
-    var values = snapshot.val();
-    var ids = Object.keys(values);
-    var lastId = ids[ids.length - 1];
-    var lastMessage = values[lastId];
-    if(lastMessagePageShown.id < lastMessage.id) {
-      $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
-    }
-  });
+  if (lastMessagePageShown !== null){
+    var messageRef = database.ref('games/' + <%= @game.id %> + '/message');
+    messageRef.on('value', function(snapshot) {
+      var values = snapshot.val();
+      var ids = Object.keys(values);
+      var lastId = ids[ids.length - 1];
+      var lastMessage = values[lastId];
+      if(lastMessagePageShown.id < lastMessage.id) {
+        $('.all-messages').append("<div class = 'message-box'><p>" + lastMessage.body +"</p></div>")
+      }
+    });
+  };
 
   var moveRef = database.ref('games/' + <%= @game.id %> + '/pieces');
   moveRef.on('value', function(snapshot) {

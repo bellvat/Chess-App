@@ -6,7 +6,7 @@
  * Fully installable fonts can be purchased at http://www.fontspring.com
  *
  * The fonts included in this stylesheet are subject to the End User License you purchased
- * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * from Fontspring. The fonts are protected under domestic and international trademark and
  * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
  * distributing this font software.
  *
@@ -25,10 +25,9 @@
 
 @font-face {
     font-family: 'didonesque-roman';
-    src: url('didonesque-roman-webfont.woff2') format('woff2'),
-         url('didonesque-roman-webfont.woff') format('woff');
+    src: font-url('didonesque-roman-webfont.woff2') format('woff2'),
+         font-url('didonesque-roman-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
-
