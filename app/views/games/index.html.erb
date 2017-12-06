@@ -59,7 +59,7 @@
                  <% if game.turn_user_id == current_user.id %>
                   <%= link_to 'Your Turn!', game_path(game, id: game.id), :class => 'btn btn-success' %>
                 <% else %>
-                  <%= link_to "Your Opponent's Turn", '', :class => 'btn btn-info' %>
+                  <%= link_to "Your Opponent's Turn", game_path(game, id: game.id), :class => 'btn btn-info' %>
                 <% end %>
               <% else %>
                 <%= link_to 'Watch Game', game_path(game, id: game.id), :class => 'btn btn-success' %>
@@ -82,9 +82,11 @@
           <% @completed_games.each do |game| %>
             <div class="indexgame">
               <% if game.winner_user_id.present? && game.loser_user_id.present? %>
+                <h5 class="text-center"><%= "Game #{game.id}" %></h5>
                 <h5><%= game.winner.email %> won the game against <%= game.loser.email %></h5>
               <% else %>
                 <% if game.white_player_user_id.present? && game.black_player_user_id.present? %>
+                   <h5 class="text-center"><%= "Game #{game.id}" %></h5>
                   <h5>Stalemate between <%= game.white_player.email %> and <%= game.black_player.email %></h5>
                 <% end %>
               <% end %>

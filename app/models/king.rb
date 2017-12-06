@@ -33,7 +33,7 @@ class King < Piece
   def check_mate?(threat)
     obstruction_array = threat.build_obstruction_array(x_coord, y_coord)
     # check if king can capture the threat
-    if valid_move?(threat.x_coord, threat.y_coord) == true ||
+    if valid_move?(threat.x_coord, threat.y_coord) == true && check?(threat.x_coord, threat.y_coord).blank? ||
     # check if any other piece can move to block the king, or capture the threat
       can_block_king?(threat, obstruction_array) == true ||
     # check if king has many moves left
@@ -49,21 +49,10 @@ class King < Piece
     return false
   end
 
-# PLAN OF ATTACK
-# Legal move?
-#   - King previously unmoved DONE
-#   - King to move 2 spaces DONE
-#   - Find appropriate rook DONE
-#   - Appropriate rook is unmoved DONE
-#   - No pieces in between (is obstructed) DONE
-# - Not currently in check DONE
-# - In between square not in check DONE
-
   def legal_to_castle?(new_x_coord, new_y_coord)
     return false unless self.move_number == 0
     return false unless x_distance(new_x_coord) == 2 && y_distance(new_y_coord) == 0
     if new_x_coord > x_coord
-      # MAY NEED TO UPDATE SO THAT IF SOMEONE TRIES TO CASTLE WHEN ROOK HAS BEEN MOVED
       @rook_for_castling = self.game.pieces.where(type: "Rook", user_id: self.user.id, x_coord: 8).first
     else
       @rook_for_castling = self.game.pieces.where(type: "Rook", user_id: self.user.id, x_coord: 1).first
@@ -73,10 +62,6 @@ class King < Piece
       return false unless @rook_for_castling.move_number == 0
       return false if is_obstructed(@rook_for_castling.x_coord, @rook_for_castling.y_coord)
     end
-    # RETURN FALSE IF IN CHECK OR MOVES THROUGH OR INTO CHECK **Checked in Pieces Controller
-    #return false if self.check?(x_coord, y_coord, id, color)
-    #return false if self.check?((x_coord + new_x_coord) / 2, new_y_coord, id, color)
-    #return false if self.check?(new_x_coord, new_y_coord, id, color)
     return true
   end
 
@@ -118,15 +103,19 @@ class King < Piece
 
   def can_block_king?(threat,obstruction_array)
     game.pieces.each do |f|
-      if f.user_id == self.user_id && f.x_coord != nil
-        obstruction_array.each do |coord|
-          return true if (f.valid_move?(coord[0],coord[1]) == true &&
-          f.contains_own_piece?(coord[0],coord[1]) == false &&
-          f.is_obstructed(coord[0],coord[1]) == false) ||
-          (f.valid_move?(threat.x_coord, threat.y_coord) == true &&
-          f.contains_own_piece?(threat.x_coord, threat.y_coord) == false &&
-          f.is_obstructed(threat.x_coord, threat.y_coord) == false)
+      if f.user_id == self.user_id && f.x_coord != nil && f != self
+        if (f.valid_move?(threat.x_coord, threat.y_coord) == true &&
+        f.contains_own_piece?(threat.x_coord, threat.y_coord) == false &&
+        f.is_obstructed(threat.x_coord, threat.y_coord) == false)
+          return true
           break
+        elsif !obstruction_array.empty?
+          obstruction_array.each do |coord|
+            return true if (f.valid_move?(coord[0],coord[1]) == true &&
+            f.contains_own_piece?(coord[0],coord[1]) == false &&
+            f.is_obstructed(coord[0],coord[1]) == false)
+            break
+          end
         end
       end
     end

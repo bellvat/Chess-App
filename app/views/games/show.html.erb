@@ -77,7 +77,7 @@
 
   <% @pieces.each do |piece| %>
     <% if piece.type == "Pawn" && piece.pawn_promotion? && current_user.id == piece.user_id %>
-      <!-- Modal -->
+      <!-- Pawn Promotion Modal -->
       <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog text-center" role="document">
           <div class="modal-content">
@@ -111,8 +111,39 @@
       <script> $('#myModal').modal('show');</script>
     <% end %>
   <% end %>
+
+  <!-- Game End Modal -->
+  <div class="modal fade show" id="gameEndModal" tabindex="-1" role="dialog" aria-labelledby="gameEndModalLabel">
+    <div class="modal-dialog text-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h3 class="modal-title text-center" id="gameEndModalLabel">
+            <% if @game.winner_user_id.present? %>
+              <%= @game.winner_user_id %> has won the game!
+            <% else %>
+              Stalemate!
+            <% end %>
+          </h3>
+        </div>
+        <br />
+        <hr />
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="float-right btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= link_to 'Okay', games_path, :class => 'btn btn-inverse' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<% if @game.state == "end" %>
+   <script> $('#gameEndModal').modal('show');</script>
+<% end %>
 
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script>

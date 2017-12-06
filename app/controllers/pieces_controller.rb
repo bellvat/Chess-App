@@ -7,7 +7,7 @@ class PiecesController < ApplicationController
     if params[:piece][:type] == "Queen" || params[:piece][:type] == "Bishop" || params[:piece][:type] == "Knight" || params[:piece][:type] == "Rook"
       @piece.update_attributes(type: params[:piece][:type])
     elsif @piece.type == "King" && @piece.legal_to_castle?(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
-      @piece.castle(params[:x_coord].to_i, params[:y_coord].to_i)
+      @piece.castle(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
     else
       @piece.update_attributes(piece_params.merge(move_number: @piece.move_number + 1))
     end

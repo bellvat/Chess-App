@@ -217,5 +217,26 @@ RSpec.describe PiecesController, type: :controller do
       post :update, params: {id: white_king.id, piece: {x_coord:1, y_coord:5 }}, :format => :json
       expect(response).to have_http_status(422)
     end
+    it "should return 201 if the queen checks king" do
+      current_user = FactoryGirl.create(:user, id: 1)
+      current_user2 = FactoryGirl.create(:user, id: 2)
+
+      sign_in current_user2
+      sign_in current_user
+
+      game = Game.create turn_user_id: 1, white_player_user_id: 1, black_player_user_id: 2
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, user_id: 1, x_coord:5, y_coord: 8, game_id: game.id, white:true)
+      black_pawn = FactoryGirl.create(:pawn, x_coord: 4, y_coord: 2, game_id: game.id, white:false, user_id: 2)
+      black_pawn2 = FactoryGirl.create(:pawn, x_coord: 5, y_coord: 2, game_id: game.id, white:false, user_id: 2)
+      black_bishop = FactoryGirl.create(:bishop, x_coord: 6, y_coord: 1, game_id: game.id, white:false, user_id: 2)
+      black_queen = FactoryGirl.create(:queen, x_coord: 4, y_coord: 1, game_id: game.id, white:false, user_id: 2)
+      white_queen = FactoryGirl.create(:queen, user_id: 1, x_coord:7, y_coord: 3, game_id: game.id, white:true)
+      white_bishop = FactoryGirl.create(:bishop, user_id: 1, x_coord:3, y_coord: 5, game_id: game.id, white:true)
+
+      post :update, params: {id: white_queen.id, piece: {x_coord:6, y_coord:2 }}
+      expect(response).to have_http_status(201)
+    end
   end
 end
