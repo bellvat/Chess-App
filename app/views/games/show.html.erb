@@ -145,6 +145,12 @@
    <script> $('#gameEndModal').modal('show');</script>
 <% end %>
 
+<% if @game.pieces.find_by(name:"King_white").king_check == 1 || %>
+  <% @game.pieces.find_by(name:"King_black").king_check == 1 %>
+    <script> $("#alert_msg").addClass("alert alert-danger");
+  $("#alert_msg").html('<p>'+ 'King is in check!' + '</p>')</script>
+<% end %>
+
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script>
   var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
@@ -237,7 +243,7 @@
             $("#alert_msg").addClass(alertClass)
             $("#alert_msg").html('<p>'+ errorMessage + '</p>')
           },
-          success: function(){
+          success: function(xhr){
             $newDroppableSquare.append($(ui.draggable));
           }
         });
