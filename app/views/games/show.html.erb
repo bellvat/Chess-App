@@ -122,7 +122,7 @@
           </button>
           <h3 class="modal-title text-center" id="gameEndModalLabel">
             <% if @game.winner_user_id.present? %>
-              <%= @game.winner_user_id %> has won the game!
+              <%= @game.winner_user_id.username %> has won the game!
             <% else %>
               Stalemate!
             <% end %>
