@@ -27,7 +27,6 @@ class PiecesController < ApplicationController
         king_current.update_loser
         game_end = true
       else
-        flash[:notice] = "#{king_opp.name} is in check!" #need to refresh to see
         king_opp.update_attributes(king_check: 1)
       end
     elsif king_opp.stalemate?
