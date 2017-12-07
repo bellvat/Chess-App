@@ -7,7 +7,8 @@
         <%= image_tag 'user.png' %>
       </div>
       <div class="col-8">
-        <h1 class="username"><%= @user.email %></h1>
+        <h1 class="username"><%= @user.username %></h1>
+        <h3><%= @user.email %></h3>
         <h4 class="member-since">Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h4>
         <h4 class="game-count" ><%= @user.games.count %> total games</h4>
       </div>
