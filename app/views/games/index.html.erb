@@ -13,7 +13,7 @@
                 <h5 class="text-center"><%= "Game #{game.id}" %></h5>
                   <% if game.white_player_user_id.blank? %>
                       <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                      <h6 class="text-center"><%= "Opponent: #{game.black_player.email}" %></h5></span>
+                      <h6 class="text-center"><%= "Opponent: #{game.black_player.username}" %></h5></span>
                         <%= f.input :white_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                         <%= f.input :turn_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                         <span class="column turn"><%= f.submit "Join as white player", class: "btn btn-secondary" %></span>
@@ -21,7 +21,7 @@
                     
                   <% else %>
                       <%= simple_form_for game, url: join_game_path(game) do |f| %>
-                       <h6 class="text-center"><%= "Opponent: #{game.white_player.email}" %></h6>
+                       <h6 class="text-center"><%= "Opponent: #{game.white_player.username}" %></h6>
                         <%= f.input :black_player_user_id, as: :hidden, :input_html => { :value => current_user.id } %>
                          <span class="row turn"><%= f.submit "Join as black player", class: "btn btn-inverse" %>
                       <% end %>
@@ -49,9 +49,9 @@
             <div class="indexgame">
               <h5 class="text-center"><%= "Game #{game.id}" %></h5> 
               <% if current_user.id == game.white_player_user_id %>
-                  <h6 class="text-center"><%= "Opponent: #{game.black_player.email}" %></h6>
+                  <h6 class="text-center"><%= "Opponent: #{game.black_player.username}" %></h6>
                 <% else %>
-                  <h6 class="text-center"><%= "Opponent: #{game.white_player.email}" %></h6>
+                  <h6 class="text-center"><%= "Opponent: #{game.white_player.username}" %></h6>
                 <% end %>
 
             <div class="row turn">
@@ -83,11 +83,11 @@
             <div class="indexgame">
               <% if game.winner_user_id.present? && game.loser_user_id.present? %>
                 <h5 class="text-center"><%= "Game #{game.id}" %></h5>
-                <h5><%= game.winner.email %> won the game against <%= game.loser.email %></h5>
+                <h5><%= game.winner.username %> won the game against <%= game.loser.username %></h5>
               <% else %>
                 <% if game.white_player_user_id.present? && game.black_player_user_id.present? %>
                    <h5 class="text-center"><%= "Game #{game.id}" %></h5>
-                  <h5>Stalemate between <%= game.white_player.email %> and <%= game.black_player.email %></h5>
+                  <h5>Stalemate between <%= game.white_player.username %> and <%= game.black_player.username %></h5>
                 <% end %>
               <% end %>
             </div>
