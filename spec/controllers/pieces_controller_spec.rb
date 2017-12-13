@@ -180,7 +180,6 @@ RSpec.describe PiecesController, type: :controller do
       black_piece3 = FactoryGirl.create(:pawn,user_id: 2,x_coord:2, y_coord: 4, game_id: game.id, white:false)
       post :update, params: {id: rook.id, piece: {x_coord:1, y_coord:7 }}
       black_king.reload
-      expect(flash[:notice]).to eq "King_black is in check!"
       expect(black_king.king_check).to eq 1
       expect(response).to have_http_status(200)
     end
