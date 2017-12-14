@@ -43,12 +43,13 @@ RSpec.describe GamesController, type: :controller do
       user1 = FactoryGirl.create(:user, id:1)
       user2 = FactoryGirl.create(:user, id:2)
       sign_in user1
-      sign_in user2
 
       post :create, params:{game:{white_player_user_id: user1.id}}
       game = Game.last
       piece_white1 = game.pieces.find_by(white:true)
       expect(piece_white1.user_id).to eq user1.id
+      sign_out user1
+      sign_in user2
       patch :join, params:{id: game.id, game:{black_player_user_id: user2.id}}
       game.reload
       expect(game.black_player_user_id).to eq user2.id
