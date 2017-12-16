@@ -156,7 +156,7 @@
   var lastMessagePageShown = <%= @messages.last.to_json.html_safe %>;
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDUMKEQ7hnoKOhw4JzjKNylY2akSXyGsA4",
+    apiKey: ENV['API_KEY'],
     authDomain: "chess-space.firebaseapp.com",
     databaseURL: "https://chess-space.firebaseio.com",
     projectId: "chess-space",

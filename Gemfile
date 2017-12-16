@@ -81,3 +81,5 @@ end
 gem 'jquery-ui-rails'
 
 gem 'firebase'
+
+gem "figaro"
