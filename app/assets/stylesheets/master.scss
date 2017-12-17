@@ -297,6 +297,10 @@ label.control-label.string.optional {
   min-width: 800px;
 }
 
+.space {
+  width: 100%;
+}
+
 .turn {
   margin: 3px auto;
   justify-content: space-around;
@@ -384,6 +388,9 @@ ul {
   .offset-3 {
     margin-left: auto;
     margin-right: auto;
+  }
+  .pick-color {
+   display: block;
   }
   .section {
     min-width: 350px;

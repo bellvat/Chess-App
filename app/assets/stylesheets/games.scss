@@ -82,7 +82,7 @@ td {
     margin-right: auto;
   }
   .captured-pieces {
-    height: 100px;
+    height: 150px;
     width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -105,13 +105,19 @@ td {
     width: 45px;
     height: 45px;
   }
+  .captured-box {
+    display: block;
+    flex-direction: column;
+    flex-grow: 2;
+    flex-wrap: wrap;
+  }
   .rightside { 
     align-items: flex-end;
     display: flex; 
     flex-direction: column;
-    flex-grow: 3;
-    height: 100px;
-    width: 600px;
+    flex-grow: 2;
+    height: 250px;
+    width: 700px;
     margin-left: auto;
     margin-right: auto;
     flex-wrap: wrap;
