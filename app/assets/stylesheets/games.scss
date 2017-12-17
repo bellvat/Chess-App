@@ -47,6 +47,12 @@ label.control-label.text.optional {
   height: 325px;
 }
 
+.piece_cap {
+  width: 70px;
+  height: 70px;
+  opacity: 1;
+}
+
 .spacing {
   flex-shrink: 8;
 }
@@ -68,18 +74,23 @@ td {
   background: white;
 }
 
-.piece_cap {
-  width: 70px;
-  height: 70px;
-  opacity: 1;
-}
-
 @media (max-width: 1024px) and (min-width:700px) {
   .board { 
     display: flex; 
     order: 1; 
     margin-left: auto; 
     margin-right: auto;
+  }
+  .captured-pieces {
+    height: 150px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
+  img.selectable-piece {
+    width: 45px;
+    height: 45px;
   }
   .leftside {
     display: flex; 
@@ -100,13 +111,6 @@ td {
     flex-grow: 2;
     flex-wrap: wrap;
   }
-  .captured-pieces {
-    height: 150px;
-    width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    flex-wrap: wrap;
-  }
   .rightside { 
     align-items: flex-end;
     display: flex; 
@@ -118,15 +122,10 @@ td {
     margin-right: auto;
     flex-wrap: wrap;
     order: 3; 
-
   }
   td {
     width: 50px;
     height: 50px;
-  }
-  img {
-    width: 45px;
-    height: 45px;
   }
 }
 
