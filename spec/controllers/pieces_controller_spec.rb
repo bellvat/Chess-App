@@ -237,5 +237,21 @@ RSpec.describe PiecesController, type: :controller do
       post :update, params: {id: white_queen.id, piece: {x_coord:6, y_coord:2 }}
       expect(response).to have_http_status(201)
     end
+    it "should update the piece move into the moves model" do
+      current_user = FactoryGirl.create(:user, id: 1)
+      current_user2 = FactoryGirl.create(:user, id: 2)
+
+      sign_in current_user
+      sign_in current_user2
+
+      game = Game.create turn_user_id: 2, white_player_user_id: 1, black_player_user_id: 2
+      game.pieces.delete_all
+      black_king = FactoryGirl.create(:king, x_coord:5, y_coord: 1, user_id: 2, game_id: game.id, white: false)
+      white_king = FactoryGirl.create(:king, user_id: 1, x_coord:5, y_coord: 8, game_id: game.id, white:true)
+      black_pawn = FactoryGirl.create(:pawn, x_coord: 4, y_coord: 2, game_id: game.id, white:false, user_id: 2)
+      post :update, params: {id: black_pawn.id, piece: {x_coord:4, y_coord:3 }}
+      expect(game.moves.last.x_coord).to eq 4
+      expect(game.moves.last.piece_type).to eq "Pawn"
+    end
   end
 end

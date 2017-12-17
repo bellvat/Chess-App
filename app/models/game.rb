@@ -3,7 +3,7 @@ class Game < ApplicationRecord
   has_many :users, through: :user_games
   has_many :pieces
   has_many :messages
-  has_many :moves, through: :pieces  
+  has_many :moves 
 
   after_create :lay_out_board!
 
@@ -87,5 +87,7 @@ class Game < ApplicationRecord
   def loser
     User.find_by_id(loser_user_id)
   end
+
+
 
 end
