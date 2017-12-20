@@ -17,7 +17,22 @@
       </div>
 
       <div class="booyah-box move-history">
-        <p> <%= "#{@whitemove} / #{@blackmove}" %> </p>
+        <div class="row">
+            <% @game.moves.each_with_index do |move| %>
+              <% if move.present? && move.piece_user_id == @game.white_player_user_id %>
+                <div class="col-4 text-right">
+                  <p> <%= "#{move.notation(move.piece_type, move.x_coord, move.y_coord)}" %> </p>
+                </div>
+              <% else %>
+                <div class="col-4 text-center">
+                  <p>/</p>
+                </div>
+                <div class="col-4 text-left">
+                  <p> <%= "#{move.notation(move.piece_type, move.x_coord, move.y_coord)}" %> </p>
+                </div>
+              <% end %>
+            <% end %>
+        </div>
       </div>
     </div>
 
