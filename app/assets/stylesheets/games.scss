@@ -45,12 +45,29 @@ label.control-label.text.optional {
 
 .move-history {
   height: 325px;
+  width: 300px;
+  overflow: auto;
+}
+
+.move-title {
+  text-align: center;
+  text-decoration: underline;
+  margin-top: -15px;
+  margin-bottom: -5px;
+}
+
+.notation {
+  margin: 0;
 }
 
 .piece_cap {
   width: 70px;
   height: 70px;
   opacity: 1;
+}
+
+.player-title {
+  margin: -10px 25px;
 }
 
 .spacing {
