@@ -87,7 +87,7 @@
             <%= f.input :winner_user_id, as: :hidden, :input_html => { :value => @game.white_player.id } %>
             <%= f.input :loser_user_id, as: :hidden, :input_html => { :value => @game.black_player.id } %>
           <% end %>
-          <span class="float-right"><%= f.submit "Forfeit", class: "btn btn-danger btn-lg" %></span>
+          <span class="float-right"><%= f.submit "Forfeit", class: "forfeit btn btn-danger btn-lg" %></span>
         <% end %>
       <% end %>
     </div>
