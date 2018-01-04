@@ -22,6 +22,10 @@
   margin: 0;
 }
 
+.avatar {
+  padding: 0 40px;
+}
+
 .background {
   background: image_url('chesssolar-opaque1.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -49,7 +53,7 @@
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  border-color: #9a9a98 #b3b3b2 #b3b3b2 #9a9a98;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px 30px;
@@ -344,6 +348,7 @@ ul {
 @media (max-width: 700px) {
   .avatar {
     max-width: 25%;
+    padding: 0 20px;
   }
   .btn-newgame {
     margin-left: auto;
