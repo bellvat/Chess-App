@@ -45,6 +45,31 @@ label.control-label.text.optional {
 
 .move-history {
   height: 325px;
+  width: 300px;
+  overflow: auto;
+}
+
+.move-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: -15px;
+  margin-bottom: -5px;
+}
+
+.notation {
+  margin: 0;
+}
+
+.piece_cap {
+  width: 70px;
+  height: 70px;
+  opacity: 1;
+}
+
+.player-title {
+  margin: -10px 22px;
+  font-style: italic;
 }
 
 .spacing {
@@ -68,18 +93,23 @@ td {
   background: white;
 }
 
-.piece_cap {
-  width: 70px;
-  height: 70px;
-  opacity: 1;
-}
-
 @media (max-width: 1024px) and (min-width:700px) {
   .board { 
     display: flex; 
     order: 1; 
     margin-left: auto; 
     margin-right: auto;
+  }
+  .captured-pieces {
+    height: 150px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
+  img.selectable-piece {
+    width: 45px;
+    height: 45px;
   }
   .leftside {
     display: flex; 
@@ -94,20 +124,19 @@ td {
     width: 45px;
     height: 45px;
   }
-  .captured-pieces {
-    height: 100px;
-    width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+  .captured-box {
+    display: block;
+    flex-direction: column;
+    flex-grow: 2;
     flex-wrap: wrap;
   }
   .rightside { 
     align-items: flex-end;
     display: flex; 
     flex-direction: column;
-    flex-grow: 3;
-    height: 100px;
-    width: 600px;
+    flex-grow: 2;
+    height: 250px;
+    width: 700px;
     margin-left: auto;
     margin-right: auto;
     flex-wrap: wrap;
@@ -116,10 +145,6 @@ td {
   td {
     width: 50px;
     height: 50px;
-  }
-  img {
-    width: 45px;
-    height: 45px;
   }
 }
 

@@ -34,6 +34,7 @@ class PiecesController < ApplicationController
       game_end = true
     end
     if game_end == false && !(@piece.type == "Pawn" && @piece.pawn_promotion?)
+      update_moves
       switch_turns
       render json: {}, status: 200
     else
@@ -127,5 +128,9 @@ class PiecesController < ApplicationController
     else
       return true
     end
+  end
+
+  def update_moves
+    Move.create(piece_user_id: @piece.user_id, piece_type: @piece.type, x_coord: @piece.x_coord, y_coord: @piece.y_coord, game_id:@game.id)
   end
 end
