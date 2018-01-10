@@ -65,13 +65,13 @@
           <% @game.pieces.where(captured: true, white: true).each do |piece| %>
             <%= image_tag piece.image, :class => "piece_cap" %>
           <% end %>
+        </div>
 
-      </div>
-      <div class="spacing">
+        <div class="spacing">
         <br />
-      </div>
+        </div>
+        
         <div class="captured-box">
-
           <% @game.pieces.where(captured: true, white: false).each do |piece| %>
             <%= image_tag piece.image, :class => "piece_cap" %>
           <% end %>
@@ -140,7 +140,7 @@
           </button>
           <h3 class="modal-title text-center" id="gameEndModalLabel">
             <% if @game.winner_user_id.present? %>
-              <%= @game.winner_user_id.username %> has won the game!
+              <%= @game.winner.username %> has won the game!
             <% else %>
               Stalemate!
             <% end %>
